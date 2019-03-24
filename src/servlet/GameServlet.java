@@ -29,7 +29,6 @@ public class GameServlet extends HttpServlet {
 		
 		System.out.println("Game Servlet: doPost");
 		
-
 		// holds the error message text, if there is any
 		String errorMessage = null;
 
@@ -38,11 +37,9 @@ public class GameServlet extends HttpServlet {
 		
 		// decode POSTed form parameters and dispatch to controller
 		try {
-			
-			
 			GameController controller = new GameController();
 			GameModel model = new GameModel();
-			// TODO: controller.setModel(model);
+			//TODO: controller.setModel(model);
 			
 			String userInput = req.getParameter("userInput");
 			
@@ -50,10 +47,6 @@ public class GameServlet extends HttpServlet {
 			if (userInput == null) {
 				errorMessage = "Please enter command";
 			}
-			// otherwise, data is good, do the calculation
-			// must create the controller each time, since it doesn't persist between POSTs
-			// the view does not alter data, only controller methods should be used for that
-			// thus, always call a controller method to operate on the data
 			else {
 				//TODO: result = controller.getMessage();
 			}
@@ -61,18 +54,12 @@ public class GameServlet extends HttpServlet {
 			errorMessage = "Invalid double";
 		}
 		
-		// Add parameters as request attributes
-		// this creates attributes named "first" and "second for the response, and grabs the
-		// values that were originally assigned to the request attributes, also named "first" and "second"
-		// they don't have to be named the same, but in this case, since we are passing them back
-		// and forth, it's a good idea
 		req.setAttribute("userInput", req.getParameter("userInput"));
 		req.setAttribute("result", result);
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
-		//req.setAttribute("result", result);
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
