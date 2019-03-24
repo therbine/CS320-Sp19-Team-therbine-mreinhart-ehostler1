@@ -39,7 +39,7 @@ public class GameServlet extends HttpServlet {
 		try {
 			GameController controller = new GameController();
 			GameModel model = new GameModel();
-			//TODO: controller.setModel(model);
+			controller.setModel(model);
 			
 			String userInput = req.getParameter("userInput");
 			
@@ -48,7 +48,7 @@ public class GameServlet extends HttpServlet {
 				errorMessage = "Please enter command";
 			}
 			else {
-				//TODO: result = controller.getMessage();
+				result = controller.getMessage();
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
