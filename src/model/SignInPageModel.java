@@ -7,9 +7,28 @@ import java.util.TreeMap;
 
 public class SignInPageModel {
 	private static Map<String, String> users = new TreeMap<String, String>();
+	private String givenUsername, givenPassword;
 	
 	public SignInPageModel() {
 		users.put("admin", "admin");
+		givenUsername = null;
+		givenPassword = null;
+	}
+	
+	public void setGivenUsername(String username) {
+		this.givenUsername = username;
+	}
+	
+	public void setGivenPassword(String password) {
+		this.givenPassword = password;
+	}
+	
+	public String getGivenUsername() {
+		return this.givenUsername;
+	}
+	
+	public String getGivenPassword() {
+		return this.givenPassword;
 	}
 	
 	public void addUser(String username, String password) {
