@@ -27,7 +27,7 @@
 			<table>
 				<tr>
 					<td class="Command">Command:</td>
-					<td><input type="text" name="first" size="12" value="${command}" /></td>
+					<td><input type="text" name="result" size="12" value="${command}" /></td>
 				</tr>
 			</table>
 		</form>
