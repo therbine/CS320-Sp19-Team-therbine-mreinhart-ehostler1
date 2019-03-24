@@ -12,12 +12,10 @@
 	<div id="game name">
 		<h1> Proceed with Caution</h1>
 	</div>
-	<div id="create new account">
-		<h2> Create New Account</h2>
-	</div>
-	<div id="sign in">
-		<h3> Sign In</h3>
-	</div>
+	<div>
+	<input name="Sign In" type="submit" value="signintoaccount" />
 	
+	<input name="Creat New Account" type="submit" value="creataccount" />
+	</div>
 </body>
 </html>
