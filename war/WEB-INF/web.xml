@@ -15,6 +15,16 @@
     <servlet-name>SignInPage</servlet-name>
     <url-pattern>/SignIn</url-pattern>
   </servlet-mapping>
+   <!-- Servlets -->
+  <servlet>
+    <servlet-name>game</servlet-name>
+    <servlet-class>servlet.GameServlet</servlet-class>
+  </servlet>
+  <!-- Servlet mappings -->
+  <servlet-mapping>
+    <servlet-name>game</servlet-name>
+    <url-pattern>/game</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>WelcomePage.html</welcome-file>
   </welcome-file-list>
