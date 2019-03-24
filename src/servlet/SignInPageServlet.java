@@ -27,66 +27,79 @@ public class SignInPageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("Sign-In Page Servlet: doPost");
-		
+		System.out.println("SignInPage Servlet: doPost");
 
+		//get the persisted sign in page model
+		SignInPageModel model = main.Main.getSignInPageModel();
+		
+		// create SignInPage controller - controller does not persist between requests
+		// must recreate it each time a Post comes in
+		SignInPageController controller = new SignInPageController();
+		
+		// assign model reference to controller so that controller can access model
+		controller.setModel(model);
+		
 		// holds the error message text, if there is any
 		String errorMessage = null;
-
-		// result of calculation goes here
-		Double result = null;
 		
-		// decode POSTed form parameters and dispatch to controller
-		try {
-			
-			
-			SignInPageController controller = new SignInPageController();
-			SignInPageModel model = new SignInPageModel();
-			controller.setModel(model);
-			//model.setUsername(getStringFromParameter(req.getParameter("username")));
-			//model.setPassword(getStringFromParameter(req.getParameter("password")));
-			
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
-			
-			// check for errors in the form data before using is in a calculation
-			if (username == null || password == null) {
-				errorMessage = "Enter username and password";
+		//update the given username and password in the model based on what is in the username and password fields
+		model.setGivenUsername(getString(req, "username"));
+		model.setGivenPassword(getString(req, "password"));
+		
+		// check which button has been pressed
+		if (req.getParameter("signInRequest") != null) {
+			try {
+				//perform operations for sign in
+				
+				if(controller.verifySignInAccount()) {
+					//credentials are correct, begin request for game page and user data
+					/*
+					 * 
+					 * code for log in HERE
+					 * 
+					 */
+				}
+				else {
+					//credentials aren't correct
+					errorMessage = "Incorrect Password";
+				}
+			} catch (Exception e) {
+				errorMessage = e.getMessage();
 			}
-			// otherwise, data is good, do the calculation
-			// must create the controller each time, since it doesn't persist between POSTs
-			// the view does not alter data, only controller methods should be used for that
-			// thus, always call a controller method to operate on the data
-			/*else {
-				result = controller.add();
-			}*/
-		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
+		} else if (req.getParameter("createAccountRequest") != null) {
+			try {
+				//perform operations for creating a new account
+				
+				
+				
+			} catch (Exception e) {
+				errorMessage = e.getMessage();
+			}
+		} else if (req.getParameter("deleteAccountRequest") != null) {
+			try {
+				//perform operations for deleting a account
+				
+				
+				
+			} catch (Exception e) {
+				errorMessage = e.getMessage();
+			}
+		} else {
+			throw new ServletException("Unknown command");
 		}
 		
-		// Add parameters as request attributes
-		// this creates attributes named "first" and "second for the response, and grabs the
-		// values that were originally assigned to the request attributes, also named "first" and "second"
-		// they don't have to be named the same, but in this case, since we are passing them back
-		// and forth, it's a good idea
-		req.setAttribute("username", req.getParameter("username"));
-		req.setAttribute("password", req.getParameter("password"));
-		
-		// add result objects as attributes
-		// this adds the errorMessage text and the result to the response
+		// set "userinfo" attribute to the model reference
+		// the JSP will reference the model elements through "userinfo"
+		// also set "errorMessage" so the JSP can display any error
+		req.setAttribute("userinfo", model);
 		req.setAttribute("errorMessage", errorMessage);
-		//req.setAttribute("result", result);
 		
-		// Forward to view to render the result HTML document
+		// now call the JSP to render the new page
 		req.getRequestDispatcher("/_view/signInPage.jsp").forward(req, resp);
 	}
 
-	// gets double from the request with attribute named s
-	/*private Double getDoubleFromParameter(String s) {
-		if (s == null || s.equals("")) {
-			return null;
-		} else {
-			return Double.parseDouble(s);
-		}
-	}*/
+	// gets an Integer from the Posted form data, for the given attribute name
+	private String getString(HttpServletRequest req, String name) {
+		return req.getParameter(name);
+	}
 }
