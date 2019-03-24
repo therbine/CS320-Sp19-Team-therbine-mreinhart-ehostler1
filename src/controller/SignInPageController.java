@@ -9,6 +9,7 @@ public class SignInPageController {
 		this.model = model;
 	}
 	
+	//method to create a new account using the given username and password
 	public void newAccount() throws Exception {
 		String newUsername = model.getGivenUsername();
 		String newPassword = model.getGivenPassword();
@@ -20,8 +21,19 @@ public class SignInPageController {
 		model.addUser(newUsername, newPassword);
 	}
 	
-	public void deleteAccount() {
+	//method to delete an existing account with the given username, if the password is correct
+	public void deleteAccount() throws Exception{
+		String oldUsername = model.getGivenUsername();
+		String oldPassword = model.getGivenPassword();
 		
+		if(!model.checkForUser(oldUsername)) {
+			throw new Exception("The user " + oldUsername + " does not exist.");
+		}
+		if(!model.getPassword(oldUsername).equals(oldPassword)) {
+			throw new Exception("The given password is incorrect.");
+		}
+		
+		model.deleteUser(oldUsername);
 	}
 
 }
