@@ -48,7 +48,8 @@ public class GameServlet extends HttpServlet {
 				errorMessage = "Please enter command";
 			}
 			else {
-				result = controller.getMessage();
+				
+				result = model.getDescription("Intro");
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
