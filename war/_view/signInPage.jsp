@@ -20,6 +20,8 @@
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
+		
+		
 		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
 			<table>
 				<tr>
@@ -35,5 +37,6 @@
 			<input type="submit" name="createAccountRequest" value="Create Account">
 			<input type="submit" name="deleteAccountRequest" value="Delete Account">
 		</form>
+		<div >${userinfo.getSetOfUsers().toString()}</div>
 	</body>
 </html>

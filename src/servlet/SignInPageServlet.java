@@ -58,6 +58,8 @@ public class SignInPageServlet extends HttpServlet {
 					 * code for log in HERE
 					 * 
 					 */
+					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+					
 				}
 				else {
 					//credentials aren't correct
