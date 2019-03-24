@@ -16,6 +16,6 @@
     <url-pattern>/SignIn</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>SignInPage.jsp</welcome-file>
+    <welcome-file>WelcomePage.htlm</welcome-file>
   </welcome-file-list>
 </web-app>
