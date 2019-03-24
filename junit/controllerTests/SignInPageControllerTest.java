@@ -18,15 +18,15 @@ public class SignInPageControllerTest {
 			model = new SignInPageModel();
 			controller = new SignInPageController();
 			
-			model.setFirst(2.0);
-			model.setSecond(3.0);
+			model.setGivenUsername("Clever Username");
+			model.setGivenPassword("Strong Password");
 			
 			controller.setModel(model);
 		}
 		
 		@Test
 		public void testAdd() {
-			controller.add();
+			
 			assertEquals((Double) 9.0, controller.add());
 		}
 		
