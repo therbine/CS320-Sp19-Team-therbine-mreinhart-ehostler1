@@ -4,7 +4,13 @@ import java.io.File;
 
 import org.eclipse.jetty.server.Server;
 
+import model.SignInPageModel;
+
 public class Main {
+	
+	// Initialize a SignInPageModel that will persist between pages
+	static SignInPageModel model = new SignInPageModel();
+	
 	public static void main(String[] args) throws Exception {
 		String webappCodeBase = "./war";
 		File warFile = new File(webappCodeBase);
@@ -28,5 +34,10 @@ public class Main {
         // wait until the server is done executing.
         // See http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html#join()
 		server.join();
+	}
+
+	//getter for the static sign in model
+	public static SignInPageModel getSignInPageModel() {
+		return model;
 	}
 }

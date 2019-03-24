@@ -20,21 +20,20 @@
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-	
-		<form action="${pageContext.servletContext.contextPath}/SignInPage" method="post">
+		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
 			<table>
 				<tr>
 					<td class="label">Username:</td>
-					<td><input type="text" name="first" size="12" value="${username}" /></td>
+					<td><input type="text" name="username" size="12" value="${userinfo.givenUsername}" /></td>
 				</tr>
 				<tr>
 					<td class="label">Password:</td>
-					<td><input type="text" name="second" size="12" value="${password}" /></td>
+					<td><input type="text" name="password" size="12" value="${userinfo.givenPassword}" /></td>
 				</tr>
 			</table>
-			<input type="Submit" name="submit" value="Sign In">
-			<input type="Submit" name="submit" value="Creat Account">
-			<input type="Submit" name="submit" value="Delete Account">
+			<input type="submit" name="signInRequest" value="Sign In">
+			<input type="submit" name="createAccountRequest" value="Create Account">
+			<input type="submit" name="deleteAccountRequest" value="Delete Account">
 		</form>
 	</body>
 </html>
