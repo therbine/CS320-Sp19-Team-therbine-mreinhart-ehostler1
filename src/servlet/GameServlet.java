@@ -34,7 +34,7 @@ public class GameServlet extends HttpServlet {
 		String errorMessage = null;
 
 		// result of calculation goes here
-		Double result = null;
+		String result = null;
 		
 		// decode POSTed form parameters and dispatch to controller
 		try {
@@ -42,24 +42,21 @@ public class GameServlet extends HttpServlet {
 			
 			GameController controller = new GameController();
 			GameModel model = new GameModel();
-			controller.setModel(model);
-			//model.setUsername(getStringFromParameter(req.getParameter("username")));
-			//model.setPassword(getStringFromParameter(req.getParameter("password")));
+			// TODO: controller.setModel(model);
 			
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
+			String userInput = req.getParameter("userInput");
 			
 			// check for errors in the form data before using is in a calculation
-			if (username == null || password == null) {
-				errorMessage = "Enter username and password";
+			if (userInput == null) {
+				errorMessage = "Please enter command";
 			}
 			// otherwise, data is good, do the calculation
 			// must create the controller each time, since it doesn't persist between POSTs
 			// the view does not alter data, only controller methods should be used for that
 			// thus, always call a controller method to operate on the data
-			/*else {
-				result = controller.add();
-			}*/
+			else {
+				//TODO: result = controller.getMessage();
+			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
 		}
@@ -69,8 +66,8 @@ public class GameServlet extends HttpServlet {
 		// values that were originally assigned to the request attributes, also named "first" and "second"
 		// they don't have to be named the same, but in this case, since we are passing them back
 		// and forth, it's a good idea
-		req.setAttribute("username", req.getParameter("username"));
-		req.setAttribute("password", req.getParameter("password"));
+		req.setAttribute("userInput", req.getParameter("userInput"));
+		req.setAttribute("result", result);
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
@@ -78,15 +75,6 @@ public class GameServlet extends HttpServlet {
 		//req.setAttribute("result", result);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/signInPage.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	}
-
-	// gets double from the request with attribute named s
-	/*private Double getDoubleFromParameter(String s) {
-		if (s == null || s.equals("")) {
-			return null;
-		} else {
-			return Double.parseDouble(s);
-		}
-	}*/
 }
