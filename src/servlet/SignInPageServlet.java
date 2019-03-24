@@ -57,9 +57,9 @@ public class SignInPageServlet extends HttpServlet {
 			// must create the controller each time, since it doesn't persist between POSTs
 			// the view does not alter data, only controller methods should be used for that
 			// thus, always call a controller method to operate on the data
-			else {
+			/*else {
 				result = controller.add();
-			}
+			}*/
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
 		}
