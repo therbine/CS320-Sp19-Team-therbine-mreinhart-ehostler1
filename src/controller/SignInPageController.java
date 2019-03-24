@@ -20,6 +20,8 @@ public class SignInPageController {
 		model.addUser(newUsername, newPassword);
 	}
 	
-	public void deleteAccount()
+	public void deleteAccount() {
+		
+	}
 
 }
