@@ -35,6 +35,7 @@ public class GameServlet extends HttpServlet {
 		// result of calculation goes here
 		String result = null;
 		
+		
 		// decode POSTed form parameters and dispatch to controller
 		try {
 			GameController controller = new GameController();
@@ -42,6 +43,8 @@ public class GameServlet extends HttpServlet {
 			controller.setModel(model);
 			
 			String userInput = req.getParameter("userInput");
+			result = model.getDescription("Intro");
+			req.setAttribute("introMessage", result);
 			
 			// check for errors in the form data before using is in a calculation
 			if (userInput == null) {
@@ -49,7 +52,7 @@ public class GameServlet extends HttpServlet {
 			}
 			else {
 				
-				result = model.getDescription("Intro");
+				
 			}
 		} catch (NumberFormatException e) {
 			errorMessage = "Invalid double";
