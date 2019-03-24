@@ -22,12 +22,13 @@
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-	
+		<div class="intro"${introMessage}>
+		</div>
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 			<table>
 				<tr>
-					<td class=">">Command:</td>
-					<td><input type="text" name="first" size="12" value="${username}" /></td>
+					<td class="Command">Command:</td>
+					<td><input type="text" name="first" size="12" value="${command}" /></td>
 				</tr>
 			</table>
 		</form>

@@ -10,7 +10,7 @@ public class GameController {
 	}
 	
 	public String getMessage() {
-		String result = "Test";
+		String result = "test";
 		return result;
 	}
 }
