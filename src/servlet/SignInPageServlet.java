@@ -71,8 +71,7 @@ public class SignInPageServlet extends HttpServlet {
 		} else if (req.getParameter("createAccountRequest") != null) {
 			try {
 				//perform operations for creating a new account
-				
-				
+				controller.newAccount();
 				
 			} catch (Exception e) {
 				errorMessage = e.getMessage();
@@ -80,8 +79,7 @@ public class SignInPageServlet extends HttpServlet {
 		} else if (req.getParameter("deleteAccountRequest") != null) {
 			try {
 				//perform operations for deleting a account
-				
-				
+				controller.deleteAccount();
 				
 			} catch (Exception e) {
 				errorMessage = e.getMessage();
