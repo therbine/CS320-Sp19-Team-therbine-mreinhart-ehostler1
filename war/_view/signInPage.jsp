@@ -21,7 +21,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 	
-		<form action="${pageContext.servletContext.contextPath}/addNumbers" method="post">
+		<form action="${pageContext.servletContext.contextPath}/SignInPage" method="post">
 			<table>
 				<tr>
 					<td class="label">Username:</td>
