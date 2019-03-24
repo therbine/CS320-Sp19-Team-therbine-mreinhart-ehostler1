@@ -20,12 +20,7 @@
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-	
-<<<<<<< HEAD
 		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
-=======
-		<form action="${pageContext.servletContext.contextPath}/SignInPage" method="post">
->>>>>>> branch 'master' of git@github.com:therbine/CS320-Sp19-Team-therbine-mreinhart-ehostler1.git
 			<table>
 				<tr>
 					<td class="label">Username:</td>
