@@ -25,15 +25,9 @@ public class SignInPageControllerTest {
 		}
 		
 		@Test
-		public void testAdd() {
-			
-			assertEquals((Double) 9.0, controller.add());
-		}
-		
-		@Test
 		public void testMultiply() {
-			controller.multiply();
-			assertEquals((Double) 6.0, controller.multiply());
+			controller.deleteAccount();
+			assertEquals(model.checkForUser("Clever Username"), false);
 		}
 	}
 }
