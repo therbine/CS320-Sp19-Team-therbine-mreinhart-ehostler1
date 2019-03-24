@@ -22,7 +22,7 @@ public class SignInPageController {
 	}
 	
 	//method to delete an existing account with the given username, if the password is correct
-	public void deleteAccount() throws Exception{
+	public void deleteAccount() throws Exception {
 		String oldUsername = model.getGivenUsername();
 		String oldPassword = model.getGivenPassword();
 		
@@ -34,6 +34,24 @@ public class SignInPageController {
 		}
 		
 		model.deleteUser(oldUsername);
+	}
+	
+	//method to check if username and password are correct
+	//true if username matches password
+	//false if not
+	public boolean verifySignInAccount() throws Exception {
+		String signInUsername = model.getGivenUsername();
+		String signInPassword = model.getGivenPassword();
+		
+		if(!model.checkForUser(signInUsername)) {
+			throw new Exception("The user " + signInUsername + " does not exist.");
+		}
+		if(model.getPassword(signInUsername).equals(signInPassword)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }
