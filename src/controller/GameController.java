@@ -9,8 +9,8 @@ public class GameController {
 		this.model = model;
 	}
 	
-	public String getMessage() {
-		String result = "test";
-		return result;
+	public void updateHistory() {
+		model.addHistory(model.getPlayerInput());
 	}
+	
 }

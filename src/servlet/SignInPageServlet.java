@@ -43,8 +43,8 @@ public class SignInPageServlet extends HttpServlet {
 		String errorMessage = null;
 		
 		//update the given username and password in the model based on what is in the username and password fields
-		model.setGivenUsername(getString(req, "username"));
-		model.setGivenPassword(getString(req, "password"));
+		model.setGivenUsername(req.getParameter("username"));
+		model.setGivenPassword(req.getParameter("password"));
 		
 		// check which button has been pressed
 		if (req.getParameter("signInRequest") != null) {
@@ -58,6 +58,8 @@ public class SignInPageServlet extends HttpServlet {
 					 * code for log in HERE
 					 * 
 					 */
+					//set the player
+					main.Main.getGameModel().setPlayer(model.getGivenUsername());
 					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 					
 				}
@@ -96,10 +98,5 @@ public class SignInPageServlet extends HttpServlet {
 		
 		// now call the JSP to render the new page
 		req.getRequestDispatcher("/_view/signInPage.jsp").forward(req, resp);
-	}
-
-	// gets an Integer from the Posted form data, for the given attribute name
-	private String getString(HttpServletRequest req, String name) {
-		return req.getParameter(name);
 	}
 }

@@ -29,42 +29,36 @@ public class GameServlet extends HttpServlet {
 		
 		System.out.println("Game Servlet: doPost");
 		
+		//get the persisted sign in page model
+		GameModel model = main.Main.getGameModel();
+				
+		// create SignInPage controller - controller does not persist between requests
+		// must recreate it each time a Post comes in
+		GameController controller = new GameController();
+		
+		// assign model reference to controller so that controller can access model
+		controller.setModel(model);
+		
 		// holds the error message text, if there is any
 		String errorMessage = null;
 
-		// result of calculation goes here
-		String result = null;
+		//update user input
+		model.setPlayerInput(req.getParameter("playerInput"));
 		
-		String Intro = null;
-		// decode POSTed form parameters and dispatch to controller
-		try {
-			GameController controller = new GameController();
-			GameModel model = new GameModel();
-			controller.setModel(model);
-			
-			String userInput = req.getParameter("userInput");
-			Intro = model.getDescription("Intro");
-			
-			
-			// check for errors in the form data before using is in a calculation
-			if (userInput == null) {
-				errorMessage = "Please enter command";
-			}
-			else {
-				
-				
-			}
-		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
-		}
+		//update the history
+		controller.updateHistory();
+		/*
+		 * 
+		 * EXECUTE commands here
+		 * 
+		 */
 		
-		req.setAttribute("userInput", req.getParameter("userInput"));
-		req.setAttribute("result", result);
-		req.setAttribute("introMessage", Intro);
+		
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
+		req.setAttribute("gameinfo", model);
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
