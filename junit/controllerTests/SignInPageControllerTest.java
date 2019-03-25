@@ -26,7 +26,12 @@ public class SignInPageControllerTest {
 		
 		@Test
 		public void testMultiply() {
-			controller.deleteAccount();
+			try {
+				controller.deleteAccount();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertEquals(model.checkForUser("Clever Username"), false);
 		}
 	}
