@@ -24,8 +24,9 @@ public class SignInPageControllerTest {
 	}
 		
 	@Test
-	public void testMultiply() {
+	public void testDeleteAccount() {
 		try {
+			controller.newAccount();
 			controller.deleteAccount();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
