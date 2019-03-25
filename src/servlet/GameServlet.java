@@ -35,7 +35,7 @@ public class GameServlet extends HttpServlet {
 		// result of calculation goes here
 		String result = null;
 		
-		
+		String Intro = null;
 		// decode POSTed form parameters and dispatch to controller
 		try {
 			GameController controller = new GameController();
@@ -43,8 +43,8 @@ public class GameServlet extends HttpServlet {
 			controller.setModel(model);
 			
 			String userInput = req.getParameter("userInput");
-			result = model.getDescription("Intro");
-			req.setAttribute("introMessage", result);
+			Intro = model.getDescription("Intro");
+			
 			
 			// check for errors in the form data before using is in a calculation
 			if (userInput == null) {
@@ -60,6 +60,7 @@ public class GameServlet extends HttpServlet {
 		
 		req.setAttribute("userInput", req.getParameter("userInput"));
 		req.setAttribute("result", result);
+		req.setAttribute("introMessage", Intro);
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
