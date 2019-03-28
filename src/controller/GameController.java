@@ -13,4 +13,12 @@ public class GameController {
 		model.addHistory(model.getPlayerInput());
 	}
 	
+	public void updateGameDisplay() {
+		String newDisplay = "";
+		for(int i = model.getHistorySize() - 1 ; i >= 0 ; i--) {
+			newDisplay += "<p>" + model.getHistory(i) + "</p>";
+		}
+		model.setGameDisplay(newDisplay);
+	}
+	
 }

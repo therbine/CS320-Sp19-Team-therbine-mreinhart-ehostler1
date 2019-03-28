@@ -46,6 +46,7 @@ public class GameServlet extends HttpServlet {
 		
 		//update the history
 		controller.updateHistory();
+		controller.updateGameDisplay();
 		
 		/*
 		 * 

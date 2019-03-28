@@ -21,18 +21,11 @@
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-		<p id="history"></p>
-		<script>
-			var i;
-			var len = ${gameinfo.getHistorySize()}
-			var text =null;
-			for(i = 0; i < len; i++){
-				text += ${gameinfo.getHistory(i)} + "<br>";
-			}
-			document.getElementById("history").innerHTML = text;
-		
-		</script>
-		
+		<div id="container">
+		  <div id="content">
+		    <div>${gameinfo.getGameDisplay()}</div>
+		  </div>
+		</div>	
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 			<table>
 				<tr>
