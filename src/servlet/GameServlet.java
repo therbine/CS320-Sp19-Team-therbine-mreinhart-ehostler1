@@ -41,12 +41,12 @@ public class GameServlet extends HttpServlet {
 		
 		// holds the error message text, if there is any
 		String errorMessage = null;
-
 		//update user input
-		model.setPlayerInput(req.getParameter("playerInput"));
+		model.setPlayerInput(req.getParameter("userInput"));
 		
 		//update the history
 		controller.updateHistory();
+		
 		/*
 		 * 
 		 * EXECUTE commands here
