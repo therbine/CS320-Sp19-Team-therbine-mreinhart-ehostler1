@@ -15,7 +15,7 @@ public class GameController {
 	
 	public void updateGameDisplay() {
 		String newDisplay = "";
-		for(int i = model.getHistorySize() - 1 ; i >= 0 ; i--) {
+		for(int i = 0 ; i < model.getHistorySize() ; i++) {
 			newDisplay += "<p>" + model.getHistory(i) + "</p>";
 		}
 		model.setGameDisplay(newDisplay);
