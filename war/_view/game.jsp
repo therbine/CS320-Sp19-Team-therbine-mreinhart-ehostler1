@@ -40,7 +40,7 @@
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 			
 					<div class="Comand">>  
-						 <input type="text" name="userInput" size="12" value="" /></div>
+						 <input type="text" name="userInput" size="12" value="" autofocus/></div>
 			
 		</form>
 		</div>
