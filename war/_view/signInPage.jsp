@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<title>Proceed with Caution</title>
+		<link rel="stylesheet" type = "text/ css" href="signInPagestyle.css">
 		<style type="text/css">
 		.error {
 			color: red;
@@ -14,13 +15,17 @@
 			text-align: right;
 		}
 		</style>
+		
+		
 	</head>
 
 	<body>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-		
+		<div id="Sub_head">
+		<h1> Welcome to Our Game</h1>
+		</div>
 		
 		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
 			<table>
