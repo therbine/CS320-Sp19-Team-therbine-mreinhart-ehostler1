@@ -27,7 +27,7 @@
 		td.label {
 			text-align: right;
 		}
-		</style>
+		</style> 
 	</head>
 	<body>
 		<div class = "gamepage">
