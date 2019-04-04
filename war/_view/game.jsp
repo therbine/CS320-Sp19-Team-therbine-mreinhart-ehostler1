@@ -11,28 +11,38 @@
 		.error {
 			color: red;
 		}
-		
+		.gamepage {
+		color: white;
+		background-color: #000000;
+  		width: 100%;
+ 		height: 100%;
+  		max-width: 400px;
+ 		max-height: 400px;
+  		padding: 3em;
+  		overflow: auto;
+		}
+		.input{
+		color: red;
+		}
 		td.label {
 			text-align: right;
 		}
-		</style>
+		</style> 
 	</head>
 	<body>
+		<div class = "gamepage">
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-		<div id="container">
-		  <div id="content">
-		    <div>${gameinfo.getGameDisplay()}</div>
-		  </div>
-		</div>	
+		
+		<div class = "container">${gameinfo.getGameDisplay()}</div>
+		
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-			<table>
-				<tr>
-					<td class="Command">Command:</td>
-						<td><input type="text" name="userInput" size="12" value="" /></td>
-				</tr>
-			</table>
+			
+					<div class="Comand">>  
+						 <input type="text" name="userInput" size="12" value="" autofocus/></div>
+			
 		</form>
+		</div>
 	</body>
 </html>

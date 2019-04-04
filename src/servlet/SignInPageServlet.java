@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.SignInPageController;
+import model.GameModel;
 import model.SignInPageModel;
 
 public class SignInPageServlet extends HttpServlet {
@@ -30,21 +31,22 @@ public class SignInPageServlet extends HttpServlet {
 		System.out.println("SignInPage Servlet: doPost");
 
 		//get the persisted sign in page model
-		SignInPageModel model = main.Main.getSignInPageModel();
+		SignInPageModel signInModel = main.Main.getSignInPageModel();
+		GameModel gameModel = main.Main.getGameModel();
 		
 		// create SignInPage controller - controller does not persist between requests
 		// must recreate it each time a Post comes in
 		SignInPageController controller = new SignInPageController();
 		
 		// assign model reference to controller so that controller can access model
-		controller.setModel(model);
+		controller.setModel(signInModel);
 		
 		// holds the error message text, if there is any
 		String errorMessage = null;
 		
 		//update the given username and password in the model based on what is in the username and password fields
-		model.setGivenUsername(req.getParameter("username"));
-		model.setGivenPassword(req.getParameter("password"));
+		signInModel.setGivenUsername(req.getParameter("username"));
+		signInModel.setGivenPassword(req.getParameter("password"));
 		
 		// check which button has been pressed
 		if (req.getParameter("signInRequest") != null) {
@@ -59,7 +61,10 @@ public class SignInPageServlet extends HttpServlet {
 					 * 
 					 */
 					//set the player
-					main.Main.getGameModel().setPlayer(model.getGivenUsername());
+					gameModel.setPlayer(signInModel.getGivenUsername());
+					if(gameModel.getGameOfCurrentPlayer() == null) {
+						gameModel.createNewGame(signInModel.getGivenUsername());
+					}
 					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 					
 				}
@@ -93,7 +98,7 @@ public class SignInPageServlet extends HttpServlet {
 		// set "userinfo" attribute to the model reference
 		// the JSP will reference the model elements through "userinfo"
 		// also set "errorMessage" so the JSP can display any error
-		req.setAttribute("userinfo", model);
+		req.setAttribute("userinfo", signInModel);
 		req.setAttribute("errorMessage", errorMessage);
 		
 		// now call the JSP to render the new page

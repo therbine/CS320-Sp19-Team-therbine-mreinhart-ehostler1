@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.GameController;
+import controller.UserDataController;
 import model.GameModel;
+import model.UserDataModel;
 
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,23 +32,26 @@ public class GameServlet extends HttpServlet {
 		System.out.println("Game Servlet: doPost");
 		
 		//get the persisted sign in page model
-		GameModel model = main.Main.getGameModel();
+		GameModel gameModel = main.Main.getGameModel();
+		UserDataModel userDataModel = gameModel.getGameOfCurrentPlayer();
 				
 		// create SignInPage controller - controller does not persist between requests
 		// must recreate it each time a Post comes in
-		GameController controller = new GameController();
+		GameController gameController = new GameController();
+		UserDataController userDataController = new UserDataController();
 		
 		// assign model reference to controller so that controller can access model
-		controller.setModel(model);
+		gameController.setModel(gameModel);
+		userDataController.setModel(userDataModel);
 		
 		// holds the error message text, if there is any
 		String errorMessage = null;
 		//update user input
-		model.setPlayerInput(req.getParameter("userInput"));
+		userDataModel.setPlayerInput(req.getParameter("userInput"));
 		
 		//update the history
-		controller.updateHistory();
-		controller.updateGameDisplay();
+		userDataController.updateHistory();
+		userDataController.updateGameDisplay();
 		
 		/*
 		 * 
@@ -59,7 +64,8 @@ public class GameServlet extends HttpServlet {
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
-		req.setAttribute("gameinfo", model);
+		req.setAttribute("systeminfo", gameModel);
+		req.setAttribute("gameinfo", userDataModel);
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
