@@ -11,6 +11,10 @@ public class Room {
 		this.roomInv = roomInv;
 	}
 	
+	public ArrayList<Item> getInv() {
+		return roomInv;
+	}
+	
 	public Terrain getTerrain() {
 		return terrain;
 	}
