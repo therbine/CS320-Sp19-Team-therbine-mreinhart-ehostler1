@@ -30,7 +30,7 @@ public class GameModel {
 		return player;
 	}
 	
-	public void setPlayer(String player) {
-		this.player = player;
+	public void setPlayer(String currentPlayer) {
+		player = currentPlayer;
 	}
 }
