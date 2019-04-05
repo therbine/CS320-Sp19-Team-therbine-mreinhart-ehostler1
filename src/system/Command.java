@@ -8,10 +8,22 @@ import controller.UserDataController;
 
 public class Command {
 	private List<String> commands;
+	private List<String> specifiers;
 	
 	public Command() {
 		commands = new ArrayList<String>();
+		specifiers = new ArrayList<String>();
+		
+		//COMMANDS
 		commands.add("help");
+		commands.add("move");
+		
+		//SPECIFIERS
+		specifiers.add("none");
+		specifiers.add("north");
+		specifiers.add("south");
+		specifiers.add("east");
+		specifiers.add("west");
 	}
 	
 	//checks the most recent player input and performs an action based on that
@@ -19,23 +31,86 @@ public class Command {
 		UserDataController contoller = new UserDataController();
 		contoller.setModel(model);
 		
-		if(commands.contains(model.getPlayerInput())) {
-			//execute the valid command
-			model.addHistory(model.getPlayerInput());
-			execute(model.getPlayerInput(), model);
+		//find the command and specifier
+		String input = model.getPlayerInput();
+		String command;
+		String specifier;
+		
+		try {
+			Integer spaceIndex = input.indexOf(" ");
+			command = input.substring(0 , spaceIndex);
+			specifier = input.substring(spaceIndex + 1, input.length());
+		} catch(Exception e) {
+			command = input;
+			specifier = "none";
+		}
+		
+		//check if the given command and specifier exist and execute accordingly
+		if(commands.contains(command)) {
+			if(specifiers.contains(specifier)) {
+				//correct command and specifier
+				execute(command, specifier, model);
+			}
+			else {
+				//incorrect specifier
+				model.addHistory("-Invalid Specifier-");
+			}
 		}
 		else {
-			//invalid command
-			model.addHistory("Invalid Command");
+			//incorrect command
+			model.addHistory("-Invalid Command-");
 		}
 		
 		contoller.updateGameDisplay();
 	}
 	
-	private void execute(String command, UserDataModel model) {
+
+	//executes the needed command method
+	private void execute(String command, String specifier, UserDataModel model) {
 		//execute the necessary actions of the given valid command
 		if(command.equals("help")) {
-			model.addHistory("No help was found.");
+			help(specifier, model);
+		}
+		else if(command.equals("move")) {
+			move(specifier, model);
+		}
+	}
+
+	//the help command method
+	private void help(String specifier, UserDataModel model) {
+		if(specifier.equals("none")) {
+			
+			model.addHistory("Available Commands: " + commands.toString());
+			model.addHistory("Available Specifiers: " + specifiers.toString());
+			
+		}
+		else {
+			model.addHistory("-No Specifiers Available-");
+		}
+	}
+	
+	//the move command method
+	private void move(String specifier, UserDataModel model) {
+		
+		//determine the direction
+		if(specifier.equals("north")) {
+			//execute code for moving north
+			model.addHistory("You move north.");
+		}
+		else if(specifier.equals("south")) {
+			//execute code for moving south
+			model.addHistory("You move south");
+		}
+		else if(specifier.equals("east")) {
+			//execute code for moving east
+			model.addHistory("You move east");
+		}
+		else if(specifier.equals("west")) {
+			//execute code for moving west
+			model.addHistory("You move west");
+		}
+		else {
+			model.addHistory("Yes, but where?");
 		}
 	}
 	
