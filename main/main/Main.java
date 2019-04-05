@@ -6,12 +6,14 @@ import org.eclipse.jetty.server.Server;
 
 import model.GameModel;
 import model.SignInPageModel;
+import system.Command;
 
 public class Main {
 	
 	// Initialize a SignInPageModel that will persist between pages
 	static SignInPageModel signInPageModel = new SignInPageModel();
 	static GameModel gameModel = new GameModel();
+	static Command command = new Command();
 	
 	public static void main(String[] args) throws Exception {
 		String webappCodeBase = "./war";
@@ -46,5 +48,10 @@ public class Main {
 	//getter for the static game model
 	public static GameModel getGameModel() {
 		return gameModel;
+	}
+	
+	//getter for the static command
+	public static Command getCommand() {
+		return command;
 	}
 }
