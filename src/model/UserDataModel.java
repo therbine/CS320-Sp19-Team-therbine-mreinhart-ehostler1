@@ -44,8 +44,5 @@ public class UserDataModel {
 	public String getGameDisplay() {
 		return this.gameDisplay;
 	}
-	public int getPlayerpostion(){
-		return 1;
-	}
 
 }

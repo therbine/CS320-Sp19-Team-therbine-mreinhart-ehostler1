@@ -29,12 +29,19 @@
 		float: right;
 		position: relative;
 		}
-		table, th, td{
+		.otherlocations{
 		color: #000000;
 		border: 1px solid black;
 		background-color: #E6E6FA;
-		width: 400px;
-		height: 200px;
+		width: 100px;
+		height: 100px;
+		}
+		.locationofplayer{
+		color: #000000;
+		border: 1px solid black;
+		background-color: #FF0000;
+		width: 100px;
+		height: 100px;
 		}
 		
 		
@@ -43,8 +50,8 @@
 	<body>
 	`	
 		<div class = "gamepage">
-		<c:if test="${! empty errorMessage}">
-			<div class="error">${errorMessage}</div>
+		<c:if test="${! empty player_location}">
+			<div class="error">${player_location}</div>
 		</c:if>
 		<!-- the display of user input and server output -->
 		<div class = "container">${gameinfo.getGameDisplay()}</div>
@@ -58,29 +65,30 @@
 		</div>
 		<!-- 3X3 map which WILL show the players position  -->
 		<div class = "map">
-			<div class = "player_location">${gameinfo.getplayerlocation()}</div>
+	
 			<table>
 				
 				
 				<tr>
-					<%if (request.getParameter("player_location") == null) {%>	
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if (request.getAttribute("player_location") != null) {
+					Object location = request.getAttribute("player_location");%>	
+					<%if(location != "topleft"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "topmid"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}
-					if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					if(location != "topright"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
 					<!--  
 					<td class = "location_topleft"> </td>
@@ -89,23 +97,23 @@
 					 -->
 				</tr>
 				<tr>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "centerleft"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "centermid"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "centerright"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
 					<!--  
 					<td class = "location_midleft"> </td>
@@ -114,23 +122,23 @@
 					-->
 				</tr>
 				<tr>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "botleft"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "botmid"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}%>
-					<%if(1 > 0){%>
-						<td class = "location_topleft"> </td>
+					<%if(location != "botright"){%>
+						<td class = "otherlocations"> </td>
 					<%}
 					else{%>
-						<td class = "location_topleft"> </td>
+						<td class = "locationofplayer"> </td>
 					<%}
 					}%>
 					<!--  
