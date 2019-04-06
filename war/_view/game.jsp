@@ -63,75 +63,80 @@
 				
 				
 				<tr>
-						
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%int location = %>	
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
+						<td class = "location_topleft"> </td>
+					<%}
+					else{%>
+						<td class = "location_topleft"> </td>
+					<%}
+					if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
-						<td class = "location_topleft"> </td>
-					<%}
-					else{%>
-						<td class = "location_topleft"> </td>
-					<%}%>
+					<!--  
 					<td class = "location_topleft"> </td>
 					<td class = "location_topcenter"> </td>
 					<td class = "location_topright"> </td>
+					 -->
 				</tr>
 				<tr>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
+					<!--  
 					<td class = "location_midleft"> </td>
 					<td class = "location_midcenter"> </td>
 					<td class = "location_midright"> </td>
+					-->
 				</tr>
 				<tr>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
 					<%}%>
-					<%if(gameinfo.getplayerlocation() == 0){%>
+					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
-					<%}%>
-					
+					<%//}%>
+					<!--  
 					<td class = "location_bottomleft"> </td>
 					<td class = "location_bottomcenter"> </td>
 					<td class = "location_bottomright"> </td>
+					-->
 				</tr>
 			
 			</table>

@@ -27,4 +27,7 @@ public class GameModel {
 	public void setPlayer(String currentPlayer) {
 		player = currentPlayer;
 	}
+	public int getPlayerpostion(){
+		return 1;
+	}
 }
