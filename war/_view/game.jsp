@@ -63,7 +63,7 @@
 				
 				
 				<tr>
-					<%int location = %>	
+					<%if (request.getParameter("player_location") == null) {%>	
 					<%if(1 > 0){%>
 						<td class = "location_topleft"> </td>
 					<%}
@@ -131,7 +131,8 @@
 					<%}
 					else{%>
 						<td class = "location_topleft"> </td>
-					<%//}%>
+					<%}
+					}%>
 					<!--  
 					<td class = "location_bottomleft"> </td>
 					<td class = "location_bottomcenter"> </td>
