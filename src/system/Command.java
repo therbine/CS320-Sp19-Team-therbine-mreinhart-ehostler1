@@ -7,8 +7,8 @@ import model.UserDataModel;
 import controller.UserDataController;
 
 public class Command {
-	private List<String> commands;
-	private List<String> specifiers;
+	private static List<String> commands;
+	private static List<String> specifiers;
 	
 	public Command() {
 		commands = new ArrayList<String>();
