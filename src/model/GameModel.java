@@ -4,18 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameModel {
-	private static Map<String, String> descriptions;
 	private static Map<String, UserDataModel> savedGames;
 	private static String player;
 	
 	public GameModel() {
 		player = null;
-		descriptions = new HashMap<String, String>();
 		savedGames = new HashMap<String, UserDataModel>();
-	}
-	
-	public String getDescription(String name) {
-		return descriptions.get(name);
 	}
 	
 	public UserDataModel getGameOfCurrentPlayer() {
@@ -30,7 +24,8 @@ public class GameModel {
 		return player;
 	}
 	
-	public void setPlayer(String player) {
-		this.player = player;
+	public void setPlayer(String currentPlayer) {
+		player = currentPlayer;
 	}
+	
 }

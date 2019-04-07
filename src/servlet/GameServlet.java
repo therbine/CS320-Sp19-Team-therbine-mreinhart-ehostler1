@@ -49,25 +49,18 @@ public class GameServlet extends HttpServlet {
 		//update user input
 		userDataModel.setPlayerInput(req.getParameter("userInput"));
 		
-		//update the history
-		userDataController.updateHistory();
-		userDataController.updateGameDisplay();
-		
-		/*
-		 * 
-		 * EXECUTE commands here
-		 * 
-		 */
-		
-		
-		
+		//command action
+		main.Main.getCommand().action(userDataModel);
+		String location = "botmid"; 
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("systeminfo", gameModel);
 		req.setAttribute("gameinfo", userDataModel);
+		req.setAttribute("player_location", location);
 		
 		// Forward to view to render the result HTML document
+		
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	}
 }
