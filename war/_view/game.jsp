@@ -71,88 +71,25 @@
 	
 			<table>
 				
-				
-				<tr>
-					<%if (request.getAttribute("player_x") != null) {
-						if (request.getAttribute("player_y") != null) {
-					Object location_x = request.getAttribute("player_x");
-					Object location_y = request.getAttribute("player_y");%>	
-					<%if(location_x != "0" && location_y != "2"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<%if(location_x != "1" && location_y != "2"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}
-					if(location_x != "2" && location_y != "2"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<!--  
-					<td class = "location_topleft"> </td>
-					<td class = "location_topcenter"> </td>
-					<td class = "location_topright"> </td>
-					 -->
-				</tr>
-				<tr>
-					<%if(location_x != "0" && location_y != "1"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<%if(location_x != "1" && location_y != "1"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<%if(location_x != "2" && location_y != "1"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<!--  
-					<td class = "location_midleft"> </td>
-					<td class = "location_midcenter"> </td>
-					<td class = "location_midright"> </td>
-					-->
-				</tr>
-				<tr>
-					<%if(location_x != "0" && location_y != "0"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<%if(location_x != "1" && location_y != "0"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}%>
-					<%if(location_x != "2" && location_y != "0"){%>
-						<td class = "otherlocations"> </td>
-					<%}
-					else{%>
-						<td class = "locationofplayer"> </td>
-					<%}
+				<%
+				Integer location_x = (Integer)request.getAttribute("player_x");
+				Integer location_y = (Integer)request.getAttribute("player_y");	
+				for(Integer y = 2; y >= 0; y--){
+					%><tr><%
+					for(Integer x = 0; x <= 2; x++){
+						if(location_x == x && location_y == y){
+							%>
+								<td class = "locationofplayer"> </td>
+							<%
+						}
+						else{
+							%>
+								<td class = "otherlocations"> </td>
+							<%
+						}
 					}
-					}%>
-					<!--  
-					<td class = "location_bottomleft"> </td>
-					<td class = "location_bottomcenter"> </td>
-					<td class = "location_bottomright"> </td>
-					-->
-				</tr>
+					%></tr><%
+				}%>
 			
 			</table>
 		
