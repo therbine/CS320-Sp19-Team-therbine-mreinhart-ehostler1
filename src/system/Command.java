@@ -106,6 +106,8 @@ public class Command {
 		//determine the direction
 		if(specifier.equals("north")) {
 			//execute code for moving north
+			
+			
 			model.addHistory(output.getAction("move north"));
 		}
 		else if(specifier.equals("south")) {

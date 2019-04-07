@@ -51,13 +51,14 @@ public class GameServlet extends HttpServlet {
 		
 		//command action
 		main.Main.getCommand().action(userDataModel);
-		String location = "botmid"; 
+		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
 		req.setAttribute("systeminfo", gameModel);
 		req.setAttribute("gameinfo", userDataModel);
-		req.setAttribute("player_location", location);
+		req.setAttribute("player_x", userDataModel.getWorld().getPlayerCoords().getX());
+		req.setAttribute("player_y", userDataModel.getWorld().getPlayerCoords().getY());
 		
 		// Forward to view to render the result HTML document
 		
