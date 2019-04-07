@@ -11,8 +11,19 @@
 			color: red;
 		}
 		
-		td.label {
-			text-align: right;
+		form {
+			position: absolute;
+			top: 10%;
+    		left: 50%;
+			transform: translate(-50%,0%);
+			
+		}
+		h1 {
+			position: absolute;
+			
+    		left: 50%;
+			transform: translate(-50%,0%);
+			
 		}
 		</style>
 		
@@ -24,7 +35,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		<div id="Sub_head">
-		<h1> Welcome to Our Game</h1>
+		<h1> Please Sing in or Create a new Account</h1>
 		</div>
 		
 		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
