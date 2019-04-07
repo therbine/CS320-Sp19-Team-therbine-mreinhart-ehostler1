@@ -21,4 +21,5 @@ public class UserDataController {
 		}
 		model.setGameDisplay(newDisplay);
 	}
+	
 }
