@@ -1,11 +1,13 @@
 package model;
 
 import java.util.LinkedList;
+import world.*;
 
 public class UserDataModel {
 	private LinkedList<String> outputHistory;
 	private String lastPlayerInput;
 	private String gameDisplay;
+	private World world;
 	
 	
 	public UserDataModel() {
@@ -15,6 +17,7 @@ public class UserDataModel {
 		this.outputHistory.add("You wake up on a beach with nothing but a rusty sword and the clothes on your back."
 				+" To the north there seams to be a dense jungle while to your east and west there's"
 				+" a bunch of washed up wreckage.");
+		this.world = new World();
 	}
 	
 	public String getPlayerInput() {
@@ -44,5 +47,8 @@ public class UserDataModel {
 	public String getGameDisplay() {
 		return this.gameDisplay;
 	}
-
+	
+	public World getWorld(){
+		return world;
+	}
 }

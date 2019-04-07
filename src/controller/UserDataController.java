@@ -1,5 +1,6 @@
 package controller;
 
+
 import model.UserDataModel;
 
 public class UserDataController {
@@ -20,4 +21,5 @@ public class UserDataController {
 		}
 		model.setGameDisplay(newDisplay);
 	}
+	
 }
