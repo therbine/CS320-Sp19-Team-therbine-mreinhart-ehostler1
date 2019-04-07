@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.UserDataModel;
+import world.Pair;
+import world.World;
 import controller.UserDataController;
 import main.Main;
 
@@ -102,25 +104,46 @@ public class Command {
 	//the move command method
 	private void move(String specifier, UserDataModel model) {
 		SystemOutput output = Main.getSystemOutput();
+		int x = model.getWorld().getPlayerCoords().getX();
+		int y = model.getWorld().getPlayerCoords().getY();
+		World world = model.getWorld();
 		
 		//determine the direction
 		if(specifier.equals("north")) {
 			//execute code for moving north
-			
-			
-			model.addHistory(output.getAction("move north"));
+			try {
+				world.setPlayerCoords(x, y+1);
+				model.addHistory(output.getAction("move north"));
+			}catch (Exception e) {
+				model.addHistory(output.getAction("worldEdge"));
+			}
 		}
 		else if(specifier.equals("south")) {
 			//execute code for moving south
-			model.addHistory(output.getAction("move south"));
+			try {
+				world.setPlayerCoords(x, y-1);
+				model.addHistory(output.getAction("move south"));
+			}catch (Exception e) {
+				model.addHistory(output.getAction("worldEdge"));
+			}
 		}
 		else if(specifier.equals("east")) {
 			//execute code for moving east
-			model.addHistory(output.getAction("move east"));
+			try {
+				world.setPlayerCoords(x+1, y);
+				model.addHistory(output.getAction("move east"));
+			}catch (Exception e) {
+				model.addHistory(output.getAction("worldEdge"));
+			}
 		}
 		else if(specifier.equals("west")) {
 			//execute code for moving west
-			model.addHistory(output.getAction("move west"));
+			try {
+				world.setPlayerCoords(x-1, y);
+				model.addHistory(output.getAction("move west"));
+			}catch (Exception e) {
+				model.addHistory(output.getAction("worldEdge"));
+			}
 		}
 		else {
 			model.addHistory("That's not a direction.");

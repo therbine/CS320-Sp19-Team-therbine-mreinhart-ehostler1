@@ -21,6 +21,7 @@ public class SystemOutput {
 		actions.put("move south", "You move south.");
 		actions.put("move east", "You move east.");
 		actions.put("move west", "You move west.");
+		actions.put("worldEdge", "You are already at the edge of the world.");
 	}
 	
 	public String getDescription(String descriptionName) {
