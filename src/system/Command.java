@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.UserDataModel;
 import controller.UserDataController;
+import main.Main;
 
 public class Command {
 	private static List<String> commands;
@@ -17,13 +18,16 @@ public class Command {
 		//COMMANDS
 		commands.add("help");
 		commands.add("move");
+		commands.add("describe");
 		
 		//SPECIFIERS
+		specifiers.add("");
 		specifiers.add("none");
 		specifiers.add("north");
 		specifiers.add("south");
 		specifiers.add("east");
 		specifiers.add("west");
+		specifiers.add("sword");
 	}
 	
 	//checks the most recent player input and performs an action based on that
@@ -44,6 +48,9 @@ public class Command {
 			command = input;
 			specifier = "none";
 		}
+		
+		System.out.println("The command is: >"+ command +"<");
+		System.out.println("The specifier is: >"+specifier +"<");
 		
 		//check if the given command and specifier exist and execute accordingly
 		if(commands.contains(command)) {
@@ -74,6 +81,9 @@ public class Command {
 		else if(command.equals("move")) {
 			move(specifier, model);
 		}
+		else if(command.equals("describe")) {
+			describe(specifier, model);
+		}
 	}
 
 	//the help command method
@@ -91,28 +101,40 @@ public class Command {
 	
 	//the move command method
 	private void move(String specifier, UserDataModel model) {
+		SystemOutput output = Main.getSystemOutput();
 		
 		//determine the direction
 		if(specifier.equals("north")) {
 			//execute code for moving north
-			model.addHistory("You move north.");
+			model.addHistory(output.getAction("move north"));
 		}
 		else if(specifier.equals("south")) {
 			//execute code for moving south
-			model.addHistory("You move south");
+			model.addHistory(output.getAction("move south"));
 		}
 		else if(specifier.equals("east")) {
 			//execute code for moving east
-			model.addHistory("You move east");
+			model.addHistory(output.getAction("move east"));
 		}
 		else if(specifier.equals("west")) {
 			//execute code for moving west
-			model.addHistory("You move west");
+			model.addHistory(output.getAction("move west"));
 		}
 		else {
-			model.addHistory("Yes, but where?");
+			model.addHistory("That's not a direction.");
 		}
 	}
 	
+	//the description command method
+	private void describe(String specifier, UserDataModel model) {
+		SystemOutput output = Main.getSystemOutput();
+		
+		if (output.getDescription(specifier) == null) {
+			model.addHistory("I don't know what that is.");
+		}
+		else {
+			model.addHistory(output.getDescription(specifier));
+		}
+	}
 }
 
