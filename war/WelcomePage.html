@@ -1,12 +1,40 @@
 <html>
 	<head>
 		<title>Proceed With Caution</title>
+		<style type="text/css">
+		div{
+		position: relative;
+		
+		}
+		
+		.start{
+		position: absolute;
+  		top: 50%;
+ 		left: 50%;
+  		transform: translate(-50%, -50%);
+  		-ms-transform: translate(-50%, -50%);
+  		background-color: #555;
+  		color: white;
+  		font-size: 16px;
+  		padding: 12px 24px;
+  		border: none;
+  		cursor: pointer;
+  		border-radius: 5px;
+		}
+		.start:hover{
+		bakcground-color: black;
+		}
+		</style>
+		
 	</head>
 
 	<body>
-		<img src="https://i.pinimg.com/originals/44/32/1a/44321a0e2d00fea8fa8db0606d963c02.jpg" alt="backround" width="100%" height = "100%">
+		
 		<div>
-			<input type="submit" onclick="window.location.href = 'http://localhost:8081/ProceedWithCaution/SignIn';" value="Start Game"/>
+			
+			<img src="https://i.pinimg.com/originals/44/32/1a/44321a0e2d00fea8fa8db0606d963c02.jpg" alt="backround" width="100%" height = "100%">
+			<button class="start" type = "submit" onclick = "window.location.href = 'http://localhost:8081/ProceedWithCaution/SignIn';" value="Start Game"> Begin</button>
 		</div>
+	
 	</body>
 </html>
