@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 import world.*;
+import world.Character;
 
 public class EntityTest {
 	private Entity entity;
@@ -69,5 +70,59 @@ public class EntityTest {
 	public void testSetArmor() {
 		entity.setArmor(0);
 		assertEquals(entity.getArmor(), 0);
+	}
+	
+	@Test
+	public void testAttack() {
+		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		Character character = new Character(room);
+		Entity enemy = new Entity(room, 50, 10, 0);
+		character.attack(enemy);
+		
+		assertEquals(40, enemy.getHealth());
+	}
+	
+	@Test
+	public void testFleeSuccess() {
+		Room startingRoom = new Room(Terrain.beach, new ArrayList<Item>());
+		Room currentRoom = new Room(Terrain.hostile, new ArrayList<Item>());
+		
+		Character character = new Character(startingRoom);
+		character.setLocation(currentRoom);
+		character.flee();
+		
+		Room location = character.getLocation();
+		assertEquals(location, startingRoom);
+	}
+	
+	@Test
+	public void testFleeFail() {
+		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		
+		Character character = new Character(room);
+		character.flee();
+		
+		Room location = character.getLocation();
+		assertEquals(location, room);
+	}
+	
+	@Test
+	public void testIsDoneContinue() {
+		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		Entity attacker = new Entity(room, 15, 10, 0);
+		Entity enemy = new Entity(room, 15, 0, 0);
+		attacker.attack(enemy);
+		
+		assertEquals(attacker.isDone(enemy), false);
+	}
+	
+	@Test
+	public void testIsDoneFinished() {
+		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		Entity attacker = new Entity(room, 15, 10, 0);
+		Entity enemy = new Entity(room, 10, 0, 0);
+		attacker.attack(enemy);
+		
+		assertEquals(attacker.isDone(enemy), true);
 	}
 }
