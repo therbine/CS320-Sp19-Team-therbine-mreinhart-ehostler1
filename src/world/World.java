@@ -61,4 +61,9 @@ public class World {
 		}
 		return new Pair(x, y);
 	}
+	
+	public void setPlayerCoords(int x, int y) {
+		Room room = roomArr[x][y];
+		character.setLocation(room);
+	}
 }
