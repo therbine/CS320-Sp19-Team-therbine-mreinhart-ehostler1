@@ -50,12 +50,7 @@
 	<body>
 	`	
 		<div class = "gamepage">
-		<c:if test="${! empty player_x}">
-			<div class="error">${player_x}</div>
-		</c:if>
-		<c:if test="${! empty player_y}">
-			<div class="error">${player_y}</div>
-		</c:if>
+		
 		<!-- the display of user input and server output -->
 		<div class = "container">${gameinfo.getGameDisplay()}</div>
 		
