@@ -35,7 +35,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		<div id="Sub_head">
-		<h1> Please Sing in or Create a new Account</h1>
+		<h1> Please Sign in or Create a new Account</h1>
 		</div>
 		
 		<form action="${pageContext.servletContext.contextPath}/SignIn" method="post">
