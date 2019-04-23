@@ -15,7 +15,7 @@ public class World {
 		populate();
 		
 		// Create character
-		character = new Character(roomArr[0][1]);
+		character = new Character(roomArr[1][0]);
 		
 		// Spawn enemies
 		enemy1 = new Entity(roomArr[2][2], 50, 10, 0);
