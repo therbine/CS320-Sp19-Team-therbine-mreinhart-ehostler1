@@ -9,11 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
-import edu.ycp.cs320.booksdb.model.Pair;
-
 public class DerbyDatabase implements IDatabase {
 	static {
 		try {
@@ -30,9 +25,8 @@ public class DerbyDatabase implements IDatabase {
 	private static final int MAX_ATTEMPTS = 10;
 
 	
-	// transaction that retrieves a Book, and its Author by Title
 	@Override
-	public List<Pair<Author, Book>> findAuthorAndBookByTitle(final String title) {
+	public String PasswordByUsernameQuery(final String username) {
 		return executeTransaction(new Transaction<List<Pair<Author,Book>>>() {
 			@Override
 			public List<Pair<Author, Book>> execute(Connection conn) throws SQLException {
@@ -42,7 +36,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt = conn.prepareStatement(
 							"select authors.*, books.* " +
-							"  from  authors, books, bookAuthors " +
+							"  from  accounts " +
 							"  where books.title = ? " +
 							"    and authors.author_id = bookAuthors.author_id " +
 							"    and books.book_id     = bookAuthors.book_id"
