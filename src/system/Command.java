@@ -21,6 +21,7 @@ public class Command {
 		commands.add("help");
 		commands.add("move");
 		commands.add("describe");
+		commands.add("map");
 		
 		//SPECIFIERS
 		specifiers.add("");
@@ -85,6 +86,9 @@ public class Command {
 		}
 		else if(command.equals("describe")) {
 			describe(specifier, model);
+		}
+		else if(command.equals("map")) {
+			map(specifier, model);
 		}
 	}
 
@@ -159,6 +163,15 @@ public class Command {
 		}
 		else {
 			model.addHistory(output.getDescription(specifier));
+		}
+	}private void map(String specifier, UserDataModel model) {
+		if(specifier.equals("none")) {
+			
+			model.getWorld().togglemap();
+			
+		}
+		else {
+			model.addHistory("-No Specifiers Available-");
 		}
 	}
 }

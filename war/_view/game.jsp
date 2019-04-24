@@ -11,11 +11,14 @@
 		.error {
 			color: red;
 		}
+		body{
+		overflow: hidden;
+		}
 		.gamepage {
 		color: white;
 		background-color: #000000;
   		width: 100%;
-  		height: 100%;
+  		height: 90%;
   		max-width: 400px;
   		padding: 3em;
   		overflow: auto;
@@ -64,20 +67,22 @@
 		<!-- 3X3 map which WILL show the players position  -->
 		<div class = "map">
 	
-			<table>
+			<c:if test="${! empty map}">
+				<table>
 				
-				<%
-				Integer location_x = (Integer)request.getAttribute("player_x");
-				Integer location_y = (Integer)request.getAttribute("player_y");	
-				for(Integer y = 2; y >= 0; y--){
-					%><tr><%
-					for(Integer x = 0; x <= 2; x++){
-						if(location_x == x && location_y == y){
+					<%
+					Integer location_x = (Integer)request.getAttribute("player_x");
+					Integer location_y = (Integer)request.getAttribute("player_y");
+				
+					for(Integer y = 2; y >= 0; y--){
+						%><tr><%
+						for(Integer x = 0; x <= 2; x++){
+							if(location_x == x && location_y == y){
 							%>
 								<td class = "locationofplayer"> </td>
 							<%
-						}
-						else{
+							}
+							else{
 							%>
 								<td class = "otherlocations"> </td>
 							<%
@@ -87,7 +92,7 @@
 				}%>
 			
 			</table>
-		
+			</c:if>
 		</div>
 	</body>
 	

@@ -8,6 +8,7 @@ public class World {
 	private Entity enemy1;
 	private Entity enemy2;
 	private Entity enemy3;
+	private Object map;
 	
 	public World() {
 		// Initialize rooms
@@ -21,6 +22,8 @@ public class World {
 		enemy1 = new Entity(roomArr[2][2], 50, 10, 0);
 		enemy2 = new Entity(roomArr[1][0], 40, 15, 0);
 		enemy3 = new Entity(roomArr[0][2], 30, 20, 0);
+		
+		map = null;
 	}
 	
 	public void populate() {
@@ -65,5 +68,16 @@ public class World {
 	public void setPlayerCoords(int x, int y) {
 		Room room = roomArr[x][y];
 		character.setLocation(room);
+	}
+	public void togglemap() {
+		if(map == null) {
+			map = 1;
+		}else {
+			map = null;
+		}
+	}
+	
+	public Object getMap() {
+		return map;
 	}
 }
