@@ -66,14 +66,21 @@
 		</div>
 		<!-- 3X3 map which WILL show the players position  -->
 		<div class = "map">
-	
+			<%
+			Integer location_x = (Integer)request.getAttribute("player_x");
+			Integer location_y = (Integer)request.getAttribute("player_y");
+			%>
+			<div class="btn-group">
+  			<button name = "move" type = "submit" value = "north">North</button>
+  			<button name = "move" type = "submit" value = "south">South</button>
+  			<button name = "move" type = "submit" value = "east">East</button>
+  			<button name = "move" type = "submit" value = "west">West</button>
+			</div>
+			
 			<c:if test="${! empty map}">
 				<table>
-				
+					
 					<%
-					Integer location_x = (Integer)request.getAttribute("player_x");
-					Integer location_y = (Integer)request.getAttribute("player_y");
-				
 					for(Integer y = 2; y >= 0; y--){
 						%><tr><%
 						for(Integer x = 0; x <= 2; x++){
@@ -85,6 +92,7 @@
 							else{
 							%>
 								<td class = "otherlocations"> </td>
+								
 							<%
 						}
 					}
