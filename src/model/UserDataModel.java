@@ -1,9 +1,12 @@
 package model;
 
 import java.util.LinkedList;
+import java.io.Serializable;
 import world.*;
 
-public class UserDataModel {
+public class UserDataModel implements Serializable {
+	private static final long serialVersionUID = 2L;
+	
 	private LinkedList<String> outputHistory;
 	private String lastPlayerInput;
 	private String gameDisplay;
