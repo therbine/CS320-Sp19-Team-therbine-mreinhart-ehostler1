@@ -5,16 +5,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import world.World;
-
 public class ConvertObject {
-	public byte[] getByteArrayObject(World world){
+	public byte[] getByteArrayObject(Object object){
         byte[] byteArrayObject = null;
         
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream(); // byte array output stream
             ObjectOutputStream oos = new ObjectOutputStream(bos); // object output stream
-            oos.writeObject(world);
+            oos.writeObject(object);
             
             oos.close();
             bos.close();
@@ -26,8 +24,8 @@ public class ConvertObject {
         return byteArrayObject;
     }
 	
-	public World getJavaObject(byte[] convertObject){
-        World objWorld = null;
+	public UserDataModel getJavaObject(byte[] convertObject){
+        UserDataModel obj = null;
         
         ByteArrayInputStream bais; // byte array input stream
         ObjectInputStream ins; // object input stream
@@ -36,12 +34,12 @@ public class ConvertObject {
         	bais = new ByteArrayInputStream(convertObject);
         
         	ins = new ObjectInputStream(bais);
-        	objWorld =(World)ins.readObject();
+        	obj =(UserDataModel)ins.readObject();
         
         	ins.close();
         } catch (Exception e) {
         	e.printStackTrace();
         }
-        return objWorld;
+        return obj;
 	}
 }

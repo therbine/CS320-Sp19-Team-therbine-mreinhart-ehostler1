@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ycp.cs320.booksdb.persist.DBUtil;
+import edu.ycp.cs320.booksdb.persist.DerbyDatabase.Transaction;
+
 public class DerbyDatabase implements IDatabase {
 	static {
 		try {
@@ -35,11 +38,9 @@ public class DerbyDatabase implements IDatabase {
 				
 				try {
 					stmt = conn.prepareStatement(
-							"select authors.*, books.* " +
+							"select password " +
 							"  from  accounts " +
-							"  where books.title = ? " +
-							"    and authors.author_id = bookAuthors.author_id " +
-							"    and books.book_id     = bookAuthors.book_id"
+							"  where username = ? "
 					);
 					stmt.setString(1, username);
 					
@@ -58,7 +59,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					// check if the title was found
 					if (!found) {
-						System.out.println("<" + username + "> was not found in the books table");
+						System.out.println("<" + username + "> was not found in the accounts table");
 					}
 					
 					return result;
@@ -83,12 +84,9 @@ public class DerbyDatabase implements IDatabase {
 				// try to retrieve Authors and Books based on Author's last name, passed into query
 				try {
 					stmt = conn.prepareStatement(
-							"select authors.*, books.* " +
-							"  from  authors, books, bookAuthors " +
-							"  where authors.lastname = ? " +
-							"    and authors.author_id = bookAuthors.author_id " +
-							"    and books.book_id     = bookAuthors.book_id "   +
-							"  order by books.title asc, books.published asc"
+							"select bytes " +
+							"  from  accounts " +
+							"  where username = ? "
 					);
 					stmt.setString(1, username);
 					
@@ -99,7 +97,6 @@ public class DerbyDatabase implements IDatabase {
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
 						byte[] bais = resultSet.getBytes(1);
-						
 						result.add(bais);
 					}
 					
@@ -107,6 +104,93 @@ public class DerbyDatabase implements IDatabase {
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public Integer insertNewUser(final String username, final String password) {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;		
+				
+				ResultSet resultSet1 = null;
+				ResultSet resultSet3 = null;		
+				
+				// for saving author ID and book ID
+				Integer account_id = -1;
+
+				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				try {
+					stmt1 = conn.prepareStatement(
+							"select password from accounts " +
+							"  where username = ? "
+					);
+					stmt1.setString(1, username);
+					
+					// execute the query, get the result
+					resultSet1 = stmt1.executeQuery();
+
+					
+					// if Author was found then save author_id					
+					if (resultSet1.next())
+					{
+						account_id = resultSet1.getInt(1);
+						System.out.println("Account <" + username + "> found with password: " + password);						
+					}
+					else
+					{
+						System.out.println("Author <" + username + "> not found");
+				
+						// if the Author is new, insert new Author into Authors table
+						if (account_id <= 0) {
+							// prepare SQL insert statement to add Author to Authors table
+							stmt2 = conn.prepareStatement(
+									"insert into accounts (username, password) " +
+									"  values(?, ?) "
+							);
+							stmt2.setString(1, username);
+							stmt2.setString(2, password);
+							
+							// execute the update
+							stmt2.executeUpdate();
+							
+							System.out.println("New account <" + username + "> inserted in Authors table");						
+						
+							// try to retrieve author_id for new Author - DB auto-generates author_id
+							stmt3 = conn.prepareStatement(
+									"select account_id from accounts " +
+									"  where username = ? "
+							);
+							stmt3.setString(1, username);
+							
+							// execute the query							
+							resultSet3 = stmt3.executeQuery();
+							
+							// get the result - there had better be one							
+							if (resultSet3.next())
+							{
+								account_id = resultSet3.getInt(1);
+								System.out.println("New account <" + username + "> ID: " + account_id);						
+							}
+							else	// really should throw an exception here - the new author should have been inserted, but we didn't find them
+							{
+								System.out.println("New account <" + username + "> not found in Authors table (ID: " + account_id);
+							}
+						}
+					}
+					
+					return account_id;
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
 				}
 			}
 		});
@@ -176,51 +260,25 @@ public class DerbyDatabase implements IDatabase {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;				
+				PreparedStatement stmt = null;
 			
 				try {
-					stmt1 = conn.prepareStatement(
-						"create table authors (" +
-						"	author_id integer primary key " +
+					stmt = conn.prepareStatement(
+						"create table accounts (" +
+						"	account_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
-						"	lastname varchar(40)," +
-						"	firstname varchar(40)" +
+						"	username varchar(40)," +
+						"	password varchar(40)" +
+						"   bytes varchar(40)" +
 						")"
 					);	
-					stmt1.executeUpdate();
+					stmt.executeUpdate();
 					
-					System.out.println("Authors table created");
+					System.out.println("Accounts table created");				
 					
-					stmt2 = conn.prepareStatement(
-							"create table books (" +
-							"	book_id integer primary key " +
-							"		generated always as identity (start with 1, increment by 1), " +
-//							"	author_id integer constraint author_id references authors, " +  	// this is now in the BookAuthors table
-							"	title varchar(70)," +
-							"	isbn varchar(15)," +
-							"   published integer" +
-							")"
-					);
-					stmt2.executeUpdate();
-					
-					System.out.println("Books table created");					
-					
-					stmt3 = conn.prepareStatement(
-							"create table bookAuthors (" +
-							"	book_id   integer constraint book_id references books, " +
-							"	author_id integer constraint author_id references authors " +
-							")"
-					);
-					stmt3.executeUpdate();
-					
-					System.out.println("BookAuthors table created");					
-										
 					return true;
 				} finally {
-					DBUtil.closeQuietly(stmt1);
-					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt);
 				}
 			}
 		});
@@ -231,64 +289,32 @@ public class DerbyDatabase implements IDatabase {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<String> usernameList;
-				List<String> passwordList;
-				List<byte[]> byteList;
+				List<Account> accountList;
 				
 				try {
-					usernameList = InitialData.getUsernames();
-					passwordList = InitialData.getPasswords();
-					byteList = InitialData.getBytes();
+					accountList = InitialData.getAccounts();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertUsername = null;
-				PreparedStatement insertPassword = null;
-				PreparedStatement insertBytes = null;
+				PreparedStatement insertAccount = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
-					insertUsername = conn.prepareStatement("insert into authors (lastname, firstname) values (?, ?)");
-					for (String username : usernameList) {
-//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertUsername.setString(1, username);
-						insertUsername.addBatch();
+					insertAccount = conn.prepareStatement("insert into accounts (username, password, bytes) values (?, ?, ?)");
+					for (Account account : accountList) {
+						insertAccount.setString(1, account.getUsername());
+						insertAccount.setString(2, account.getPassword());
+						insertAccount.setBytes(3, account.getBytes());
+						insertAccount.addBatch();
 					}
-					insertUsername.executeBatch();
+					insertAccount.executeBatch();
 					
-					System.out.println("Authors table populated");
-					
-					// must completely populate Books table before populating BookAuthors table because of primary keys
-					insertPassword = conn.prepareStatement("insert into books (title, isbn, published) values (?, ?, ?)");
-					for (String password : passwordList) {
-//						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
-//						insertBook.setInt(1, book.getAuthorId());	// this is now in the BookAuthors table
-						insertPassword.setString(1, password);
-						insertPassword.setString(2, username);
-						insertPassword.addBatch();
-					}
-					insertPassword.executeBatch();
-					
-					System.out.println("Books table populated");					
-					
-					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table
-					// since this table consists entirely of foreign keys, with constraints applied
-					insertBytes = conn.prepareStatement("insert into bookAuthors (book_id, author_id) values (?, ?)");
-					for (byte[] bais : byteList) {
-						insertBytes.setBytes(1, bais);
-						insertBytes.setString(2, username);
-						insertBytes.addBatch();
-					}
-					insertBytes.executeBatch();
-					
-					System.out.println("BookAuthors table populated");					
+					System.out.println("Accounts table populated");					
 					
 					return true;
 				} finally {
-					DBUtil.closeQuietly(insertUsername);
-					DBUtil.closeQuietly(insertPassword);
-					DBUtil.closeQuietly(insertBytes);					
+					DBUtil.closeQuietly(insertAccount);		
 				}
 			}
 		});
@@ -303,6 +329,6 @@ public class DerbyDatabase implements IDatabase {
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
 		
-		System.out.println("Library DB successfully initialized!");
+		System.out.println("Account DB successfully initialized!");
 	}
 }
