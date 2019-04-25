@@ -1,9 +1,11 @@
-package world;
+package model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import world.World;
 
 public class ConvertObject {
 	public byte[] getByteArrayObject(World world){
