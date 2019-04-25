@@ -63,7 +63,7 @@ public class SignInPageServlet extends HttpServlet {
 					//set the player
 					gameModel.setPlayer(signInModel.getGivenUsername());
 					if(gameModel.getGameOfCurrentPlayer() == null) {
-						gameModel.createNewGame(signInModel.getGivenUsername());
+						gameModel.createNewGame();
 					}
 					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 				}
