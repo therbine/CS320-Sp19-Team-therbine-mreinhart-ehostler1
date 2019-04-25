@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.persist.DBUtil;
+import edu.ycp.cs320.booksdb.model.Author;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -109,6 +110,66 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
+	public List<Account> removeAccountByUsername(final String username) {
+		return executeTransaction(new Transaction<List<Account>>() {
+			@Override
+			public List<Account> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;					
+				
+				ResultSet resultSet    = null;
+				
+				try {				
+					// now get the Book(s) to be deleted
+					// we will need the book_id to remove associated entries in BookAuthors (junction table)
+				
+					stmt1 = conn.prepareStatement(
+							"select books.* " +
+							"  from  books " +
+							"  where books.title = ? "
+					);
+					
+					// get the Book(s)
+					stmt1.setString(1, username);
+					resultSet = stmt1.executeQuery();
+					
+					// assemble list of Books from query
+					List<Account> accounts = new ArrayList<Account>();					
+				
+					while (resultSet.next()) {
+						Account account = new Account();
+						
+						loadAccount(account, resultSet, 1);
+						accounts.add(account);
+					}
+					
+					// first delete entries in BookAuthors junction table
+					// can't delete entries in Books or Authors tables while they have foreign keys in junction table
+					// prepare to delete the junction table entries (bookAuthors)
+					stmt2 = conn.prepareStatement(
+							"delete from accounts " +
+							"  where username = ? "
+					);
+					
+					// delete the junction table entries from the DB for this title
+					// this works if there are not multiple books with the same name
+					stmt2.setString(1, username);
+					stmt2.executeUpdate();
+					
+					System.out.println("Deleted account <" + username + "> from DB");									
+					
+					return accounts;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);				
+				}
+			}
+		});
+	}
+	
+	@Override
 	public Integer insertNewUser(final String username, final String password) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
@@ -193,6 +254,12 @@ public class DerbyDatabase implements IDatabase {
 				}
 			}
 		});
+	}
+	
+	private void loadAccount(Account account, ResultSet resultSet, int index) throws SQLException {
+		account.setAccountId(resultSet.getInt(index++));
+		account.setUsername(resultSet.getString(index++));
+		account.setPassword(resultSet.getString(index++));
 	}
 	
 	
