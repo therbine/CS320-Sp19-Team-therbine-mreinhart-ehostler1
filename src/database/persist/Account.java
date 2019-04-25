@@ -1,6 +1,7 @@
 package database.persist;
 
 public class Account {
+	private Integer accountId;
 	private String username;
 	private String password;
 	private byte[] bytes;
@@ -21,6 +22,10 @@ public class Account {
 		this.bytes = bytes;
 	}
 	
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -31,5 +36,9 @@ public class Account {
 	
 	public byte[] getBytes() {
 		return bytes;
+	}
+	
+	public Integer getAccountId() {
+		return accountId;
 	}
 }

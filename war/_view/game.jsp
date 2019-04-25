@@ -51,7 +51,7 @@
 		</style> 
 	</head>
 	<body>
-	`	
+		
 		<div class = "gamepage">
 		
 		<!-- the display of user input and server output -->
