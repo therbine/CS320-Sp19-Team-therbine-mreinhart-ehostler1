@@ -9,8 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.persist.DBUtil;
-import edu.ycp.cs320.booksdb.persist.DerbyDatabase.Transaction;
+import database.persist.DBUtil;
 
 public class DerbyDatabase implements IDatabase {
 	static {
