@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
+import database.persist.Account;
 
 public class InitialData {
 
+/*
 	// reads initial Author data from CSV file and returns a List of Authors
 	public static List<Author> getAuthors() throws IOException {
 		List<Author> authorList = new ArrayList<Author>();
@@ -100,4 +99,38 @@ public class InitialData {
 			readBookAuthors.close();
 		}
 	}
+*/
+	
+	// reads initial Account data from CSV file and returns a List of Accounts
+		public static List<Account> getAccounts() throws IOException {
+			List<Account> accountList = new ArrayList<Account>();
+			ReadCSV readAccounts = new ReadCSV("Accounts.csv");
+			try {
+				// auto-generated primary key for Accounts table
+				Integer accountId = 1;
+				while (true) {
+					List<String> tuple = readAccounts.next();
+					if (tuple == null) {
+						break;
+					}
+					Iterator<String> i = tuple.iterator();
+					Account account = new Account();
+
+					// read account ID from CSV file, but don't use it
+					// it's there for reference purposes, just make sure that it is correct
+					// when setting up other CSV files				
+					Integer.parseInt(i.next());
+					// auto-generate account ID, instead
+					account.setAccountId(accountId++);
+					account.setUsername(i.next());
+					account.setPassword(i.next());
+					account.setBytes(i.next().getBytes());
+					accountList.add(account);
+				}
+				System.out.println("accountList loaded from CSV file");
+				return accountList;
+			} finally {
+				readAccounts.close();
+			}
+		}
 }
