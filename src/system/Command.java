@@ -164,7 +164,10 @@ public class Command {
 		else {
 			model.addHistory(output.getDescription(specifier));
 		}
-	}private void map(String specifier, UserDataModel model) {
+	}
+	
+	//the map command method
+	private void map(String specifier, UserDataModel model) {
 		if(specifier.equals("none")) {
 			
 			model.getWorld().togglemap();
