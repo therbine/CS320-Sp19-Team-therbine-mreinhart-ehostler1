@@ -1,12 +1,15 @@
 package controller;
 
 import model.SignInPageModel;
+import database.persist.DerbyDatabase;
 
 public class SignInPageController {
 	private SignInPageModel model;
+	private DerbyDatabase db;
 	
 	public void setModel(SignInPageModel model) {
 		this.model = model;
+		this.db = new DerbyDatabase();
 	}
 	
 	//method to create a new account using the given username and password
@@ -14,11 +17,12 @@ public class SignInPageController {
 		String newUsername = model.getGivenUsername();
 		String newPassword = model.getGivenPassword();
 		
-		if(model.checkForUser(newUsername)) {
+		if(db.PasswordByUsernameQuery(newUsername) != null) {
 			throw new Exception("The username " + newUsername + " is already in use."); 
 		}
-		
-		model.addUser(newUsername, newPassword);
+		else {
+			db.insertNewUser(newUsername, newPassword);
+		}
 	}
 	
 	//method to delete an existing account with the given username, if the password is correct
