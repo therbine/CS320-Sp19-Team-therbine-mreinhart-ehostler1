@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.persist.DBUtil;
-import edu.ycp.cs320.booksdb.model.Author;
 
 
 public class DerbyDatabase implements IDatabase {
@@ -111,6 +110,56 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
+	public Integer updateUserData(final String username, final byte[] bytes) {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				
+				ResultSet resultSet1 = null;
+				ResultSet resultSet2 = null;
+				
+				Integer account_id = -1;
+
+				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				try {
+					stmt1 = conn.prepareStatement(
+							"update accounts " +
+							"  set bytes = ? " +
+							"  where username = ? "
+					);
+					stmt1.setBytes(1, bytes);
+					stmt1.setString(2, username);
+					
+					// execute the query, get the result
+					resultSet1 = stmt1.executeQuery();
+					
+					stmt2 = conn.prepareStatement(
+							"select account_id " +
+							"  from accounts " +
+							"  where username = ? "
+					);
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						account_id = resultSet2.getInt(1);
+					}
+					return account_id;
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);					
+					DBUtil.closeQuietly(resultSet2);
+				}
+			}
+		});
+	}
+	
+	
+	@Override
 	public List<Account> removeAccountByUsername(final String username) {
 		return executeTransaction(new Transaction<List<Account>>() {
 			@Override
@@ -125,9 +174,9 @@ public class DerbyDatabase implements IDatabase {
 					// we will need the book_id to remove associated entries in BookAuthors (junction table)
 				
 					stmt1 = conn.prepareStatement(
-							"select books.* " +
-							"  from  books " +
-							"  where books.title = ? "
+							"select accounts.* " +
+							"  from  accounts " +
+							"  where username = ? "
 					);
 					
 					// get the Book(s)
@@ -261,6 +310,7 @@ public class DerbyDatabase implements IDatabase {
 		account.setAccountId(resultSet.getInt(index++));
 		account.setUsername(resultSet.getString(index++));
 		account.setPassword(resultSet.getString(index++));
+		account.setBytes(resultSet.getBytes(index++));
 	}
 	
 	
@@ -313,7 +363,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo.java under CS320_LibraryExample_Lab06->edu.ycp.cs320.sqldemo
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320-2019-LibraryExample-DB/library.db;create=true");		
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320-2019-ProceedWithCaution-DB/game.db;create=true");		
 		
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
