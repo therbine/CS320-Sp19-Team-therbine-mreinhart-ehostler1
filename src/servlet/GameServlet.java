@@ -47,6 +47,7 @@ public class GameServlet extends HttpServlet {
 		
 		// holds the error message text, if there is any
 		String errorMessage = null;
+		
 		//update user input
 		userDataModel.setPlayerInput(req.getParameter("userInput"));
 		

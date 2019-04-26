@@ -4,9 +4,13 @@ public class GameModel {
 	private static UserDataModel gameOfCurrentPlayer;
 	private static String currentPlayer;
 	
+	//game for admin testing that does not persist on the database
+	private static UserDataModel gameAdmin;
+	
 	public GameModel() {
 		currentPlayer = null;
 		gameOfCurrentPlayer = null;
+		gameAdmin = new UserDataModel();
 	}
 	
 	public UserDataModel getGameOfCurrentPlayer() {
@@ -14,18 +18,22 @@ public class GameModel {
 	}
 	
 	public void setGameOfCurrentPlayer(UserDataModel game) {
-		this.gameOfCurrentPlayer = game;
+		gameOfCurrentPlayer = game;
 	}
 	
 	public String getPlayer() {
 		return currentPlayer;
 	}
 	
-	public void setPlayer(String currentPlayer) {
-		this.currentPlayer = currentPlayer;
+	public void setPlayer(String Player) {
+		currentPlayer = Player;
 	}
 	
 	public void createNewGame() {
-		this.gameOfCurrentPlayer = new UserDataModel();
+		gameOfCurrentPlayer = new UserDataModel();
+	}
+	
+	public UserDataModel getGameAdmin() {
+		return gameAdmin;
 	}
 }

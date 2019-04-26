@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.GameController;
 import controller.SignInPageController;
 import model.GameModel;
 import model.SignInPageModel;
@@ -36,10 +37,12 @@ public class SignInPageServlet extends HttpServlet {
 		
 		// create SignInPage controller - controller does not persist between requests
 		// must recreate it each time a Post comes in
-		SignInPageController controller = new SignInPageController();
+		SignInPageController signInController = new SignInPageController();
+		GameController gameController = new GameController();
 		
 		// assign model reference to controller so that controller can access model
-		controller.setModel(signInModel);
+		signInController.setModel(signInModel);
+		gameController.setModel(gameModel);
 		
 		// holds the error message text, if there is any
 		String errorMessage = null;
@@ -53,7 +56,7 @@ public class SignInPageServlet extends HttpServlet {
 			try {
 				//perform operations for sign in
 				
-				if(controller.verifySignInAccount()) {
+				if(signInController.verifySignInAccount()) {
 					//credentials are correct, begin request for game page and user data
 					/*
 					 * 
@@ -62,9 +65,8 @@ public class SignInPageServlet extends HttpServlet {
 					 */
 					//set the player
 					gameModel.setPlayer(signInModel.getGivenUsername());
-					if(gameModel.getGameOfCurrentPlayer() == null) {
-						gameModel.createNewGame();
-					}
+					gameController.loadGame();
+					
 					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 				}
 				else {
@@ -77,7 +79,7 @@ public class SignInPageServlet extends HttpServlet {
 		} else if (req.getParameter("createAccountRequest") != null) {
 			try {
 				//perform operations for creating a new account
-				controller.newAccount();
+				signInController.newAccount();
 				
 			} catch (Exception e) {
 				errorMessage = e.getMessage();
@@ -85,7 +87,7 @@ public class SignInPageServlet extends HttpServlet {
 		} else if (req.getParameter("deleteAccountRequest") != null) {
 			try {
 				//perform operations for deleting a account
-				controller.deleteAccount();
+				signInController.deleteAccount();
 				
 			} catch (Exception e) {
 				errorMessage = e.getMessage();
