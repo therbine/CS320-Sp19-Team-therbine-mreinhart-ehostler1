@@ -45,9 +45,10 @@ public class GameController {
 		
 		//for the admin account
 		if(model.getPlayer().equals("admin")) {
-			throw new Exception("Can not save the game of the admin account. This account exists only in the fake database. It does not persist.");
+			model.setGameAdmin(model.getGameOfCurrentPlayer());
 		}
-		
-		db.updateUserData(model.getPlayer(), converter.getByteArrayObject(model.getGameOfCurrentPlayer()));
+		else {
+			db.updateUserData(model.getPlayer(), converter.getByteArrayObject(model.getGameOfCurrentPlayer()));
+		}
 	}
 }

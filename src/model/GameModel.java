@@ -36,4 +36,8 @@ public class GameModel {
 	public UserDataModel getGameAdmin() {
 		return gameAdmin;
 	}
+	
+	public void setGameAdmin(UserDataModel adminGame) {
+		gameAdmin = adminGame;
+	}
 }
