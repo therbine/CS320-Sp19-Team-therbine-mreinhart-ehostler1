@@ -76,7 +76,7 @@ public class Command {
 	
 
 	//executes the needed command method
-	private void execute(String command, String specifier, UserDataModel model) {
+	public void execute(String command, String specifier, UserDataModel model) {
 		//execute the necessary actions of the given valid command
 		if(command.equals("help")) {
 			help(specifier, model);

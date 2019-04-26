@@ -59,24 +59,30 @@
 		<div class = "container">${gameinfo.getGameDisplay()}</div>
 		
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+		
+			<button name = "Start" type = "submit" >Start Game</button>
+			<button name = "Save" type = "submit" >Save Game</button>  
+			<button name = "Delete" type = "submit"> Delete Game</button>
 			
-					<div class="Comand">>  
-						 <input type="text" name="userInput" size="12" value="" autofocus/></div>
-			
+			<div class="btn-group">
+  				<button name = "move" type = "submit" value = "north">North</button>
+  				<button name = "move" type = "submit" value = "south">South</button>
+  				<button name = "move" type = "submit" value = "east">East</button>
+  				<button name = "move" type = "submit" value = "west">West</button>
+			</div>
+			<div class="Comand">>	
+				<input type="text" name="userInput" size="12" value="" autofocus/></div>
+						 
 		</form>
 		</div>
 		<!-- 3X3 map which WILL show the players position  -->
 		<div class = "map">
+			
 			<%
 			Integer location_x = (Integer)request.getAttribute("player_x");
 			Integer location_y = (Integer)request.getAttribute("player_y");
 			%>
-			<div class="btn-group">
-  			<button name = "move" type = "submit" value = "north">North</button>
-  			<button name = "move" type = "submit" value = "south">South</button>
-  			<button name = "move" type = "submit" value = "east">East</button>
-  			<button name = "move" type = "submit" value = "west">West</button>
-			</div>
+			
 			
 			<c:if test="${! empty map}">
 				<table>

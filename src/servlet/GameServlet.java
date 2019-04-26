@@ -11,7 +11,7 @@ import controller.GameController;
 import controller.UserDataController;
 import model.GameModel;
 import model.UserDataModel;
-
+import system.Command;
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +34,7 @@ public class GameServlet extends HttpServlet {
 		//get the persisted sign in page model
 		GameModel gameModel = main.Main.getGameModel();
 		UserDataModel userDataModel = gameModel.getGameOfCurrentPlayer();
+		Command command = main.Main.getCommand();
 				
 		// create SignInPage controller - controller does not persist between requests
 		// must recreate it each time a Post comes in
@@ -48,6 +49,11 @@ public class GameServlet extends HttpServlet {
 		String errorMessage = null;
 		//update user input
 		userDataModel.setPlayerInput(req.getParameter("userInput"));
+		
+		//button commands
+		if(req.getParameter("move") != null) {
+			command.execute("move",req.getParameter("move"), userDataModel);
+		}
 		
 		//command action
 		main.Main.getCommand().action(userDataModel);
