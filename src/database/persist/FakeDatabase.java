@@ -1,4 +1,4 @@
-package database.persist;
+/*package database.persist;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -164,3 +164,4 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 }
+*/
