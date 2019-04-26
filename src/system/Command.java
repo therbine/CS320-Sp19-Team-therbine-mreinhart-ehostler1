@@ -59,7 +59,9 @@ public class Command {
 		if(commands.contains(command)) {
 			if(specifiers.contains(specifier)) {
 				//correct command and specifier
+				model.addHistory(input);
 				execute(command, specifier, model);
+				
 			}
 			else {
 				//incorrect specifier
