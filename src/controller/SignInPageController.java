@@ -1,9 +1,11 @@
 package controller;
 
 import model.SignInPageModel;
+import database.persist.DerbyDatabase;
 
 public class SignInPageController {
 	private SignInPageModel model;
+	private DerbyDatabase db;
 	
 	public void setModel(SignInPageModel model) {
 		this.model = model;
@@ -14,11 +16,12 @@ public class SignInPageController {
 		String newUsername = model.getGivenUsername();
 		String newPassword = model.getGivenPassword();
 		
-		if(model.checkForUser(newUsername)) {
+		if(!db.PasswordByUsernameQuery(newUsername).isEmpty() || newUsername.equals("admin")) {
 			throw new Exception("The username " + newUsername + " is already in use."); 
 		}
-		
-		model.addUser(newUsername, newPassword);
+		else {
+			db.insertNewUser(newUsername, newPassword);
+		}
 	}
 	
 	//method to delete an existing account with the given username, if the password is correct
@@ -26,14 +29,14 @@ public class SignInPageController {
 		String oldUsername = model.getGivenUsername();
 		String oldPassword = model.getGivenPassword();
 		
-		if(!model.checkForUser(oldUsername)) {
+		if(db.PasswordByUsernameQuery(oldUsername).isEmpty()) {
 			throw new Exception("The user " + oldUsername + " does not exist.");
 		}
-		if(!model.getPassword(oldUsername).equals(oldPassword)) {
+		if(!db.PasswordByUsernameQuery(oldUsername).contains(oldPassword)) {
 			throw new Exception("The given password is incorrect.");
 		}
 		
-		model.deleteUser(oldUsername);
+		db.removeAccountByUsername(oldUsername);
 	}
 	
 	//method to check if username and password are correct
@@ -43,10 +46,16 @@ public class SignInPageController {
 		String signInUsername = model.getGivenUsername();
 		String signInPassword = model.getGivenPassword();
 		
-		if(!model.checkForUser(signInUsername)) {
+		//POSSIBLY TEMPORARY allow sign in of the admin admin username and password credentials
+		boolean adminAccountActive = true;
+		if(signInUsername.equals("admin") && signInPassword.equals("admin") && adminAccountActive) {
+			return true;
+		}
+		
+		if(db.PasswordByUsernameQuery(signInUsername).isEmpty()) {
 			throw new Exception("The user " + signInUsername + " does not exist.");
 		}
-		if(model.getPassword(signInUsername).equals(signInPassword)) {
+		if(db.PasswordByUsernameQuery(signInUsername).contains(signInPassword)) {
 			return true;
 		}
 		else {

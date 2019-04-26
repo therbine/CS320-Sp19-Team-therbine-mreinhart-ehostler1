@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.UserDataModel;
-import world.Pair;
 import world.World;
 import controller.UserDataController;
 import main.Main;
@@ -59,7 +58,9 @@ public class Command {
 		if(commands.contains(command)) {
 			if(specifiers.contains(specifier)) {
 				//correct command and specifier
+				model.addHistory(input);
 				execute(command, specifier, model);
+				
 			}
 			else {
 				//incorrect specifier
@@ -76,7 +77,7 @@ public class Command {
 	
 
 	//executes the needed command method
-	private void execute(String command, String specifier, UserDataModel model) {
+	public void execute(String command, String specifier, UserDataModel model) {
 		//execute the necessary actions of the given valid command
 		if(command.equals("help")) {
 			help(specifier, model);

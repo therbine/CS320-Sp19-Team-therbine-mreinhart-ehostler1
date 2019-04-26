@@ -1,31 +1,43 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GameModel {
-	private static Map<String, UserDataModel> savedGames;
-	private static String player;
+	private static UserDataModel gameOfCurrentPlayer;
+	private static String currentPlayer;
+	
+	//game for admin testing that does not persist on the database
+	private static UserDataModel gameAdmin;
 	
 	public GameModel() {
-		player = null;
-		savedGames = new HashMap<String, UserDataModel>();
+		currentPlayer = null;
+		gameOfCurrentPlayer = null;
+		gameAdmin = new UserDataModel();
 	}
 	
 	public UserDataModel getGameOfCurrentPlayer() {
-		return savedGames.get(player);
+		return gameOfCurrentPlayer;
 	}
 	
-	public void createNewGame(String user) {
-		savedGames.put(user, new UserDataModel());
+	public void setGameOfCurrentPlayer(UserDataModel game) {
+		gameOfCurrentPlayer = game;
 	}
 	
 	public String getPlayer() {
-		return player;
+		return currentPlayer;
 	}
 	
-	public void setPlayer(String currentPlayer) {
-		player = currentPlayer;
+	public void setPlayer(String Player) {
+		currentPlayer = Player;
 	}
 	
+	public void createNewGame() {
+		gameOfCurrentPlayer = new UserDataModel();
+	}
+	
+	public UserDataModel getGameAdmin() {
+		return gameAdmin;
+	}
+	
+	public void setGameAdmin(UserDataModel adminGame) {
+		gameAdmin = adminGame;
+	}
 }

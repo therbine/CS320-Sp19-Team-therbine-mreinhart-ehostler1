@@ -28,10 +28,20 @@
     	left: 50%;
     	transform: translate(-50%,-50%);
 		}
+		.btn-group{
+		position: absolute;
+  		top: 2.5%;
+ 		right: 8%;
+  		transform: translate(-50%, -50%);
+  		-ms-transform: translate(-50%, -50%);
+		}
 		.map{
-		
-		float: right;
-		position: relative;
+		position: absolute;
+  		top: 25%;
+ 		right: 0%;
+  		transform: translate(-50%, -50%);
+  		-ms-transform: translate(-50%, -50%);
+  		
 		}
 		.otherlocations{
 		color: #000000;
@@ -53,30 +63,40 @@
 	</head>
 	<body>
 		
-		<div class = "gamepage">
-		
-		<!-- the display of user input and server output -->
-		<div class = "container">${gameinfo.getGameDisplay()}</div>
+		<img src="http://public.media.smithsonianmag.com/legacy_blog/ships-mermaid-99.85.jpg" alt="backround" width="100%" height = "75%">
 		
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+			<div class = "gamepage">
+		
+			<!-- the display of user input and server output -->
+			<div class = "container">${gameinfo.getGameDisplay()}</div>
+		
+			<button name = "Start" type = "submit" >Start Game</button>
+			<button name = "Save" type = "submit" >Save Game</button>  
+			<button name = "Delete" type = "submit"> Delete Game</button>
 			
-					<div class="Comand">>  
-						 <input type="text" name="userInput" size="12" value="" autofocus/></div>
-			
+				
+				<div class="Comand">>	
+					<input type="text" name="userInput" size="12" value="" autofocus/></div>
+			</div>
+			<c:if test="${! empty map}">
+				<div class="btn-group">
+  					<button name = "move" type = "submit" value = "north">North</button>
+  					<button name = "move" type = "submit" value = "south">South</button>
+  					<button name = "move" type = "submit" value = "east">East</button>
+  					<button name = "move" type = "submit" value = "west">West</button>
+				</div>
+			</c:if>			 
 		</form>
-		</div>
+		
 		<!-- 3X3 map which WILL show the players position  -->
 		<div class = "map">
+			
 			<%
 			Integer location_x = (Integer)request.getAttribute("player_x");
 			Integer location_y = (Integer)request.getAttribute("player_y");
 			%>
-			<div class="btn-group">
-  			<button name = "move" type = "submit" value = "north">North</button>
-  			<button name = "move" type = "submit" value = "south">South</button>
-  			<button name = "move" type = "submit" value = "east">East</button>
-  			<button name = "move" type = "submit" value = "west">West</button>
-			</div>
+			
 			
 			<c:if test="${! empty map}">
 				<table>
