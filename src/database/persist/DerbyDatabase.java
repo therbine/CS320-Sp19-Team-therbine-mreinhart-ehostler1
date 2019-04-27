@@ -386,9 +386,9 @@ public class DerbyDatabase implements IDatabase {
 						"		generated always as identity (start with 1, increment by 1), " +									
 						"	username varchar(40)," +
 						"	password varchar(40)" +
-						"   bytes varchar(40)" +
+						"   bytes varbinary(1024)" +
 						")"
-					);	
+					);
 					stmt.executeUpdate();
 					
 					System.out.println("Accounts table created");				
