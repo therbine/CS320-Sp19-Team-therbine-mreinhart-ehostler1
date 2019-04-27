@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.persist.DBUtil;
-
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -385,7 +383,7 @@ public class DerbyDatabase implements IDatabase {
 						"	account_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
 						"	username varchar(40)," +
-						"	password varchar(40)" +
+						"	password varchar(40)," +
 						"   bytes varbinary(1024)" +
 						")"
 					);
