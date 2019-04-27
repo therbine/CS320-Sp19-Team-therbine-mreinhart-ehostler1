@@ -10,5 +10,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Jetty9"/>
+	<classpathentry kind="lib" path="/Users/therbine/Library/Mobile Documents/com~apple~CloudDocs/Software-Eng/workspace/CS320_Derby/lib/derby.jar"/>
+	<classpathentry kind="lib" path="/Users/therbine/Library/Mobile Documents/com~apple~CloudDocs/Software-Eng/workspace/CS320_Derby/lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="/Users/therbine/Library/Mobile Documents/com~apple~CloudDocs/Software-Eng/workspace/CS320_Derby/lib/derbynet.jar"/>
+	<classpathentry kind="lib" path="/Users/therbine/Library/Mobile Documents/com~apple~CloudDocs/Software-Eng/workspace/CS320_Derby/lib/derbyrun.jar"/>
+	<classpathentry kind="lib" path="/Users/therbine/Library/Mobile Documents/com~apple~CloudDocs/Software-Eng/workspace/CS320_Derby/lib/derbytools.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
