@@ -57,6 +57,5 @@
 			
 			
 		</form>
-		<div >${userinfo.getSetOfUsers().toString()}</div>
 	</body>
 </html>
