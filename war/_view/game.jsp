@@ -67,8 +67,8 @@
 			<div class="error">${start_toggle}</div>
 			<button name = "Start" type = "submit">Start Game</button>
 			</c:if>
-			<button name = "Save" type = "submit" >Save Game</button>  
-			<button name = "Delete" type = "submit"> Delete Game</button>
+			<button name = "Save" type = "submit" value = "saved">Save Game</button>  
+			<button name = "Delete" type = "submit" value = "delete"> Delete Game</button>
 			
 				
 				<div class="Comand">>	

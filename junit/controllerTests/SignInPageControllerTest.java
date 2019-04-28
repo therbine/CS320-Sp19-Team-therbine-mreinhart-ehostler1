@@ -1,6 +1,7 @@
 package controllerTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,6 @@ public class SignInPageControllerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(model.checkForUser("Clever Username"), false);
+		assertEquals(model.getGivenUsername(), "Clever Username");
 	}
 }
