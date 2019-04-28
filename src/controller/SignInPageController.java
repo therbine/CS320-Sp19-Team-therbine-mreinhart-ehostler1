@@ -55,7 +55,7 @@ public class SignInPageController {
 		if(db.PasswordByUsernameQuery(signInUsername).isEmpty()) {
 			throw new Exception("The user " + signInUsername + " does not exist.");
 		}
-		if(db.PasswordByUsernameQuery(signInUsername).contains(signInPassword)) {
+		else if(db.PasswordByUsernameQuery(signInUsername).contains(signInPassword)) {
 			return true;
 		}
 		else {

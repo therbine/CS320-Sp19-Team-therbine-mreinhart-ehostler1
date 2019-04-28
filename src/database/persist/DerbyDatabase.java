@@ -235,7 +235,7 @@ public class DerbyDatabase implements IDatabase {
 				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
 				try {
 					stmt1 = conn.prepareStatement(
-							"select password from accounts " +
+							"select account_id from accounts " +
 							"  where username = ? "
 					);
 					stmt1.setString(1, username);
@@ -258,8 +258,8 @@ public class DerbyDatabase implements IDatabase {
 						if (account_id <= 0) {
 							// prepare SQL insert statement to add Author to Authors table
 							stmt2 = conn.prepareStatement(
-									"insert into accounts (username, password) " +
-									"  values(?, ?) "
+									"insert into accounts (username, password, bytes) " +
+									"  values(?, ?, 0) "
 							);
 							stmt2.setString(1, username);
 							stmt2.setString(2, password);
