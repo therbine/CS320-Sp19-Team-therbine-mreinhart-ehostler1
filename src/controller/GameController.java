@@ -36,12 +36,15 @@ public class GameController {
 		List<byte[]> gameDataList = db.UserDataByUsernameQuery(model.getPlayer());
 		
 		if(gameDataList.get(0) == null) {
+			System.out.println("Creating new game for user.");
 			//no saved game for this user, create a new one
 			model.createNewGame();
 		}
 		else {
 			//use getJavaObject method in ConvertObject class to change the arraylist of bytes back into a java object
 			//and use that userdatamodel object as the game
+			System.out.println("Attempting to load existing game from the database.");
+			
 			byte[] gameData = gameDataList.get(0);
 			model.setGameOfCurrentPlayer(converter.getJavaObject(gameData));
 		}
