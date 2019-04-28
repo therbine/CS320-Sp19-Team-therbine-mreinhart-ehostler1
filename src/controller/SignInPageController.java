@@ -1,11 +1,17 @@
 package controller;
 
 import model.SignInPageModel;
-import database.persist.DerbyDatabase;
+import database.persist.*;
 
 public class SignInPageController {
 	private SignInPageModel model;
-	private DerbyDatabase db;
+	private IDatabase db;
+	
+	public SignInPageController() {
+		model = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+	}
 	
 	public void setModel(SignInPageModel model) {
 		this.model = model;

@@ -2,17 +2,24 @@ package controller;
 
 import java.util.List;
 
-import database.persist.DerbyDatabase;
+import database.persist.*;
 import model.GameModel;
 import model.ConvertObject;
 
 public class GameController {
 	private GameModel model;
-	private DerbyDatabase db;
+	private IDatabase db;
 	private ConvertObject converter;
+	
+	public GameController() {
+		model = null;
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+	}
 	
 	public void setModel(GameModel model) {
 		this.model = model;
+		db = new DerbyDatabase();
 	}
 	
 	//if a game doesn't already exist in the database, it creates a new game and loads it into the model
