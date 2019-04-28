@@ -30,10 +30,10 @@
 		}
 		.map{
 		position: absolute;
-  		top: 25%;
- 		right: 0%;
-  		transform: translate(-50%, -50%);
-  		-ms-transform: translate(-50%, -50%);
+  		top: 5%;
+ 		right: 5%;
+  		transform: translate;
+  		-ms-transform: translate;
   		
 		}
 		.otherlocations{
@@ -63,8 +63,10 @@
 		
 			<!-- the display of user input and server output -->
 			<div class = "container">${gameinfo.getGameDisplay()}</div>
-		
-			<button name = "Start" type = "submit" >Start Game</button>
+			<c:if test="${empty start_toggle}">
+			<div class="error">${start_toggle}</div>
+			<button name = "Start" type = "submit">Start Game</button>
+			</c:if>
 			<button name = "Save" type = "submit" >Save Game</button>  
 			<button name = "Delete" type = "submit"> Delete Game</button>
 			

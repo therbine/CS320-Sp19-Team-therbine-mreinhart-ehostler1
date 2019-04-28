@@ -55,7 +55,11 @@ public class GameServlet extends HttpServlet {
 		if(req.getParameter("move") != null) {
 			command.execute("move",req.getParameter("move"), userDataModel);
 		}
-		
+		//toggle start button
+		if(req.getParameter("Start") != null) {
+			req.setAttribute("start_toggle", "remove_button");
+			req.setAttribute("Start", "button_pressed");
+		}
 		//command action
 		main.Main.getCommand().action(userDataModel);
 		

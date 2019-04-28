@@ -59,6 +59,7 @@ public class Command {
 			if(specifiers.contains(specifier)) {
 				//correct command and specifier
 				model.addHistory(input);
+				
 				execute(command, specifier, model);
 				
 			}
@@ -69,7 +70,7 @@ public class Command {
 		}
 		else {
 			//incorrect command
-			model.addHistory("-Invalid Command-");
+			//model.addHistory("-Invalid Command-");
 		}
 		
 		contoller.updateGameDisplay();
