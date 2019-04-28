@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Blob;
 
 
 public class DerbyDatabase implements IDatabase {
@@ -94,7 +95,8 @@ public class DerbyDatabase implements IDatabase {
 					// execute the query, get the results, and assemble them in an ArrayLsit
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
-						byte[] bais = resultSet.getBytes(1);
+						Blob blob = resultSet.getBlob(1);
+						byte[] bais = blob.getBytes((long) 1, (int) blob.length());
 						result.add(bais);
 					}
 					
@@ -127,7 +129,11 @@ public class DerbyDatabase implements IDatabase {
 							"  set bytes = ? " +
 							"  where username = ? "
 					);
-					stmt1.setBytes(1, bytes);
+					
+					Blob blob = conn.createBlob();
+					blob.setBytes(0, bytes);
+					
+					stmt1.setBlob(1, blob);
 					stmt1.setString(2, username);
 					
 					// execute the query, get the result
