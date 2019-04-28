@@ -52,12 +52,14 @@ public class GameController {
 	
 	//saves current game to the database
 	public void saveGame() throws Exception{
+		System.out.println("saveGame method operating with user "+model.getPlayer());
 		
 		//for the admin account
 		if(model.getPlayer().equals("admin")) {
 			model.setGameAdmin(model.getGameOfCurrentPlayer());
 		}
 		else {
+			System.out.println("Attempting to save game.");
 			db.updateUserData(model.getPlayer(), converter.getByteArrayObject(model.getGameOfCurrentPlayer()));
 		}
 	}

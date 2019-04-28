@@ -61,7 +61,8 @@ public class GameServlet extends HttpServlet {
 			req.setAttribute("Start", "button_pressed");
 		}
 		//save game
-		if(req.getAttribute("Save") != null) {
+		if(req.getParameter("Save") != null) {
+			System.out.println("Save game button pressed.");
 			try {
 				gameController.saveGame();
 			}
