@@ -33,26 +33,17 @@ public class GameController {
 			return;
 		}
 		
-		System.out.println("TESTER1");
-		
 		List<byte[]> gameDataList = db.UserDataByUsernameQuery(model.getPlayer());
-		
-		System.out.println("TESTER2");
-		System.out.println(gameDataList);
 		
 		if(gameDataList.get(0) == null) {
 			//no saved game for this user, create a new one
-			System.out.println("TESTER3");
 			model.createNewGame();
-			System.out.println("TESTER4");
 		}
 		else {
 			//use getJavaObject method in ConvertObject class to change the arraylist of bytes back into a java object
 			//and use that userdatamodel object as the game
-			System.out.println("TESTER5");
 			byte[] gameData = gameDataList.get(0);
 			model.setGameOfCurrentPlayer(converter.getJavaObject(gameData));
-			System.out.println("TESTER6");
 		}
 	}
 	

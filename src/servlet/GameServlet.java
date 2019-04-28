@@ -60,6 +60,16 @@ public class GameServlet extends HttpServlet {
 			req.setAttribute("start_toggle", "remove_button");
 			req.setAttribute("Start", "button_pressed");
 		}
+		//save game
+		if(req.getAttribute("Save") != null) {
+			try {
+				gameController.saveGame();
+			}
+			catch(Exception e) {
+				
+			}
+		}
+		
 		//command action
 		main.Main.getCommand().action(userDataModel);
 		
