@@ -252,17 +252,18 @@ public class DerbyDatabase implements IDatabase {
 					}
 					else
 					{
-						System.out.println("Author <" + username + "> not found");
+						System.out.println("Account <" + username + "> not found");
 				
 						// if the Author is new, insert new Author into Authors table
 						if (account_id <= 0) {
 							// prepare SQL insert statement to add Author to Authors table
 							stmt2 = conn.prepareStatement(
-									"insert into accounts (username, password, bytes) " +
-									"  values(?, ?, 0) "
+									"insert into accounts (username, password) " +
+									"  values(?, ?) "
 							);
 							stmt2.setString(1, username);
 							stmt2.setString(2, password);
+							//stmt2.setString(3, "0101");
 							
 							// execute the update
 							stmt2.executeUpdate();
@@ -384,7 +385,7 @@ public class DerbyDatabase implements IDatabase {
 						"		generated always as identity (start with 1, increment by 1), " +									
 						"	username varchar(40)," +
 						"	password varchar(40)," +
-						"   bytes varchar(40)" +
+						"   bytes blob" +
 						")"
 					);
 					stmt.executeUpdate();
