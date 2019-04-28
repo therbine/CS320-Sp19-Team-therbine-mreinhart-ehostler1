@@ -68,6 +68,7 @@ public class SignInPageServlet extends HttpServlet {
 					gameController.loadGame();
 					
 					req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+					return;
 				}
 				else {
 					//credentials aren't correct
