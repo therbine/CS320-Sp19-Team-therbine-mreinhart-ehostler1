@@ -1,8 +1,11 @@
 package world;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Room {
+public class Room implements Serializable {
+	private static final long serialVersionUID = 2L;
+	
 	private Terrain terrain;
 	private ArrayList<Item> roomInv;
 	

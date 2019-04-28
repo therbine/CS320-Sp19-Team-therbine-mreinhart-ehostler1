@@ -1,8 +1,11 @@
 package world;
 
 import java.lang.Math;
+import java.io.Serializable;
 
-public class Entity implements Combat {
+public class Entity implements Combat, Serializable {
+	private static final long serialVersionUID = 2L;
+	
 	private Room location;
 	private Room prevRoom;
 	private int health;

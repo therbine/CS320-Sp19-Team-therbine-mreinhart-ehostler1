@@ -1,6 +1,10 @@
 package world;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
+	private static final long serialVersionUID = 2L;
+	
 	private ItemType type;
 	private int dmg;
 	private int healingVal;

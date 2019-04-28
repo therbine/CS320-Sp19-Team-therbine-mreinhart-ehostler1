@@ -1,8 +1,11 @@
 package world;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class World {
+public class World implements Serializable {
+	private static final long serialVersionUID = 2L;
+	
 	private Room[][] roomArr;
 	private Character character;
 	private Entity enemy1;
