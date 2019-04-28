@@ -4,12 +4,12 @@ import java.util.List;
 
 import database.persist.*;
 import model.GameModel;
-import model.ConvertObject;
+import model.UserDataModel;
+import org.apache.commons.lang.SerializationUtils;
 
 public class GameController {
 	private GameModel model;
 	private IDatabase db;
-	private ConvertObject converter;
 	
 	public GameController() {
 		model = null;
@@ -33,6 +33,7 @@ public class GameController {
 			return;
 		}
 		
+		System.out.println("Getting list of byte arrays for "+model.getPlayer());
 		List<byte[]> gameDataList = db.UserDataByUsernameQuery(model.getPlayer());
 		
 		if(gameDataList.get(0) == null) {
@@ -46,7 +47,8 @@ public class GameController {
 			System.out.println("Attempting to load existing game from the database.");
 			
 			byte[] gameData = gameDataList.get(0);
-			model.setGameOfCurrentPlayer(converter.getJavaObject(gameData));
+			System.out.println("Loading game data: "+gameData);
+			model.setGameOfCurrentPlayer((UserDataModel)SerializationUtils.deserialize(gameData));
 		}
 	}
 	
@@ -60,7 +62,9 @@ public class GameController {
 		}
 		else {
 			System.out.println("Attempting to save game.");
-			db.updateUserData(model.getPlayer(), converter.getByteArrayObject(model.getGameOfCurrentPlayer()));
+			byte[] gameData = SerializationUtils.serialize(model.getGameOfCurrentPlayer());
+			System.out.println("Saving game data: "+gameData);
+			db.updateUserData(model.getPlayer(), gameData);
 		}
 	}
 }

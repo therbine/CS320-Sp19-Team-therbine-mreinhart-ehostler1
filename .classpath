@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Derby"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Jetty9"/>
+	<classpathentry kind="lib" path="SerializableUtils/org-apache-commons-lang.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
