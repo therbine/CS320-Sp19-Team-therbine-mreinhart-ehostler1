@@ -95,9 +95,8 @@ public class DerbyDatabase implements IDatabase {
 					// execute the query, get the results, and assemble them in an ArrayLsit
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
-						Blob blob = resultSet.getBlob(1);
-						byte[] bais = blob.getBytes((long) 1, (int) blob.length());
-						result.add(bais);
+						byte[] bytes = resultSet.getBytes(1);
+						result.add(bytes);
 					}
 					
 					return result;
@@ -130,14 +129,11 @@ public class DerbyDatabase implements IDatabase {
 							"  where username = ? "
 					);
 					
-					Blob blob = conn.createBlob();
-					blob.setBytes((long) 1, bytes);
-					
-					stmt1.setBlob(1, blob);
+					stmt1.setBytes(1, bytes);
 					stmt1.setString(2, username);
 					
 					// execute the query, get the result
-					resultSet1 = stmt1.executeQuery();
+					stmt1.executeUpdate();
 					
 					stmt2 = conn.prepareStatement(
 							"select account_id " +
@@ -264,14 +260,12 @@ public class DerbyDatabase implements IDatabase {
 						if (account_id <= 0) {
 							// prepare SQL insert statement to add Author to Authors table
 							stmt2 = conn.prepareStatement(
-									"insert into accounts (username, password, bytes) " +
-									"  values(?, ?, ?) "
+									"insert into accounts (username, password) " +
+									"  values(?, ?) "
 							);
-							Blob blob = conn.createBlob();
 							
 							stmt2.setString(1, username);
 							stmt2.setString(2, password);
-							stmt2.setBlob(3, blob);
 							
 							// execute the update
 							stmt2.executeUpdate();
