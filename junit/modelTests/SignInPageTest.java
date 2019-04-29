@@ -29,13 +29,13 @@ public class SignInPageTest {
 	}
 	
 	@Test
-	public void testAddUser() {
+	public void testGetGivenUsername() {
 		model.addUser("Clever Username", "Strong Password");
 		assertEquals(model.getPassword("Clever Username"), "Strong Password");
 	}
 	
 	@Test
-	public void testCheckForUser() {
+	public void testGetGivenPassword() {
 		model.addUser("Clever Username", "Strong Password");
 		assertTrue(model.checkForUser("Clever Username"));
 	}
