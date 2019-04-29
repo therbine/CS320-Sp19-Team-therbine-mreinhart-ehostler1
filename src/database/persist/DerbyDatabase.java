@@ -131,7 +131,7 @@ public class DerbyDatabase implements IDatabase {
 					);
 					
 					Blob blob = conn.createBlob();
-					blob.setBytes(0, bytes);
+					blob.setBytes((long) 1, bytes);
 					
 					stmt1.setBlob(1, blob);
 					stmt1.setString(2, username);
@@ -264,12 +264,14 @@ public class DerbyDatabase implements IDatabase {
 						if (account_id <= 0) {
 							// prepare SQL insert statement to add Author to Authors table
 							stmt2 = conn.prepareStatement(
-									"insert into accounts (username, password) " +
-									"  values(?, ?) "
+									"insert into accounts (username, password, bytes) " +
+									"  values(?, ?, ?) "
 							);
+							Blob blob = conn.createBlob();
+							
 							stmt2.setString(1, username);
 							stmt2.setString(2, password);
-							//stmt2.setString(3, "0101");
+							stmt2.setBlob(3, blob);
 							
 							// execute the update
 							stmt2.executeUpdate();

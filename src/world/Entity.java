@@ -4,7 +4,7 @@ import java.lang.Math;
 import java.io.Serializable;
 
 public class Entity implements Combat, Serializable {
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 6L;
 	
 	private Room location;
 	private Room prevRoom;

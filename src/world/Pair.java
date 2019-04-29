@@ -1,6 +1,10 @@
 package world;
 
-public class Pair {
+import java.io.Serializable;
+
+public class Pair implements Serializable {
+	private static final long serialVersionUID = 4L;
+	
 	private int x;
 	private int y;
 

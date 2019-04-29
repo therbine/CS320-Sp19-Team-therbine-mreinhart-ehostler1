@@ -3,7 +3,7 @@ package world;
 import java.io.Serializable;
 
 public class Item implements Serializable {
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 5L;
 	
 	private ItemType type;
 	private int dmg;
