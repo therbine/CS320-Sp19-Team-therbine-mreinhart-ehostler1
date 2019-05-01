@@ -8,10 +8,12 @@ public class Room implements Serializable {
 	
 	private Terrain terrain;
 	private ArrayList<Item> roomInv;
+	private ArrayList<Entity> roomEnt;
 	
 	public Room(Terrain terrain, ArrayList<Item> roomInv) {
 		this.terrain = terrain;
 		this.roomInv = roomInv;
+		this.roomEnt = new ArrayList<Entity>();
 	}
 	
 	public ArrayList<Item> getInv() {
@@ -30,5 +32,17 @@ public class Room implements Serializable {
 	
 	public void addItem(Item newItem) {
 		roomInv.add(newItem);
+	}
+	
+	public void newEntity(Entity entity) {
+		roomEnt.add(entity);
+	}
+	
+	public void killEntity(int entityIndex) {
+		roomEnt.remove(entityIndex);
+	}
+	
+	public Entity getEntity(int entityIndex) {
+		return roomEnt.get(entityIndex);
 	}
 }
