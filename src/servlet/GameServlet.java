@@ -55,10 +55,15 @@ public class GameServlet extends HttpServlet {
 		if(req.getParameter("move") != null) {
 			command.execute("move",req.getParameter("move"), userDataModel);
 		}
-		//toggle start button
-		if(req.getParameter("Start") != null) {
-			req.setAttribute("start_toggle", "remove_button");
-			req.setAttribute("Start", "button_pressed");
+		//restart game
+		if(req.getParameter("Restart") != null) {
+			try {
+				gameController.restartGame();
+				req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		//save game
 		if(req.getParameter("Save") != null) {
@@ -82,7 +87,7 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("player_x", userDataModel.getWorld().getPlayerCoords().getX());
 		req.setAttribute("player_y", userDataModel.getWorld().getPlayerCoords().getY());
 		req.setAttribute("map", userDataModel.getWorld().getMap());
-		
+		req.setAttribute("Start", gameController.startGame());
 		// Forward to view to render the result HTML document
 		
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);

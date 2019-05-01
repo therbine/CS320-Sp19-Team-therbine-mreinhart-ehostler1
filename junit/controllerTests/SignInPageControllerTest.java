@@ -35,4 +35,13 @@ public class SignInPageControllerTest {
 		}
 		assertEquals(model.getGivenUsername(), "Clever Username");
 	}
+	public void testCreateAccount() {
+		try {
+			controller.newAccount();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(model.getGivenUsername(), "Clever Username");
+	}
 }

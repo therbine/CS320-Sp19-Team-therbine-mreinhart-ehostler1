@@ -19,7 +19,7 @@
 		color: white;
 		background-color: #000000;
   		width: 100%;
-  		height: 90%;
+  		height: 87%;
   		max-width: 400px;
   		padding: 3em;
   		overflow: auto;
@@ -27,6 +27,9 @@
    		top:  50%;
     	left: 50%;
     	transform: translate(-50%,-50%);
+		}
+		.score{
+		
 		}
 		.map{
 		position: absolute;
@@ -50,6 +53,21 @@
 		width: 100px;
 		height: 100px;
 		}
+		.game_buttons{
+		position: absolute;
+  		top: 5%;
+ 		left: 5%;
+  		transform: translate;
+  		-ms-transform: translate;
+		}
+		.start_button{
+		position: absolute;
+  		top: 50%;
+ 		left: 50%;
+  		transform: translate(-50%, -50%);
+  		-ms-transform: translate(-50%, -50%);
+		}
+		}
 		
 		
 		</style> 
@@ -59,17 +77,28 @@
 		<img src="http://public.media.smithsonianmag.com/legacy_blog/ships-mermaid-99.85.jpg" alt="backround" width="100%" height = "75%">
 		
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-			<div class = "gamepage">
 		
+		<c:if test="${empty Start}">
+			<div class = "start_button">
+				<button name = "Start" type = "submit">Begin/Continue Game</button>
+			</div>
+		</c:if>
+		
+		<c:if test="${!empty Start}">
+			
+			<div class = "game_buttons">
+				
+				
+				<button name = "Save" type = "submit" value = "saved">Save Game</button>  
+				<button name = "Restart" type = "submit"> Restart</button>
+			</div>
+			
+			<div class = "gamepage">
+			
+			<div class = "score"> Score:${score}</div>
+			
 			<!-- the display of user input and server output -->
 			<div class = "container">${gameinfo.getGameDisplay()}</div>
-			<c:if test="${empty start_toggle}">
-			<div class="error">${start_toggle}</div>
-			<button name = "Start" type = "submit">Start Game</button>
-			</c:if>
-			<button name = "Save" type = "submit" value = "saved">Save Game</button>  
-			<button name = "Delete" type = "submit" value = "delete"> Delete Game</button>
-			
 				
 				<div class="Comand">>	
 					<input type="text" name="userInput" size="12" value="" autofocus/></div>
@@ -114,7 +143,8 @@
 			
 			</table>
 			</c:if>
-		</div>	 
+		</div>
+		</c:if>	 
 		</form>
 		
 		

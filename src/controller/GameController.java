@@ -10,7 +10,7 @@ import org.apache.commons.lang.SerializationUtils;
 public class GameController {
 	private GameModel model;
 	private IDatabase db;
-	
+	private int x = 0;
 	public GameController() {
 		model = null;
 		DatabaseProvider.setInstance(new DerbyDatabase());
@@ -66,5 +66,15 @@ public class GameController {
 			System.out.println("Saving game data: "+gameData);
 			db.updateUserData(model.getPlayer(), gameData);
 		}
+	}
+	//restarts users game to new
+	public void restartGame() throws Exception{
+		System.out.println("Attempting to restart game.");
+		model.createNewGame();
+		saveGame();
+	}
+	
+	public String startGame() {
+			return "vanish";
 	}
 }
