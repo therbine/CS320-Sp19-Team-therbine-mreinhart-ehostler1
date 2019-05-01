@@ -102,35 +102,98 @@ public class InitialData {
 */
 	
 	// reads initial Account data from CSV file and returns a List of Accounts
-		public static List<Account> getAccounts() throws IOException {
-			List<Account> accountList = new ArrayList<Account>();
-			ReadCSV readAccounts = new ReadCSV("Accounts.csv");
-			try {
-				// auto-generated primary key for Accounts table
-				Integer accountId = 1;
-				while (true) {
-					List<String> tuple = readAccounts.next();
-					if (tuple == null) {
-						break;
-					}
-					Iterator<String> i = tuple.iterator();
-					Account account = new Account();
-
-					// read account ID from CSV file, but don't use it
-					// it's there for reference purposes, just make sure that it is correct
-					// when setting up other CSV files				
-					Integer.parseInt(i.next());
-					// auto-generate account ID, instead
-					account.setAccountId(accountId++);
-					account.setUsername(i.next());
-					account.setPassword(i.next());
-					account.setBytes(i.next().getBytes());
-					accountList.add(account);
+	public static List<Account> getAccounts() throws IOException {
+		List<Account> accountList = new ArrayList<Account>();
+		ReadCSV readAccounts = new ReadCSV("Accounts.csv");
+		try {
+			// auto-generated primary key for Accounts table
+			Integer accountId = 1;
+			while (true) {
+				List<String> tuple = readAccounts.next();
+				if (tuple == null) {
+					break;
 				}
-				System.out.println("accountList loaded from CSV file");
-				return accountList;
-			} finally {
-				readAccounts.close();
+				Iterator<String> i = tuple.iterator();
+				Account account = new Account();
+
+				// read account ID from CSV file, but don't use it
+				// it's there for reference purposes, just make sure that it is correct
+				// when setting up other CSV files				
+				Integer.parseInt(i.next());
+				// auto-generate account ID, instead
+				account.setAccountId(accountId++);
+				account.setUsername(i.next());
+				account.setPassword(i.next());
+				account.setBytes(i.next().getBytes());
+				accountList.add(account);
 			}
+			System.out.println("accountList loaded from CSV file");
+			return accountList;
+		} finally {
+			readAccounts.close();
 		}
+	}
+	
+	public static List<StringPair> getCommands() throws IOException {
+		List<StringPair> commandList = new ArrayList<StringPair>();
+		ReadCSV readCommands = new ReadCSV("Commands.csv");
+		try {
+			// auto-generated primary key for Accounts table
+			//Integer accountId = 1;
+			while (true) {
+				List<String> tuple = readCommands.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				StringPair command = new StringPair();
+
+				// read account ID from CSV file, but don't use it
+				// it's there for reference purposes, just make sure that it is correct
+				// when setting up other CSV files				
+				//Integer.parseInt(i.next());
+				// auto-generate account ID, instead
+				//account.setAccountId(accountId++);
+				command.setFirst(i.next());
+				command.setSecond(i.next());
+				commandList.add(command);
+			}
+			System.out.println("accountList loaded from CSV file");
+			return commandList;
+		} finally {
+			readCommands.close();
+		}
+	}
+	
+	public static List<Account> getDescriptions() throws IOException {
+		List<Account> accountList = new ArrayList<Account>();
+		ReadCSV readAccounts = new ReadCSV("Descriptions.csv");
+		try {
+			// auto-generated primary key for Accounts table
+			Integer accountId = 1;
+			while (true) {
+				List<String> tuple = readAccounts.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Account account = new Account();
+
+				// read account ID from CSV file, but don't use it
+				// it's there for reference purposes, just make sure that it is correct
+				// when setting up other CSV files				
+				Integer.parseInt(i.next());
+				// auto-generate account ID, instead
+				account.setAccountId(accountId++);
+				account.setUsername(i.next());
+				account.setPassword(i.next());
+				account.setBytes(i.next().getBytes());
+				accountList.add(account);
+			}
+			System.out.println("accountList loaded from CSV file");
+			return accountList;
+		} finally {
+			readAccounts.close();
+		}
+	}
 }

@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Blob;
+
+import world.Pair;
 
 
 public class DerbyDatabase implements IDatabase {
@@ -307,6 +308,92 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public List<String> SpecifierByCommandQuery(final String command) {
+		return executeTransaction(new Transaction<List<String>>() {
+			@Override
+			public List<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select specifier " +
+							"  from  commands " +
+							"  where command = ? "
+					);
+					stmt.setString(1, command);
+					
+					List<String> result = new ArrayList<String>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						String specifier = resultSet.getString(1);
+						result.add(specifier);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + command + "> was not found in the commands table");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public List<String> DescriptionByObjectQuery(final String object) {
+		return executeTransaction(new Transaction<List<String>>() {
+			@Override
+			public List<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select description " +
+							"  from  descriptions " +
+							"  where object = ? "
+					);
+					stmt.setString(1, object);
+					
+					List<String> result = new ArrayList<String>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						String description = resultSet.getString(1);
+						result.add(description);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("<" + object + "> was not found in the descriptions table");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
 	private void loadAccount(Account account, ResultSet resultSet, int index) throws SQLException {
 		account.setAccountId(resultSet.getInt(index++));
 		account.setUsername(resultSet.getString(index++));
@@ -379,6 +466,8 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
 			
 				try {
 					stmt = conn.prepareStatement(
@@ -392,11 +481,33 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt.executeUpdate();
 					
-					System.out.println("Accounts table created");				
+					System.out.println("Accounts table created");
+					
+					stmt2 = conn.prepareStatement(
+							"create table commands (" +
+							"	command varchar(15) primary key, " +
+							"	specifier varchar(15)" +
+							")"
+					);
+					stmt2.executeUpdate();
+					
+					System.out.println("Commands table created");
+					
+					stmt3 = conn.prepareStatement(
+							"create table descriptions (" +
+							"	object varchar(15) primary key, " +
+							"	description varchar(140)" +
+							")"
+					);
+					stmt3.executeUpdate();
+					
+					System.out.println("Descriptions table created");
 					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
 				}
 			}
 		});
@@ -408,17 +519,24 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				List<Account> accountList;
+				List<StringPair> descriptionList;
+				List<StringPair> commandList;
 				
 				try {
 					accountList = InitialData.getAccounts();
+					descriptionList = InitialData.getDescriptions();
+					commandList = InitialData.getCommands();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
 				PreparedStatement insertAccount = null;
+				PreparedStatement insertCommand = null;
+				PreparedStatement insertDescription = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
+					///// Accounts Table \\\\\
 					insertAccount = conn.prepareStatement("insert into accounts (username, password, bytes) values (?, ?, ?)");
 					for (Account account : accountList) {
 						insertAccount.setString(1, account.getUsername());
@@ -427,12 +545,33 @@ public class DerbyDatabase implements IDatabase {
 						insertAccount.addBatch();
 					}
 					insertAccount.executeBatch();
+					System.out.println("Accounts table populated");
 					
-					System.out.println("Accounts table populated");					
+					///// Commands Table \\\\\
+					insertCommand = conn.prepareStatement("insert into commands (command, specifier) values (?, ?)");
+					for (StringPair command : commandList) {
+						insertAccount.setString(1, command.getFirst());
+						insertAccount.setString(2, command.getSecond());
+						insertAccount.addBatch();
+					}
+					insertAccount.executeBatch();
+					System.out.println("Commands table populated");
+					
+					///// Descriptions Table \\\\\
+					insertAccount = conn.prepareStatement("insert into descriptions (username, password) values (?, ?)");
+					for (StringPair description : descriptionList) {
+						insertAccount.setString(1, description.getFirst());
+						insertAccount.setString(2, description.getSecond());
+						insertAccount.addBatch();
+					}
+					insertAccount.executeBatch();
+					System.out.println("Descriptions table populated");
 					
 					return true;
 				} finally {
-					DBUtil.closeQuietly(insertAccount);		
+					DBUtil.closeQuietly(insertAccount);
+					DBUtil.closeQuietly(insertCommand);
+					DBUtil.closeQuietly(insertDescription);
 				}
 			}
 		});
