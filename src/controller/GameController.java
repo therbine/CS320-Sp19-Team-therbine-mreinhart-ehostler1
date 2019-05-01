@@ -10,7 +10,7 @@ import org.apache.commons.lang.SerializationUtils;
 public class GameController {
 	private GameModel model;
 	private IDatabase db;
-	private int x = 0;
+	
 	public GameController() {
 		model = null;
 		DatabaseProvider.setInstance(new DerbyDatabase());

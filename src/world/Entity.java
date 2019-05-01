@@ -6,22 +6,14 @@ import java.io.Serializable;
 public class Entity implements Combat, Serializable {
 	private static final long serialVersionUID = 6L;
 	
-	private Room location;
-	private Room prevRoom;
 	private int health;
 	private int damage;
 	private int armor;
 	
-	public Entity(Room location, int health, int damage, int armor) {
-		this.location = location;
-		this.prevRoom = null;
+	public Entity(int health, int damage, int armor) {
 		this.health = health;
 		this.damage = damage;
 		this.armor = armor;
-	}
-	
-	public Room getLocation() {
-		return location;
 	}
 	
 	public int getHealth() {
@@ -34,11 +26,6 @@ public class Entity implements Combat, Serializable {
 	
 	public int getArmor() {
 		return armor;
-	}
-	
-	public void setLocation(Room room) {
-		this.prevRoom = this.location;
-		this.location = room;
 	}
 	
 	public void setHealth(int health) {
@@ -57,12 +44,6 @@ public class Entity implements Combat, Serializable {
 	public void attack(Entity other) {
 		int remaining = other.getHealth() - (int)Math.ceil((double)this.damage / ((double)other.getArmor() + 1.0));
 		other.setHealth(remaining);
-	}
-	
-	public void flee() {
-		if(this.prevRoom != null) {
-			setLocation(prevRoom);
-		}
 	}
 	
 	public boolean isDone(Entity other) {

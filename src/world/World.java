@@ -8,9 +8,6 @@ public class World implements Serializable {
 	
 	private Room[][] roomArr;
 	private Character character;
-	private Entity enemy1;
-	private Entity enemy2;
-	private Entity enemy3;
 	private Object map;
 	
 	public World() {
@@ -20,11 +17,6 @@ public class World implements Serializable {
 		
 		// Create character
 		character = new Character(roomArr[1][0]);
-		
-		// Spawn enemies
-		enemy1 = new Entity(roomArr[2][2], 50, 10, 0);
-		enemy2 = new Entity(roomArr[1][0], 40, 15, 0);
-		enemy3 = new Entity(roomArr[0][2], 30, 20, 0);
 		
 		map = null;
 	}
