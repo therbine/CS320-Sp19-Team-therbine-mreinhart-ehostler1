@@ -3,6 +3,7 @@ package system;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.persist.*;
 import model.UserDataModel;
 import world.World;
 import controller.UserDataController;
@@ -11,10 +12,13 @@ import main.Main;
 public class Command {
 	private static List<String> commands;
 	private static List<String> specifiers;
+	private IDatabase db;
 	
 	public Command() {
 		commands = new ArrayList<String>();
 		specifiers = new ArrayList<String>();
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
 		
 		//COMMANDS
 		commands.add("help");

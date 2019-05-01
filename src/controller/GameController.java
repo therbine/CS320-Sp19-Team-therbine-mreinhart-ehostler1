@@ -67,4 +67,14 @@ public class GameController {
 			db.updateUserData(model.getPlayer(), gameData);
 		}
 	}
+	//restarts users game to new
+	public void restartGame() throws Exception{
+		System.out.println("Attempting to restart game.");
+		model.createNewGame();
+		saveGame();
+	}
+	
+	public String startGame() {
+			return "vanish";
+	}
 }

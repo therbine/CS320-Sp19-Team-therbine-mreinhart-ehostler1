@@ -1,0 +1,19 @@
+move|north
+move|south
+move|east
+move|west
+use|bandage
+use|med kit
+use|key
+inventory
+Professor|Hake
+help
+map
+take|bandage
+take|sword
+take|armor
+take|key
+take|med kit
+take|axe
+take|shield
+fight

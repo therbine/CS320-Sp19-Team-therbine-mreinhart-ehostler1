@@ -3,13 +3,19 @@ package world;
 import java.util.ArrayList;
 
 public class Character extends Entity {
+	private static final long serialVersionUID = 7L;
+	
 	private int score;
 	private ArrayList<Item> inventory;
+	private Room location;
+	private Room prevRoom;
 	
 	public Character(Room room) {
-		super(room, 100, 10, 0);
+		super(100, 10, 0);
 		score = 0;
 		inventory = new ArrayList<Item>();
+		this.location = room;
+		this.prevRoom = null;
 	}
 	
 	public int getScore() {
@@ -26,7 +32,7 @@ public class Character extends Entity {
 	
 	public void dropItem(int index) {
 		if(index <= inventory.size() - 1) {
-			super.getLocation().addItem(inventory.get(index));
+			getLocation().addItem(inventory.get(index));
 			inventory.remove(index);
 		}
 	}
@@ -42,6 +48,21 @@ public class Character extends Entity {
 			return true;
 		}else {
 			return false;
+		}
+	}
+	
+	public Room getLocation() {
+		return location;
+	}
+	
+	public void setLocation(Room room) {
+		this.prevRoom = this.location;
+		this.location = room;
+	}
+	
+	public void flee() {
+		if(this.prevRoom != null) {
+			setLocation(prevRoom);
 		}
 	}
 }
