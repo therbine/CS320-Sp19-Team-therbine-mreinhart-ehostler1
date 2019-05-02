@@ -139,7 +139,7 @@ public class InitialData {
 		ReadCSV readCommands = new ReadCSV("Commands.csv");
 		try {
 			// auto-generated primary key for Accounts table
-			//Integer accountId = 1;
+			Integer commandId = 1;
 			while (true) {
 				List<String> tuple = readCommands.next();
 				if (tuple == null) {
@@ -153,12 +153,12 @@ public class InitialData {
 				// when setting up other CSV files				
 				//Integer.parseInt(i.next());
 				// auto-generate account ID, instead
-				//account.setAccountId(accountId++);
+				command.setID(commandId++);
 				command.setFirst(i.next());
 				command.setSecond(i.next());
 				commandList.add(command);
 			}
-			System.out.println("accountList loaded from CSV file");
+			System.out.println("commandList loaded from CSV file");
 			return commandList;
 		} finally {
 			readCommands.close();
@@ -170,7 +170,7 @@ public class InitialData {
 		ReadCSV readDescriptions = new ReadCSV("Descriptions.csv");
 		try {
 			// auto-generated primary key for Accounts table
-			//Integer accountId = 1;
+			Integer descriptionId = 1;
 			while (true) {
 				List<String> tuple = readDescriptions.next();
 				if (tuple == null) {
@@ -184,12 +184,12 @@ public class InitialData {
 				// when setting up other CSV files				
 				//Integer.parseInt(i.next());
 				// auto-generate account ID, instead
-				//account.setAccountId(accountId++);
+				description.setID(descriptionId++);
 				description.setFirst(i.next());
 				description.setSecond(i.next());
 				descriptionList.add(description);
 			}
-			System.out.println("accountList loaded from CSV file");
+			System.out.println("descriptionList loaded from CSV file");
 			return descriptionList;
 		} finally {
 			readDescriptions.close();

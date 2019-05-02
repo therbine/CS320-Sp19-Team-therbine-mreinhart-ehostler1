@@ -495,7 +495,9 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt3 = conn.prepareStatement(
 							"create table descriptions (" +
-							"	object varchar(15) primary key, " +
+							"	description_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	object varchar(15), " +
 							"	description varchar(140)" +
 							")"
 					);
@@ -558,7 +560,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Commands table populated");
 					
 					///// Descriptions Table \\\\\
-					insertDescription = conn.prepareStatement("insert into descriptions (username, password) values (?, ?)");
+					insertDescription = conn.prepareStatement("insert into descriptions (object, description) values (?, ?)");
 					for (StringPair description : descriptionList) {
 						insertAccount.setString(1, description.getFirst());
 						insertAccount.setString(2, description.getSecond());
