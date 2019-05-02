@@ -78,9 +78,11 @@
 		
 		<c:if test="${empty Start}">
 			<div class = "start_button">
+			
 				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 					<button name = "Start" type = "submit">Begin/Continue Game</button>
 				</form>
+				
 			</div>
 		</c:if>
 		
