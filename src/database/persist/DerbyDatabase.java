@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import world.Pair;
-
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -485,7 +483,9 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt2 = conn.prepareStatement(
 							"create table commands (" +
-							"	command varchar(15) primary key, " +
+							"	command_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	command varchar(15), " +
 							"	specifier varchar(15)" +
 							")"
 					);
@@ -558,7 +558,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Commands table populated");
 					
 					///// Descriptions Table \\\\\
-					insertAccount = conn.prepareStatement("insert into descriptions (username, password) values (?, ?)");
+					insertDescription = conn.prepareStatement("insert into descriptions (username, password) values (?, ?)");
 					for (StringPair description : descriptionList) {
 						insertAccount.setString(1, description.getFirst());
 						insertAccount.setString(2, description.getSecond());

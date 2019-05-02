@@ -165,35 +165,34 @@ public class InitialData {
 		}
 	}
 	
-	public static List<Account> getDescriptions() throws IOException {
-		List<Account> accountList = new ArrayList<Account>();
-		ReadCSV readAccounts = new ReadCSV("Descriptions.csv");
+	public static List<StringPair> getDescriptions() throws IOException {
+		List<StringPair> descriptionList = new ArrayList<StringPair>();
+		ReadCSV readDescriptions = new ReadCSV("Descriptions.csv");
 		try {
 			// auto-generated primary key for Accounts table
-			Integer accountId = 1;
+			//Integer accountId = 1;
 			while (true) {
-				List<String> tuple = readAccounts.next();
+				List<String> tuple = readDescriptions.next();
 				if (tuple == null) {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Account account = new Account();
+				StringPair description = new StringPair();
 
 				// read account ID from CSV file, but don't use it
 				// it's there for reference purposes, just make sure that it is correct
 				// when setting up other CSV files				
-				Integer.parseInt(i.next());
+				//Integer.parseInt(i.next());
 				// auto-generate account ID, instead
-				account.setAccountId(accountId++);
-				account.setUsername(i.next());
-				account.setPassword(i.next());
-				account.setBytes(i.next().getBytes());
-				accountList.add(account);
+				//account.setAccountId(accountId++);
+				description.setFirst(i.next());
+				description.setSecond(i.next());
+				descriptionList.add(description);
 			}
 			System.out.println("accountList loaded from CSV file");
-			return accountList;
+			return descriptionList;
 		} finally {
-			readAccounts.close();
+			readDescriptions.close();
 		}
 	}
 }
