@@ -10,30 +10,11 @@ import controller.UserDataController;
 import main.Main;
 
 public class Command {
-	private static List<String> commands;
-	private static List<String> specifiers;
 	private IDatabase db;
 	
 	public Command() {
-		commands = new ArrayList<String>();
-		specifiers = new ArrayList<String>();
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		db = DatabaseProvider.getInstance();
-		
-		//COMMANDS
-		commands.add("help");
-		commands.add("move");
-		commands.add("describe");
-		commands.add("map");
-		
-		//SPECIFIERS
-		specifiers.add("");
-		specifiers.add("none");
-		specifiers.add("north");
-		specifiers.add("south");
-		specifiers.add("east");
-		specifiers.add("west");
-		specifiers.add("sword");
 	}
 	
 	//checks the most recent player input and performs an action based on that
@@ -59,22 +40,11 @@ public class Command {
 		System.out.println("The specifier is: >"+specifier +"<");
 		
 		//check if the given command and specifier exist and execute accordingly
-		if(commands.contains(command)) {
-			if(specifiers.contains(specifier)) {
-				//correct command and specifier
-				model.addHistory(input);
+		if(db.SpecifierByCommandQuery(command).contains(specifier)) {
+			//correct command and specifier
+			model.addHistory(input);
 				
-				execute(command, specifier, model);
-				
-			}
-			else {
-				//incorrect specifier
-				model.addHistory("-Invalid Specifier-");
-			}
-		}
-		else {
-			//incorrect command
-			//model.addHistory("-Invalid Command-");
+			execute(command, specifier, model);
 		}
 		
 		contoller.updateGameDisplay();
@@ -97,13 +67,25 @@ public class Command {
 			map(specifier, model);
 		}
 	}
+	
+	//adds a system reply to the history
+	private void reply(String replyTag, UserDataModel model) {
+		
+		String reply = db.DescriptionByObjectQuery(replyTag).get(0);
+		
+		if(reply == null) {
+			model.addHistory("No Reply Found for this action or description");
+		}
+		else {
+			model.addHistory(reply);
+		}
+	}
 
 	//the help command method
 	private void help(String specifier, UserDataModel model) {
 		if(specifier.equals("none")) {
 			
-			model.addHistory("Available Commands: " + commands.toString());
-			model.addHistory("Available Specifiers: " + specifiers.toString());
+			model.addHistory("help command not currently available till a query for commands and specifiers is added");
 			
 		}
 		else {

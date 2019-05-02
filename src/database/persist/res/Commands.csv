@@ -5,10 +5,10 @@ move|west
 use|bandage
 use|med kit
 use|key
-inventory
+inventory|none
 Professor|Hake
-help
-map
+help|none
+map|none
 take|bandage
 take|sword
 take|armor
