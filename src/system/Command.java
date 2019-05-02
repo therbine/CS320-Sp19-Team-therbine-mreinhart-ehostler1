@@ -60,8 +60,8 @@ public class Command {
 		else if(command.equals("move")) {
 			move(specifier, model);
 		}
-		else if(command.equals("describe")) {
-			describe(specifier, model);
+		else if(command.equals("look")) {
+			look(specifier, model);
 		}
 		else if(command.equals("map")) {
 			map(specifier, model);
@@ -88,14 +88,10 @@ public class Command {
 			model.addHistory("help command not currently available till a query for commands and specifiers is added");
 			
 		}
-		else {
-			model.addHistory("-No Specifiers Available-");
-		}
 	}
 	
 	//the move command method
 	private void move(String specifier, UserDataModel model) {
-		SystemOutput output = Main.getSystemOutput();
 		int x = model.getWorld().getPlayerCoords().getX();
 		int y = model.getWorld().getPlayerCoords().getY();
 		World world = model.getWorld();
@@ -105,36 +101,36 @@ public class Command {
 			//execute code for moving north
 			try {
 				world.setPlayerCoords(x, y+1);
-				model.addHistory(output.getAction("move north"));
+				reply("move north", model);
 			}catch (Exception e) {
-				model.addHistory(output.getAction("worldEdge"));
+				reply("worldEdge", model);
 			}
 		}
 		else if(specifier.equals("south")) {
 			//execute code for moving south
 			try {
 				world.setPlayerCoords(x, y-1);
-				model.addHistory(output.getAction("move south"));
+				reply("move south", model);
 			}catch (Exception e) {
-				model.addHistory(output.getAction("worldEdge"));
+				reply("worldEdge", model);
 			}
 		}
 		else if(specifier.equals("east")) {
 			//execute code for moving east
 			try {
 				world.setPlayerCoords(x+1, y);
-				model.addHistory(output.getAction("move east"));
+				reply("move east", model);
 			}catch (Exception e) {
-				model.addHistory(output.getAction("worldEdge"));
+				reply("worldEdge", model);
 			}
 		}
 		else if(specifier.equals("west")) {
 			//execute code for moving west
 			try {
 				world.setPlayerCoords(x-1, y);
-				model.addHistory(output.getAction("move west"));
+				reply("move west", model);
 			}catch (Exception e) {
-				model.addHistory(output.getAction("worldEdge"));
+				reply("worldEdge", model);
 			}
 		}
 		else {
@@ -143,15 +139,8 @@ public class Command {
 	}
 	
 	//the description command method
-	private void describe(String specifier, UserDataModel model) {
-		SystemOutput output = Main.getSystemOutput();
-		
-		if (output.getDescription(specifier) == null) {
-			model.addHistory("I don't know what that is.");
-		}
-		else {
-			model.addHistory(output.getDescription(specifier));
-		}
+	private void look(String specifier, UserDataModel model) {
+		reply("look " + specifier, model);
 	}
 	
 	//the map command method
@@ -160,9 +149,6 @@ public class Command {
 			
 			model.getWorld().togglemap();
 			
-		}
-		else {
-			model.addHistory("-No Specifiers Available-");
 		}
 	}
 }

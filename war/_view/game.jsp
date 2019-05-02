@@ -76,11 +76,11 @@
 		
 		<img src="http://public.media.smithsonianmag.com/legacy_blog/ships-mermaid-99.85.jpg" alt="backround" width="100%" height = "75%">
 		
-		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-		
 		<c:if test="${empty Start}">
 			<div class = "start_button">
-				<button name = "Start" type = "submit">Begin/Continue Game</button>
+				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+					<button name = "Start" type = "submit">Begin/Continue Game</button>
+				</form>
 			</div>
 		</c:if>
 		
@@ -88,28 +88,38 @@
 			
 			<div class = "game_buttons">
 				
-				
-				<button name = "Save" type = "submit" value = "saved">Save Game</button>  
-				<button name = "Restart" type = "submit"> Restart</button>
+				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+					<button name = "Save" type = "submit" value = "saved">Save Game</button>
+				</form>
+				<form>  
+					<button name = "Restart" type = "submit"> Restart</button>
+				</form>
 			</div>
 			
 			<div class = "gamepage">
 			
 			<div class = "score"> Score:${score}</div>
 			
+			
+			
 			<!-- the display of user input and server output -->
 			<div class = "container">${gameinfo.getGameDisplay()}</div>
 				
-				<div class="Comand">>	
-					<input type="text" name="userInput" size="12" value="" autofocus/></div>
+				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+					<div class="Comand">>	
+						<input type="text" name="userInput" size="12" value="" autofocus/>
+					</div>
+				</form>
 			</div>
 			<div class = "map">
 			<c:if test="${! empty map}">
 				
+				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
   					<button name = "move" type = "submit" value = "north">North</button>
   					<button name = "move" type = "submit" value = "south">South</button>
   					<button name = "move" type = "submit" value = "east">East</button>
   					<button name = "move" type = "submit" value = "west">West</button>
+  				</form>
 				
 				<!-- 3X3 map which WILL show the players position  -->
 			
@@ -143,9 +153,9 @@
 			
 			</table>
 			</c:if>
+			
 		</div>
 		</c:if>	 
-		</form>
 		
 		
 	</body>
