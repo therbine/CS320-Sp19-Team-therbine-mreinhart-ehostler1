@@ -6,7 +6,6 @@ public class StringPair {
 	private int ID;
 	
 	public StringPair() {
-		
 	}
 	
 	public void setFirst(String first) {
