@@ -95,7 +95,15 @@ public class Command {
 				}
 			}
 			
-			model.addHistory("Available Commands: "+uniqueCommandList.toString());
+			String helpString = "Available Commands and their Specifiers";
+			
+			for(int i = 0; i < uniqueCommandList.size() ; i++) {
+				String command = uniqueCommandList.get(i);
+				List<String> commandSpecifiers = db.SpecifierByCommandQuery(command);
+				helpString += "<br>--> "+command+" "+commandSpecifiers.toString();
+			}
+			
+			model.addHistory(helpString);
 		}
 	}
 	
