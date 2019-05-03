@@ -71,13 +71,13 @@ public class Command {
 	//adds a system reply to the history
 	private void reply(String replyTag, UserDataModel model) {
 		
-		String reply = db.DescriptionByObjectQuery(replyTag).get(0);
+		List<String> replyList = db.DescriptionByObjectQuery(replyTag);
 		
-		if(reply == null) {
+		if(replyList.isEmpty()) {
 			model.addHistory("No Reply Found for this action or description");
 		}
 		else {
-			model.addHistory(reply);
+			model.addHistory(replyList.get(0));
 		}
 	}
 
