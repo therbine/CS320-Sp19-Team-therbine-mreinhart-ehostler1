@@ -595,21 +595,21 @@ public class DerbyDatabase implements IDatabase {
 					///// Commands Table \\\\\
 					insertCommand = conn.prepareStatement("insert into commands (command, specifier) values (?, ?)");
 					for (StringPair command : commandList) {
-						insertAccount.setString(1, command.getFirst());
-						insertAccount.setString(2, command.getSecond());
-						insertAccount.addBatch();
+						insertCommand.setString(1, command.getFirst());
+						insertCommand.setString(2, command.getSecond());
+						insertCommand.addBatch();
 					}
-					insertAccount.executeBatch();
+					insertCommand.executeBatch();
 					System.out.println("Commands table populated");
 					
 					///// Descriptions Table \\\\\
 					insertDescription = conn.prepareStatement("insert into descriptions (object, description) values (?, ?)");
 					for (StringPair description : descriptionList) {
-						insertAccount.setString(1, description.getFirst());
-						insertAccount.setString(2, description.getSecond());
-						insertAccount.addBatch();
+						insertDescription.setString(1, description.getFirst());
+						insertDescription.setString(2, description.getSecond());
+						insertDescription.addBatch();
 					}
-					insertAccount.executeBatch();
+					insertDescription.executeBatch();
 					System.out.println("Descriptions table populated");
 					
 					return true;
