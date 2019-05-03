@@ -85,8 +85,17 @@ public class Command {
 	private void help(String specifier, UserDataModel model) {
 		if(specifier.equals("none")) {
 			
-			model.addHistory("help command not currently available till a query for commands and specifiers is added");
+			List<String> commandList = db.CommandQuery();
+			List<String> uniqueCommandList = new ArrayList<String>();
 			
+			for(int i = 0; i < commandList.size() ; i++) {
+				String command = commandList.get(i);
+				if(!uniqueCommandList.contains(command)) {
+					uniqueCommandList.add(command);
+				}
+			}
+			
+			model.addHistory("Available Commands: "+uniqueCommandList.toString());
 		}
 	}
 	
