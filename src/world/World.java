@@ -23,11 +23,17 @@ public class World implements Serializable {
 	
 	public void populate() {
 		// Create rooms
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				roomArr[i][j] = new Room(Terrain.getRandomTerrain(), new ArrayList<Item>());
-			}
-		}
+		roomArr[0][0] = new Room(Terrain.jungle, new ArrayList<Item>(), "room00");
+		roomArr[0][1] = new Room(Terrain.beach, new ArrayList<Item>(), "room01");
+		roomArr[0][2] = new Room(Terrain.forest, new ArrayList<Item>(), "room02");
+		
+		roomArr[1][0] = new Room(Terrain.cave, new ArrayList<Item>(), "room10");
+		roomArr[1][1] = new Room(Terrain.treasure, new ArrayList<Item>(), "room11");
+		roomArr[1][2] = new Room(Terrain.getRandomTerrain(), new ArrayList<Item>(), "room12");
+		
+		roomArr[2][0] = new Room(Terrain.getRandomTerrain(), new ArrayList<Item>(), "room20");
+		roomArr[2][1] = new Room(Terrain.getRandomTerrain(), new ArrayList<Item>(), "room21");
+		roomArr[2][2] = new Room(Terrain.getRandomTerrain(), new ArrayList<Item>(), "room22");
 		
 		// Add items to room inventories
 		for(int i = 0; i < 3; i++) {

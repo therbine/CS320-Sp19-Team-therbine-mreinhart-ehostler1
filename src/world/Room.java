@@ -9,11 +9,13 @@ public class Room implements Serializable {
 	private Terrain terrain;
 	private ArrayList<Item> roomInv;
 	private ArrayList<Entity> roomEnt;
+	public String descriptionTag; // for getting description for the room from the database
 	
-	public Room(Terrain terrain, ArrayList<Item> roomInv) {
+	public Room(Terrain terrain, ArrayList<Item> roomInv, String descriptionTag) {
 		this.terrain = terrain;
 		this.roomInv = roomInv;
 		this.roomEnt = new ArrayList<Entity>();
+		this.descriptionTag = descriptionTag;
 	}
 	
 	public ArrayList<Item> getInv() {
@@ -22,6 +24,10 @@ public class Room implements Serializable {
 	
 	public Terrain getTerrain() {
 		return terrain;
+	}
+	
+	public String getTag() {
+		return descriptionTag;
 	}
 	
 	public Item takeItem(int index) {

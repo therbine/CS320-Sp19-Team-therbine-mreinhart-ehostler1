@@ -6,7 +6,11 @@ public enum Terrain {
 	cave,
 	beach,
 	jungle,
-	hostile,
+	forest,
+	field,
+	desert,
+	swamp,
+	graveyard,
 	treasure;
 	
 	public static Terrain getRandomTerrain() {
