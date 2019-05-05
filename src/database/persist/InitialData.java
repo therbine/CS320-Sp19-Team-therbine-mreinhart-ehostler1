@@ -182,7 +182,7 @@ public class InitialData {
 				// read account ID from CSV file, but don't use it
 				// it's there for reference purposes, just make sure that it is correct
 				// when setting up other CSV files				
-				Integer.parseInt(i.next());
+				//Integer.parseInt(i.next());
 				// auto-generate account ID, instead
 				description.setID(descriptionId++);
 				description.setFirst(i.next());
