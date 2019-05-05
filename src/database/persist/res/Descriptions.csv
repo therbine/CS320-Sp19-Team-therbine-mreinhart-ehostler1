@@ -1,9 +1,9 @@
-"1|""room00""|""You are in a jungle with a beach to one side of you. There is a cave ahead in the distance."""
-"2|""room01""|""You are standing on a beach, feeling the hot sand beneath your feet. You can see a jungle in one direction, a forest in another, and a stone temple straight ahead."""
-"3|""room02""|""You are in a dense forest with trees surrounding you. You cannot see any other areas through the thick foliage."""
-"4|""room10""|""You are inside a dark cave. It is very difficult to see anything."""
-"5|""room11""|""none"""
-"6|""room12""|""none"""
-"7|""room20""|""none"""
-"8|""room21""|""none"""
-"9|""room22""|""none"""
+1|room00|You are in a jungle with a beach to one side of you. There is a cave ahead in the distance.
+2|room01|You are standing on a beach with the hot sand beneath your feet. You can see a jungle in one direction. There is a forest in another and a stone temple straight ahead.
+3|room02|You are in a dense forest with trees surrounding you. You cannot see any other areas through the thick foliage.
+4|room10|You are inside a dark cave. It is very difficult to see anything.
+5|room11|none
+6|room12|none
+7|room20|none
+8|room21|none
+9|room22|none
