@@ -51,6 +51,10 @@ public class World implements Serializable {
 		}
 	}
 	
+	public Room getPlayerLocation() {
+		return character.getLocation();
+	}
+	
 	public Pair getPlayerCoords() {
 		int x = 0;
 		int y = 0;
