@@ -56,7 +56,19 @@ public class GameServlet extends HttpServlet {
 			command.execute("move",req.getParameter("move"), userDataModel);
 		}
 		//restart game
+		
+		
+		
 		if(req.getParameter("Restart") != null) {
+			try {
+				req.setAttribute("Restart", "pressed");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(req.getParameter("Yes") != null) {
 			try {
 				gameController.restartGame();
 				req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
@@ -65,6 +77,15 @@ public class GameServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		if(req.getParameter("No") != null) {
+			try {
+				req.setAttribute("Restart", null);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		//save game
 		if(req.getParameter("Save") != null) {
 			System.out.println("Save game button pressed.");

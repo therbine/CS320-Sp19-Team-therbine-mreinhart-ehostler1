@@ -18,6 +18,7 @@ public class Room implements Serializable {
 		this.descriptionTag = descriptionTag;
 	}
 	
+	
 	public ArrayList<Item> getInv() {
 		return roomInv;
 	}

@@ -10,6 +10,8 @@ public class Entity implements Combat, Serializable {
 	private int damage;
 	private int armor;
 	
+	private Character location;
+	
 	public Entity(int health, int damage, int armor) {
 		this.health = health;
 		this.damage = damage;
@@ -46,8 +48,13 @@ public class Entity implements Combat, Serializable {
 		other.setHealth(remaining);
 	}
 	
+	
+	
 	public boolean isDone(Entity other) {
 		if(this.health <= 0 || other.getHealth() <= 0) {
+			Room current_location = location.getLocation();
+			//use current_location to remove enemy from room
+			
 			return true;
 		}else {
 			return false;

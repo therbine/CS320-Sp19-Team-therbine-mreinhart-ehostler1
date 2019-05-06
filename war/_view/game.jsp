@@ -15,6 +15,17 @@
 		body{
 		overflow: hidden;
 		}
+		.PopUp{
+		font-size: 200%;
+		background-color: #999999;
+		width: 500px;
+  		height: 300px;
+		position: absolute;
+  		top: 30%;
+ 		left: 35%;
+  		transform: translate;
+  		-ms-transform: translate;
+		}
 		.gamepage {
 		color: white;
 		background-color: #000000;
@@ -67,6 +78,7 @@
   		transform: translate(-50%, -50%);
   		-ms-transform: translate(-50%, -50%);
 		}
+		
 		}
 		
 		
@@ -89,14 +101,18 @@
 		<c:if test="${!empty Start}">
 			
 			<div class = "game_buttons">
-				
-				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-					<button name = "Save" type = "submit" value = "saved">Save Game</button>
-				</form>
-				<form>  
-					<button name = "Restart" type = "submit"> Restart</button>
-				</form>
+				<c:if test="${empty Restart}">
+					<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+						<button name = "Save" type = "submit" value = "saved">Save Game</button>
+					</form>
+					<form action="${pageContext.servletContext.contextPath}/Game" method="post">  
+						<button name = "Restart" type = "submit"> Restart</button>
+					
+					</form>
+				</c:if>
 			</div>
+			
+			
 			
 			<div class = "gamepage">
 			
@@ -157,9 +173,20 @@
 			</c:if>
 			
 		</div>
-		</c:if>	 
-		
-		
+		</c:if>
+		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+			<c:if test="${!empty Restart}">
+				<div class = PopUp>Are you sure you want to restart?
+				<br>
+				<br>
+				<br>
+				<br>
+					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;float:left">Yes</button>
+					
+					<button name = "No" type = "submit" style="height:100px;width:200px;float:right">No</button></div>
+				</div>
+			</c:if>
+		</form>	 
 	</body>
 	
 </html>
