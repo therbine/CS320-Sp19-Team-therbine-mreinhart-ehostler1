@@ -5,6 +5,7 @@ import java.util.List;
 
 import database.persist.*;
 import model.UserDataModel;
+import world.Room;
 import world.World;
 import controller.UserDataController;
 import main.Main;
@@ -118,7 +119,8 @@ public class Command {
 			//execute code for moving north
 			try {
 				world.setPlayerCoords(x, y+1);
-				reply("move north", model);
+				Room newRoom = model.getWorld().getPlayerLocation();
+				reply(newRoom.getTag(), model);
 			}catch (Exception e) {
 				reply("worldEdge", model);
 			}
@@ -127,7 +129,8 @@ public class Command {
 			//execute code for moving south
 			try {
 				world.setPlayerCoords(x, y-1);
-				reply("move south", model);
+				Room newRoom = model.getWorld().getPlayerLocation();
+				reply(newRoom.getTag(), model);
 			}catch (Exception e) {
 				reply("worldEdge", model);
 			}
@@ -136,7 +139,8 @@ public class Command {
 			//execute code for moving east
 			try {
 				world.setPlayerCoords(x+1, y);
-				reply("move east", model);
+				Room newRoom = model.getWorld().getPlayerLocation();
+				reply(newRoom.getTag(), model);
 			}catch (Exception e) {
 				reply("worldEdge", model);
 			}
@@ -145,7 +149,8 @@ public class Command {
 			//execute code for moving west
 			try {
 				world.setPlayerCoords(x-1, y);
-				reply("move west", model);
+				Room newRoom = model.getWorld().getPlayerLocation();
+				reply(newRoom.getTag(), model);
 			}catch (Exception e) {
 				reply("worldEdge", model);
 			}

@@ -541,7 +541,7 @@ public class DerbyDatabase implements IDatabase {
 							"	description_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
 							"	object varchar(15), " +
-							"	description varchar(140)" +
+							"	description varchar(500)" +
 							")"
 					);
 					stmt3.executeUpdate();
