@@ -15,7 +15,7 @@
 		body{
 		overflow: hidden;
 		}
-		.PopUp{
+		.PopUp , .PopUp_youDied{
 		font-size: 200%;
 		background-color: #999999;
 		width: 500px;
@@ -44,8 +44,10 @@
 		}
 		.move_buttons{
 		position: absolute;
-  		top: 5%;
- 		right: 5%;
+  		top: 50%;
+ 		right: 0%;
+ 		width: 500px;
+  		height: 10px;
   		transform: translate;
   		-ms-transform: translate;
 		}
@@ -123,8 +125,8 @@
 			
 			<div class = "gamepage">
 			
-			<div class = "score"> Score:${score}</div>
-			
+			<div class = "score"> Score: ${score}</div>
+			<div class = "health"> Health: ${health}/100</div>
 			
 			
 			<!-- the display of user input and server output -->
@@ -139,10 +141,13 @@
 			<c:if test="${show_buttons}">
 				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 					<div class = move_buttons>
-  					<button name = "move" type = "submit" value = "north">North</button>
-  					<button name = "move" type = "submit" value = "south">South</button>
-  					<button name = "move" type = "submit" value = "east">East</button>
-  					<button name = "move" type = "submit" value = "west">West</button>
+  					<button name = "move" type = "submit" value = "north" style="height:100px;width:200px; transform: translate(50%);">North</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "west" style="height:100px;width:200px;">West</button>
+  					
+  					<button name = "move" type = "submit" value = "east" style="height:100px;width:200px; ">East</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "south" style="height:100px;width:200px; transform: translate(50%);">South</button>
   					</div>
   				</form>
 			</c:if>
@@ -196,6 +201,19 @@
 					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;float:left">Yes</button>
 					
 					<button name = "No" type = "submit" style="height:100px;width:200px;float:right">No</button></div>
+				</div>
+			</c:if>
+		</form>	 
+		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+			<c:if test="${!empty Life}">
+				<div class = PopUp_youDied > 
+				<h1 style ="transform: translate(25%); font-size: 150%;">You Died</h1>
+				
+				<div class = "score"> Final Score: ${score}</div>
+				
+				<br>
+					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(70%);">Restart</button></div>
+					
 				</div>
 			</c:if>
 		</form>	 

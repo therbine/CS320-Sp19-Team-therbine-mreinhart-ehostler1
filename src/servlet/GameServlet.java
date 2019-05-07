@@ -96,6 +96,10 @@ public class GameServlet extends HttpServlet {
 				
 			}
 		}
+		//check if player has health
+		if(userDataModel.getWorld().getPlayer().getHealth() <= 0) {
+			req.setAttribute("Life", "dead");
+		}
 		
 		//command action
 		main.Main.getCommand().action(userDataModel);
@@ -110,6 +114,7 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("map", userDataModel.getWorld().getMap());
 		req.setAttribute("show_buttons", userDataModel.getWorld().getmove_buttons());
 		req.setAttribute("Start", gameController.startGame());
+		req.setAttribute("health", userDataModel.getWorld().getPlayer().getHealth());
 		// Forward to view to render the result HTML document
 		
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
