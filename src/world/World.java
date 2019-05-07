@@ -9,6 +9,7 @@ public class World implements Serializable {
 	private Room[][] roomArr;
 	private Character character;
 	private Boolean map;
+	private Boolean move_buttons;
 	
 	public World() {
 		// Initialize rooms
@@ -19,6 +20,7 @@ public class World implements Serializable {
 		character = new Character(roomArr[1][0]);
 		
 		map = false;
+		move_buttons = false;
 	}
 	
 	public void populate() {
@@ -84,5 +86,13 @@ public class World implements Serializable {
 	
 	public Boolean getMap() {
 		return map;
+	}
+	
+	public Boolean setmove_buttons() {
+		return true;
+	}
+	
+	public Boolean getmove_buttons() {
+		return move_buttons;
 	}
 }
