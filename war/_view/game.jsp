@@ -42,6 +42,13 @@
 		.score{
 		
 		}
+		.move_buttons{
+		position: absolute;
+  		top: 5%;
+ 		right: 5%;
+  		transform: translate;
+  		-ms-transform: translate;
+		}
 		.map{
 		position: absolute;
   		top: 5%;
@@ -129,15 +136,20 @@
 					</div>
 				</form>
 			</div>
-			<div class = "map">
-			<c:if test="${map}">
-				
+			<c:if test="${show_buttons}">
 				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+					<div class = move_buttons>
   					<button name = "move" type = "submit" value = "north">North</button>
   					<button name = "move" type = "submit" value = "south">South</button>
   					<button name = "move" type = "submit" value = "east">East</button>
   					<button name = "move" type = "submit" value = "west">West</button>
+  					</div>
   				</form>
+			</c:if>
+			<div class = "map">
+			<c:if test="${map}">
+				
+				
 				
 				<!-- 3X3 map which WILL show the players position  -->
 			

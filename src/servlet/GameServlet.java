@@ -108,6 +108,7 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("player_x", userDataModel.getWorld().getPlayerCoords().getX());
 		req.setAttribute("player_y", userDataModel.getWorld().getPlayerCoords().getY());
 		req.setAttribute("map", userDataModel.getWorld().getMap());
+		req.setAttribute("show_buttons", userDataModel.getWorld().getmove_buttons());
 		req.setAttribute("Start", gameController.startGame());
 		// Forward to view to render the result HTML document
 		

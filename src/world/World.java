@@ -89,7 +89,8 @@ public class World implements Serializable {
 	}
 	
 	public Boolean setmove_buttons() {
-		return true;
+		move_buttons = true;
+		return move_buttons;
 	}
 	
 	public Boolean getmove_buttons() {
