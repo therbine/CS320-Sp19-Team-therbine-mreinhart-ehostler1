@@ -7,3 +7,7 @@
 7|room20|You are in a dense forest with trees surrounding you. You cannot see any other areas through the thick foliage.
 8|room21|You are walking through an ominous graveyard with bones scattered throughout. A stone temple sits to your left. A desert lies ahead of you. There is also a forest behind you.
 9|room22|You are traveling across a broad desert with the wind blowing sand in your face. You cannot see over the large sand dunes.
+10|worldEdge|You cannot move in that direction.
+11|skeleton|A skeleton wielding a sword stands before you.
+12|zombie|A ravenous zombie is splashing around in the water in front of you.
+13|goblin|A goblin holding a knife watches you curiously from the corner of the cave. You can make out what appears to be a key dangling from his makeshift clothes.
