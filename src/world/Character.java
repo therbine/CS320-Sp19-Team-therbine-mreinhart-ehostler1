@@ -30,17 +30,12 @@ public class Character extends Entity {
 		this.score = score;
 	}
 	
-	public void dropItem(int index) {
-		if(index <= inventory.size() - 1) {
-			getLocation().addItem(inventory.get(index));
-			inventory.remove(index);
-		}
+	public void removeItem(Item oldItem) {
+		inventory.remove(oldItem);
 	}
 	
-	public void pickUpItem(Item item) {
-		if(!isFull()) {
-			inventory.add(item);
-		}
+	public void addItem(Item item) {
+		inventory.add(item);
 	}
 	
 	public boolean isFull() {

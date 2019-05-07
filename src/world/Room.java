@@ -31,10 +31,8 @@ public class Room implements Serializable {
 		return descriptionTag;
 	}
 	
-	public Item takeItem(int index) {
-		Item taken = roomInv.get(index);
-		roomInv.remove(index);
-		return taken;
+	public void removeItem(Item oldItem) {
+		roomInv.remove(oldItem);
 	}
 	
 	public void addItem(Item newItem) {

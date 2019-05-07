@@ -6,6 +6,7 @@ import java.util.List;
 import database.persist.*;
 import model.UserDataModel;
 import world.Item;
+import world.ItemType;
 import world.Room;
 import world.World;
 import controller.UserDataController;
@@ -96,7 +97,7 @@ public class Command {
 		List<String> replyList = db.DescriptionByObjectQuery(replyTag);
 		
 		if(replyList.isEmpty()) {
-			model.addHistory("No Reply Found for this action or description");
+			model.addHistory("No Reply Found for >"+replyTag+"<");
 		}
 		else {
 			model.addHistory(replyList.get(0));
@@ -200,21 +201,55 @@ public class Command {
 		
 		ArrayList<Item> roomInv = model.getWorld().getPlayerLocation().getInv();
 		
+		if(model.getWorld().getPlayer().isFull()) {
+			reply("inventoryFull", model);
+			return;
+		}
+		
 		for(Item item : roomInv) {
 			if(item.getName().equals(specifier)) {
-				model.getWorld().getPlayer().
+				model.getWorld().getPlayer().addItem(item);
+				model.getWorld().getPlayerLocation().removeItem(item);
+				reply("take " + specifier, model);
+				break;
+			}
+		}
+	}
+
+	private void drop(String specifier, UserDataModel model) {
+		
+		ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
+		
+		for(Item item : playerInv) {
+			if(item.getName().equals(specifier)) {
+				model.getWorld().getPlayerLocation().addItem(item);
+				model.getWorld().getPlayer().removeItem(item);
+				reply("drop" + specifier, model);
+				break;
 			}
 		}
 		
 	}
 
-	private void drop(String specifier, UserDataModel model) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void use(String specifier, UserDataModel model) {
-		// TODO Auto-generated method stub
+
+		if(specifier.equals("bandage") || specifier.equals("med kit")) {
+			//use bandage or med kit
+			ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
+			
+			for(Item item : playerInv) {
+				if(item.getName().equals(specifier) && item.getType() == ItemType.potion) {
+					model.getWorld().getPlayer().heal(item.getHealingValue());
+					model.getWorld().getPlayer().removeItem(item);
+					break;
+				}
+			}
+		}
+		else if(specifier.equals("key")) {
+			//use key
+			//TODO
+		}
+		reply("notUseable", model);
 		
 	}
 
