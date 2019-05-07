@@ -130,7 +130,7 @@
 				</form>
 			</div>
 			<div class = "map">
-			<c:if test="${! empty map}">
+			<c:if test="${map}">
 				
 				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
   					<button name = "move" type = "submit" value = "north">North</button>

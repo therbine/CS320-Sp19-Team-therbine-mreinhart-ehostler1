@@ -8,7 +8,7 @@ public class World implements Serializable {
 	
 	private Room[][] roomArr;
 	private Character character;
-	private Object map;
+	private Boolean map;
 	
 	public World() {
 		// Initialize rooms
@@ -18,7 +18,7 @@ public class World implements Serializable {
 		// Create character
 		character = new Character(roomArr[1][0]);
 		
-		map = null;
+		map = false;
 	}
 	
 	public void populate() {
@@ -75,14 +75,14 @@ public class World implements Serializable {
 		character.setLocation(room);
 	}
 	public void togglemap() {
-		if(map == null) {
-			map = 1;
+		if(map) {
+			map = false;
 		}else {
-			map = null;
+			map = true;
 		}
 	}
 	
-	public Object getMap() {
+	public Boolean getMap() {
 		return map;
 	}
 }
