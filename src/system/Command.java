@@ -55,6 +55,10 @@ public class Command {
 	//executes the needed command method
 	public void execute(String command, String specifier, UserDataModel model) {
 		//execute the necessary actions of the given valid command
+		if(model.getWorld().getMap()) {
+			model.getWorld().togglemap();
+		}
+		
 		if(command.equals("help")) {
 			help(specifier, model);
 		}
