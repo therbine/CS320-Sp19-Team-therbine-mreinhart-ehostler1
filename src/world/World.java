@@ -41,13 +41,13 @@ public class World implements Serializable {
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				if(i % 2 == j % 2) {
-					roomArr[i][j].addItem(new Item(ItemType.potion, 0, 10, 0));
+					roomArr[i][j].addItem(new Item("Potion", ItemType.potion, 0, 10, 0));
 				}
 				else if(i % 2 == 0 && j % 2 == 1) {
-					roomArr[i][j].addItem(new Item(ItemType.weapon, 5, 0, 0));
+					roomArr[i][j].addItem(new Item("Sword", ItemType.weapon, 5, 0, 0));
 				}
 				else {
-					roomArr[i][j].addItem(new Item(ItemType.armor, 0, 0, 5));
+					roomArr[i][j].addItem(new Item("Armor", ItemType.armor, 0, 0, 5));
 				}
 			}
 		}
@@ -94,5 +94,9 @@ public class World implements Serializable {
 	
 	public Boolean getmove_buttons() {
 		return move_buttons;
+	}
+	
+	public Character getPlayer() {
+		return this.character;
 	}
 }

@@ -1,6 +1,5 @@
 package world;
 
-import java.lang.Math;
 import java.io.Serializable;
 
 public class Entity implements Combat, Serializable {
@@ -9,8 +8,6 @@ public class Entity implements Combat, Serializable {
 	private int health;
 	private int damage;
 	private int armor;
-	
-	private Character location;
 	
 	public Entity(int health, int damage, int armor) {
 		this.health = health;
@@ -43,21 +40,11 @@ public class Entity implements Combat, Serializable {
 	}
 	
 	// Combat methods
-	public void attack(Entity other) {
-		int remaining = other.getHealth() - (int)Math.ceil((double)this.damage / ((double)other.getArmor() + 1.0));
-		other.setHealth(remaining);
+	public void damage(Integer damage) {
+		this.health -= damage;
 	}
 	
-	
-	
-	public boolean isDone(Entity other) {
-		if(this.health <= 0 || other.getHealth() <= 0) {
-			Room current_location = location.getLocation();
-			//use current_location to remove enemy from room
-			
-			return true;
-		}else {
-			return false;
-		}
+	public void heal(Integer heal) {
+		this.health += heal;
 	}
 }

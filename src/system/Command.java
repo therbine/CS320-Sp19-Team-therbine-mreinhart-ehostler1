@@ -5,6 +5,7 @@ import java.util.List;
 
 import database.persist.*;
 import model.UserDataModel;
+import world.Item;
 import world.Room;
 import world.World;
 import controller.UserDataController;
@@ -71,8 +72,23 @@ public class Command {
 		else if(command.equals("map")) {
 			map(specifier, model);
 		}
+		else if(command.equals("flee")) {
+			flee(specifier, model);
+		}
+		else if(command.equals("attack")) {
+			attack(specifier, model);
+		}
+		else if(command.equals("use")) {
+			use(specifier, model);
+		}
+		else if(command.equals("drop")) {
+			drop(specifier, model);
+		}
+		else if(command.equals("take")) {
+			take(specifier, model);
+		}
 	}
-	
+
 	//adds a system reply to the history
 	private void reply(String replyTag, UserDataModel model) {
 		
@@ -176,6 +192,39 @@ public class Command {
 			model.getWorld().togglemap();
 			
 		}
+	}
+	
+	//the take command method
+	private void take(String specifier, UserDataModel model) {
+		
+		ArrayList<Item> roomInv = model.getWorld().getPlayerLocation().getInv();
+		
+		for(Item item : roomInv) {
+			if(item.getName().equals(specifier)) {
+				model.getWorld().getPlayer().
+			}
+		}
+		
+	}
+
+	private void drop(String specifier, UserDataModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void use(String specifier, UserDataModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void attack(String specifier, UserDataModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void flee(String specifier, UserDataModel model) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
