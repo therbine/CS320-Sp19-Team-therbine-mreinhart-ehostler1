@@ -11,7 +11,7 @@ public class Character extends Entity {
 	private Room prevRoom;
 	
 	public Character(Room room) {
-		super(100, 10, 0);
+		super(100, 10, 0, "player");
 		score = 0;
 		inventory = new ArrayList<Item>();
 		this.location = room;
