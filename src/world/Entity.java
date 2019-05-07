@@ -8,11 +8,13 @@ public class Entity implements Combat, Serializable {
 	private int health;
 	private int damage;
 	private int armor;
+	private String name;
 	
-	public Entity(int health, int damage, int armor) {
+	public Entity(int health, int damage, int armor, String name) {
 		this.health = health;
 		this.damage = damage;
 		this.armor = armor;
+		this.name = name;
 	}
 	
 	public int getHealth() {
@@ -25,6 +27,10 @@ public class Entity implements Combat, Serializable {
 	
 	public int getArmor() {
 		return armor;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void setHealth(int health) {
