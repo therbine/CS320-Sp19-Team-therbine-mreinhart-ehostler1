@@ -44,8 +44,10 @@
 		}
 		.move_buttons{
 		position: absolute;
-  		top: 5%;
- 		right: 5%;
+  		top: 50%;
+ 		right: 0%;
+ 		width: 500px;
+  		height: 10px;
   		transform: translate;
   		-ms-transform: translate;
 		}
@@ -139,10 +141,13 @@
 			<c:if test="${show_buttons}">
 				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 					<div class = move_buttons>
-  					<button name = "move" type = "submit" value = "north">North</button>
-  					<button name = "move" type = "submit" value = "south">South</button>
-  					<button name = "move" type = "submit" value = "east">East</button>
-  					<button name = "move" type = "submit" value = "west">West</button>
+  					<button name = "move" type = "submit" value = "north" style="height:100px;width:200px; transform: translate(50%);">North</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "west" style="height:100px;width:200px;">West</button>
+  					
+  					<button name = "move" type = "submit" value = "east" style="height:100px;width:200px; ">East</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "south" style="height:100px;width:200px; transform: translate(50%);">South</button>
   					</div>
   				</form>
 			</c:if>
