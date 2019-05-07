@@ -65,6 +65,7 @@ public class Command {
 		}
 		else if(command.equals("move")) {
 			move(specifier, model);
+			model.getWorld().setmove_buttons();
 		}
 		else if(command.equals("look")) {
 			look(specifier, model);
