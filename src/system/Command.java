@@ -187,7 +187,31 @@ public class Command {
 	
 	//the description command method
 	private void look(String specifier, UserDataModel model) {
-		reply("look " + specifier, model);
+		
+		ArrayList<Item> roomInv = model.getWorld().getPlayerLocation().getInv();
+		String lookString = "";
+		
+		if(!roomInv.isEmpty()) {
+			lookString += "This area contains";
+			for(int i = 0; i < roomInv.size() ; i++) {
+				if(i == roomInv.size() - 1) {
+					if(roomInv.size() == 1) {
+						lookString += " a "+roomInv.get(i).getName()+".";
+					}
+					else {
+						lookString += " and a "+roomInv.get(i).getName()+".";
+					}
+				}
+				else {
+					lookString += " a "+roomInv.get(i).getName()+",";
+				}
+			}
+		}
+		else {
+			lookString += " There appears to be no items in this area.";
+		}
+		
+		model.addHistory(lookString);
 	}
 	
 	//the inventory command method
@@ -196,6 +220,10 @@ public class Command {
 			
 			ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
 			String inventoryString = "Inventory";
+			
+			if(playerInv.isEmpty()) {
+				inventoryString += "<br>[empty]";
+			}
 			
 			for(Item item : playerInv) {
 				ItemType type = item.getType();
@@ -256,7 +284,7 @@ public class Command {
 			if(item.getName().equals(specifier)) {
 				model.getWorld().getPlayerLocation().addItem(item);
 				model.getWorld().getPlayer().removeItem(item);
-				reply("drop" + specifier, model);
+				reply("drop " + specifier, model);
 				break;
 			}
 		}

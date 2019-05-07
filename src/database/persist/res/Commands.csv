@@ -16,4 +16,12 @@
 16|take|med kit
 17|take|axe
 18|take|shield
-19|fight|none
+19|flee|none
+20|attack|none
+21|look|none
+22|drop|bandage
+23|drop|sword
+24|drop|armor
+25|drop|med kit
+26|drop|axe
+27|drop|shield
