@@ -45,7 +45,7 @@ public class Command {
 		//check if the given command and specifier exist and execute accordingly
 		if(db.SpecifierByCommandQuery(command).contains(specifier)) {
 			//correct command and specifier
-			model.addHistory(input);
+			model.addHistory(" > " + input);
 				
 			execute(command, specifier, model);
 		}
@@ -89,8 +89,11 @@ public class Command {
 		else if(command.equals("take")) {
 			take(specifier, model);
 		}
+		else if(command.equals("inventory")) {
+			inventory(specifier, model);
+		}
 	}
-
+		
 	//adds a system reply to the history
 	private void reply(String replyTag, UserDataModel model) {
 		
@@ -187,6 +190,35 @@ public class Command {
 		reply("look " + specifier, model);
 	}
 	
+	//the inventory command method
+	private void inventory(String specifier, UserDataModel model) {
+		if(specifier.equals("none")) {
+			
+			ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
+			String inventoryString = "Inventory";
+			
+			for(Item item : playerInv) {
+				ItemType type = item.getType();
+				inventoryString += "<br>| "+item.getName()+"(";
+				if(type.equals(ItemType.armor)) {
+					inventoryString += "+"+item.getArmorValue()+" armor";
+				}
+				else if(type.equals(ItemType.key)) {
+					inventoryString += "unlock stuff";
+				}
+				else if(type.equals(ItemType.potion)) {
+					inventoryString += item.getHealingValue()+" health";
+				}
+				else if(type.equals(ItemType.weapon)) {
+					inventoryString += "+"+item.getDamage()+" damage";
+				}
+				inventoryString += ")";
+			}
+			
+			model.addHistory(inventoryString);
+		}
+	}
+	
 	//the map command method
 	private void map(String specifier, UserDataModel model) {
 		if(specifier.equals("none")) {
@@ -245,7 +277,7 @@ public class Command {
 				}
 			}
 		}
-		else if(specifier.equals("key")) {
+		else if(specifier.equals("keys")) {
 			//use key
 			//TODO
 		}
@@ -254,12 +286,12 @@ public class Command {
 	}
 
 	private void attack(String specifier, UserDataModel model) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 
 	private void flee(String specifier, UserDataModel model) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 }
