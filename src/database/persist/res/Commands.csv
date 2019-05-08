@@ -4,7 +4,7 @@
 4|move|west
 5|use|bandage
 6|use|med kit
-7|use|key
+7|use|keys
 8|inventory|none
 9|Professor|Hake
 10|help|none
@@ -16,7 +16,7 @@
 16|take|med kit
 17|take|axe
 18|take|shield
-19|flee|none
+19|run|none
 20|attack|none
 21|look|none
 22|drop|bandage
