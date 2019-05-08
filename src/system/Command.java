@@ -5,6 +5,7 @@ import java.util.List;
 
 import database.persist.*;
 import model.UserDataModel;
+import world.Entity;
 import world.Item;
 import world.ItemType;
 import world.Room;
@@ -104,6 +105,13 @@ public class Command {
 		}
 		else {
 			model.addHistory(replyList.get(0));
+			
+			ArrayList<Entity> roomEnt = model.getWorld().getPlayerLocation().getEnt();
+			if(replyTag.contains("room") && !roomEnt.isEmpty()) {
+				for(Entity ent : roomEnt) {
+					model.addHistory(db.DescriptionByObjectQuery(ent.getName()).get(0));
+				}
+			}
 		}
 	}
 
@@ -189,6 +197,7 @@ public class Command {
 	private void look(String specifier, UserDataModel model) {
 		
 		ArrayList<Item> roomInv = model.getWorld().getPlayerLocation().getInv();
+		ArrayList<Entity> roomEnt = model.getWorld().getPlayerLocation().getEnt();
 		String lookString = "";
 		
 		if(!roomInv.isEmpty()) {
@@ -209,6 +218,26 @@ public class Command {
 		}
 		else {
 			lookString += " There appears to be no items in this area.";
+		}
+		
+		if(!roomEnt.isEmpty()) {
+			lookString += " This area also contains";
+			for(int i = 0; i< roomInv.size() ; i++) {
+				if(i == roomInv.size() - 1) {
+					if(roomInv.size() == 1) {
+						lookString += " a "+roomEnt.get(i).getName()+".";
+					}
+					else {
+						lookString += " and a "+roomEnt.get(i).getName()+".";
+					}
+				}
+				else {
+					lookString += " a "+roomEnt.get(i).getName()+",";
+				}
+			}
+		}
+		else {
+			lookString += " There also appears to be no enemies.";
 		}
 		
 		model.addHistory(lookString);

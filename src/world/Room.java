@@ -23,6 +23,10 @@ public class Room implements Serializable {
 		return roomInv;
 	}
 	
+	public ArrayList<Entity> getEnt(){
+		return roomEnt;
+	}
+	
 	public Terrain getTerrain() {
 		return terrain;
 	}
