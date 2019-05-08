@@ -30,18 +30,28 @@
 		color: white;
 		background-color: #000000;
   		width: 100%;
-  		height: 87%;
+  		height: 60%;
   		max-width: 400px;
   		padding: 3em;
   		overflow: auto;
   		position: absolute;
-   		top:  50%;
+   		top:  60%;
     	left: 50%;
     	transform: translate(-50%,-50%);
 		}
-		.score{
-		
+		.HUD{
+		color: white;
+		background-color: #000000;
+  		width: 100%;
+  		height: 0%;
+  		max-width: 400px;
+  		padding: 3em;
+  		position: absolute;
+   		top:  20%;
+    	left: 50%;
+    	transform: translate(-50%,-50%);
 		}
+		
 
 		.map{
 		position: absolute;
@@ -117,8 +127,7 @@
 			
 			<div class = "gamepage">
 			
-			<div class = "score"> Score: ${score}</div>
-			<div class = "health"> Health: ${health}/100</div>
+			
 			
 			
 			<!-- the display of user input and server output -->
@@ -129,6 +138,11 @@
 						<input type="text" name="userInput" size="12" value="" autofocus/>
 					</div>
 				</form>
+			</div>
+			
+			<div class = "HUD">
+			<div class = "HUD_score"> Score: ${score}</div>
+			<div class = "HUD_health"> Health: ${health}/100</div>
 			</div>
 			
 			<div class = "map">
