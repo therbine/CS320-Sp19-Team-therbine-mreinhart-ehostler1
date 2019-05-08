@@ -42,15 +42,7 @@
 		.score{
 		
 		}
-		.move_buttons{
-		position: absolute;
-  		top: 50%;
- 		right: 0%;
- 		width: 500px;
-  		height: 10px;
-  		transform: translate;
-  		-ms-transform: translate;
-		}
+
 		.map{
 		position: absolute;
   		top: 5%;
@@ -138,19 +130,7 @@
 					</div>
 				</form>
 			</div>
-			<c:if test="${show_buttons}">
-				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-					<div class = move_buttons>
-  					<button name = "move" type = "submit" value = "north" style="height:100px;width:200px; transform: translate(50%);">North</button>
-  					<br>
-  					<button name = "move" type = "submit" value = "west" style="height:100px;width:200px;">West</button>
-  					
-  					<button name = "move" type = "submit" value = "east" style="height:100px;width:200px; ">East</button>
-  					<br>
-  					<button name = "move" type = "submit" value = "south" style="height:100px;width:200px; transform: translate(50%);">South</button>
-  					</div>
-  				</form>
-			</c:if>
+			
 			<div class = "map">
 			<c:if test="${map}">
 				
@@ -171,6 +151,7 @@
 					for(Integer y = 2; y >= 0; y--){
 						%><tr><%
 						for(Integer x = 0; x <= 2; x++){
+							
 							if(location_x == x && location_y == y){
 							%>
 								<td class = "locationofplayer"> </td>
@@ -187,6 +168,19 @@
 				}%>
 			
 			</table>
+			</c:if>
+			<c:if test="${show_buttons}">
+				<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+					<div class = move_buttons>
+  					<button name = "move" type = "submit" value = "north" style="height:50px;width:100px; transform: translate(50%);">North</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "west" style="height:50px;width:100px;">West</button>
+  					
+  					<button name = "move" type = "submit" value = "east" style="height:50px;width:100px; ">East</button>
+  					<br>
+  					<button name = "move" type = "submit" value = "south" style="height:50px;width:100px; transform: translate(50%);">South</button>
+  					</div>
+  				</form>
 			</c:if>
 			
 		</div>

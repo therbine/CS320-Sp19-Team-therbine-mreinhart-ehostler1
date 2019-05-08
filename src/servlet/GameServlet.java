@@ -53,7 +53,8 @@ public class GameServlet extends HttpServlet {
 		
 		//button commands
 		if(req.getParameter("move") != null) {
-			command.execute("move",req.getParameter("move"), userDataModel);
+			userDataModel.setPlayerInput("move " + req.getParameter("move"));
+			command.action(userDataModel);
 		}
 		//restart game
 		
@@ -102,8 +103,9 @@ public class GameServlet extends HttpServlet {
 		}
 		
 		//command action
-		main.Main.getCommand().action(userDataModel);
-		
+		if(req.getParameter("move") == null) {
+			main.Main.getCommand().action(userDataModel);
+		}
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
@@ -115,6 +117,7 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("show_buttons", userDataModel.getWorld().getmove_buttons());
 		req.setAttribute("Start", gameController.startGame());
 		req.setAttribute("health", userDataModel.getWorld().getPlayer().getHealth());
+		req.setAttribute("score", userDataModel.getWorld().getPlayer().getScore());
 		// Forward to view to render the result HTML document
 		
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
