@@ -52,5 +52,9 @@ public class Entity implements Combat, Serializable {
 	
 	public void heal(Integer heal) {
 		this.health += heal;
+		
+		if(this.health > 100) {
+			this.health = 100;
+		}
 	}
 }
