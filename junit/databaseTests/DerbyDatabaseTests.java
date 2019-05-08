@@ -2,7 +2,6 @@ package databaseTests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -68,43 +67,37 @@ public class DerbyDatabaseTests {
 
 	@Test
 	public void testInsertNewUser() {
-		System.out.println("\n*** Testing insertBookIntoBooksTable ***");
+		System.out.println("\n*** Testing insertNewUser ***");
 
-		String title     = "Wired for War";
-		String isbn      = "0-143-11684-3";
-		int    published = 2009;
-		String lastName  = "Singer";
-		String firstName = "P.J.";
+		String username = "testUsername";
+		String password = "testPassword";
   
 				
-		// insert new book (and possibly new author) into DB
-		Integer book_id = db.insertBookIntoBooksTable(title, isbn, published, lastName, firstName);
+		// insert new user into DB
+		Integer account_id = db.insertNewUser(username, password);
 
-		// check the return value - should be a book_id > 0
-		if (book_id > 0)
+		// check the return value - should be a account_id > 0
+		if (account_id > 0)
 		{
-			// try to retrieve the book and author from the DB
-			// get the list of (Author, Book) pairs from DB
-			authorBookList = db.findAuthorAndBookByAuthorLastName(lastName);
+			passwords = db.PasswordByUsernameQuery(username);
 			
-			if (authorBookList.isEmpty()) {
-				System.out.println("No books found for author <" + lastName + ">");
-				fail("Failed to insert new book <" + title + "> into Library DB");
+			if (passwords.isEmpty()) {
+				System.out.println("No password found for username <" + username + ">");
+				fail("Failed to insert new user <" + username + "> into Accounts DB");
 			}
-			// otherwise, the test was successful.  Now remove the book just inserted to return the DB
-			// to it's original state, except for using an author_id and a book_id
+			
 			else {
-				System.out.println("New book (ID: " + book_id + ") successfully added to Books table: <" + title + ">");
+				System.out.println("New user (ID: " + account_id + ") successfully added to Accounts table: <" + username + ">");
 				
 				// now delete Book (and its Author) from DB
 				// leaving the DB in its previous state - except that an author_id, and a book_id have been used
-				List<Author> authors = db.removeBookByTitle(title);				
+				/*List<Account> accounts = */db.removeAccountByUsername(username);				
 			}
 		}
 		else
 		{
-			System.out.println("Failed to insert new book (ID: " + book_id + ") into Books table: <" + title + ">");
-			fail("Failed to insert new book <" + title + "> into Library DB");
+			System.out.println("Failed to insert new user (ID: " + account_id + ") into Accounts table: <" + username + ">");
+			fail("Failed to insert new user <" + username + "> into Accounts DB");
 		}
 	}
 	
@@ -122,7 +115,7 @@ public class DerbyDatabaseTests {
 		// check to see that insertion was successful before proceeding
 		if (account_id > 0) {
 			db.removeAccountByUsername(username);
-			assertEquals(db.PasswordByUsernameQuery(username), null);
+			assertTrue(db.PasswordByUsernameQuery(username).isEmpty());
 		}
 		else {
 			System.out.println("Failed to insert new account (ID: " + account_id + ") into table: <" + username + ">");

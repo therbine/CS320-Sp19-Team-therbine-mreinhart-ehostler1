@@ -1,12 +1,10 @@
 package modelTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import model.SignInPageModel;
+
 
 public class SignInPageTest {
 	private SignInPageModel model;
@@ -30,13 +28,13 @@ public class SignInPageTest {
 	
 	@Test
 	public void testGetGivenUsername() {
-		model.addUser("Clever Username", "Strong Password");
-		assertEquals(model.getPassword("Clever Username"), "Strong Password");
+		model.setGivenUsername("Clever Username");
+		assertEquals(model.getGivenUsername(), "Clever Username");
 	}
 	
 	@Test
 	public void testGetGivenPassword() {
-		model.addUser("Clever Username", "Strong Password");
-		assertTrue(model.checkForUser("Clever Username"));
+		model.setGivenPassword("Strong Password");
+		assertEquals(model.getGivenPassword(), "Strong Password");
 	}
 }
