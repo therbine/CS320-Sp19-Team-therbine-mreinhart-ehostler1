@@ -447,8 +447,17 @@ public class Command {
 			//get the enemy that is attacking
 			Entity enemy = enemyList.get(0);
 			
+			//calculate the armor of the player
+			int armor = model.getWorld().getPlayer().getArmor();
+			ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
+			for(Item item : playerInv) {
+				if(item.getType() == ItemType.armor) {
+					armor += item.getArmorValue();
+				}
+			}
+			
 			//calculate the attack of the enemy
-			int attack = (int)Math.ceil((double)enemy.getDamage() / ((double)model.getWorld().getPlayer().getArmor() + 1.0));
+			int attack = (int)Math.ceil((double)enemy.getDamage() / ((double)armor + 1.0));
 			
 			//do damage to player
 			model.getWorld().getPlayer().damage(attack);
