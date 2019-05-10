@@ -200,6 +200,10 @@ public class Command {
 			model.addHistory("That's not a direction.");
 		}
 		
+		if(model.getWorld().getPlayerLocation().roomEntered()) {
+			modifyScore(-5,model);
+		}
+		
 		model.getWorld().getPlayerLocation().setRoomEntered(true);
 	}
 	
@@ -292,6 +296,9 @@ public class Command {
 			
 			model.getWorld().togglemap();
 			
+			if(model.getWorld().getMap()) {
+				modifyScore(-10,model);
+			}
 		}
 	}
 	
@@ -340,6 +347,7 @@ public class Command {
 				if(item.getName().equals(specifier) && item.getType() == ItemType.potion) {
 					model.getWorld().getPlayer().heal(item.getHealingValue());
 					model.getWorld().getPlayer().removeItem(item);
+					enemyAttack(model);
 					break;
 				}
 			}
@@ -361,8 +369,6 @@ public class Command {
 			
 			//get the first enemy in the room
 			Entity target = targetList.get(0);
-			
-			reply("attack",model);
 			
 			//calculate player attack
 			int attack = model.getWorld().getPlayer().getDamage();
@@ -387,21 +393,50 @@ public class Command {
 			if(target.isDead()) {
 				reply("kill", model);
 				
+				modifyScore(15,model);
+				
 				String keyName = target.getName() + " key";
 				model.getWorld().getPlayerLocation().getInv().add(new Item(keyName,ItemType.key,0,0,0));
 				
 				model.getWorld().getPlayerLocation().killEntity(0);
 			}
-			else if(targetList.isEmpty()) {
-				reply("noEnemy",model);
+			else {
+				reply("attack",model);
+				enemyAttack(model);
 			}
+		}
+		else if(targetList.isEmpty()) {
+			reply("noEnemy",model);
 		}
 	}
 
 	private void run(String specifier, UserDataModel model) {
 		if(specifier.equals("none")) {
+			enemyAttack(model);
 			model.getWorld().getPlayer().flee();
 		}
+	}
+	
+	private void enemyAttack(UserDataModel model) {
+		ArrayList<Entity> enemyList = model.getWorld().getPlayerLocation().getEnt();
+		
+		if(!enemyList.isEmpty()) {
+			
+			//get the enemy that is attacking
+			Entity enemy = enemyList.get(0);
+			
+			//calculate the attack of the enemy
+			int attack = (int)Math.ceil((double)enemy.getDamage() / ((double)model.getWorld().getPlayer().getArmor() + 1.0));
+			
+			//do damage to player
+			model.getWorld().getPlayer().damage(attack);
+		}
+		
+	}
+	
+	private void modifyScore(int modifier, UserDataModel model) {
+		int newScore = model.getWorld().getPlayer().getScore() + modifier;
+		model.getWorld().getPlayer().setScore(newScore);
 	}
 }
 
