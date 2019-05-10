@@ -6,7 +6,7 @@
 6|use|med kit
 7|use|keys
 8|inventory|none
-9|Professor|Hake
+9|look|none
 10|help|none
 11|map|none
 12|take|bandage
@@ -20,10 +20,9 @@
 20|take|shield
 21|run|none
 22|attack|none
-23|look|none
+23|drop|shield
 24|drop|bandage
 25|drop|sword
 26|drop|armor
 27|drop|med kit
 28|drop|axe
-29|drop|shield
