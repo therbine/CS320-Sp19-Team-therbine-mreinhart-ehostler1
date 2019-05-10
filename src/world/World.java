@@ -18,6 +18,7 @@ public class World implements Serializable {
 		
 		// Create character
 		character = new Character(roomArr[1][0]);
+		roomArr[1][0].setRoomEntered(true);
 		
 		map = false;
 		move_buttons = false;

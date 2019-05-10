@@ -9,15 +9,24 @@ public class Room implements Serializable {
 	private Terrain terrain;
 	private ArrayList<Item> roomInv;
 	private ArrayList<Entity> roomEnt;
-	public String descriptionTag; // for getting description for the room from the database
+	private String descriptionTag; // for getting description for the room from the database
+	private boolean roomEntered;
 	
 	public Room(Terrain terrain, ArrayList<Item> roomInv, String descriptionTag) {
 		this.terrain = terrain;
 		this.roomInv = roomInv;
 		this.roomEnt = new ArrayList<Entity>();
 		this.descriptionTag = descriptionTag;
+		this.roomEntered = false;
 	}
 	
+	public boolean roomEntered() {
+		return this.roomEntered;
+	}
+	
+	public void setRoomEntered(boolean roomEntered) {
+		this.roomEntered = roomEntered;
+	}
 	
 	public ArrayList<Item> getInv() {
 		return roomInv;

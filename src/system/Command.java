@@ -199,6 +199,8 @@ public class Command {
 		else {
 			model.addHistory("That's not a direction.");
 		}
+		
+		model.getWorld().getPlayerLocation().setRoomEntered(true);
 	}
 	
 	//the description command method
