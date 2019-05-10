@@ -89,6 +89,16 @@
   		transform: translate(-50%, -50%);
   		-ms-transform: translate(-50%, -50%);
 		}
+		.Treasure_Room{
+		font-size: 200%;
+		position: absolute;
+  		top: 50%;
+ 		left: 50%;
+  		transform: translate(-50%,-100%);
+  		-ms-transform: translate(-50%,-100%);
+		
+		}
+		
 		
 		}
 		
@@ -96,6 +106,8 @@
 		</style> 
 	</head>
 	<body>
+		
+		<c:if test="${empty Won}">
 		
 		<img src="http://public.media.smithsonianmag.com/legacy_blog/ships-mermaid-99.85.jpg" alt="backround" width="100%" height = "75%">
 		
@@ -251,6 +263,7 @@
 			
 		</div>
 		</c:if>
+		</c:if>
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
 		
 		
@@ -282,14 +295,16 @@
 				</c:if>
 				
 				<c:if test="${!empty Won}">
-				<div class = PopUp>
+				<img src="http://2.bp.blogspot.com/-zPNcpnb_pvI/Vecsyaq-C1I/AAAAAAAABi0/iCN5kwmX_Zw/s1600/90653cadfa9d36adfec01a4fc0ba9f81d6a084e0.jpg" alt="backround" width="100%" height = "75%">
+				<div class = Treasure_Room>
+					
 					<h1 style ="transform: translate(25%); font-size: 150%;">You Won</h1>
 				
 					<div class = "score"> Final Score: ${score}</div>
 				
 					<br>
-				
-					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(70%);">Play Again</button></div>
+					<br>
+					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(10%);">Play Again</button></div>
 				</div>	
 				</c:if>
 			
