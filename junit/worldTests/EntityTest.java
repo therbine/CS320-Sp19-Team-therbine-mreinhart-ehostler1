@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import world.*;
 import world.Character;
@@ -81,7 +83,7 @@ public class EntityTest {
 		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		Character character = new Character(room);
 		Entity enemy = new Entity(50, 10, 0, "");
-		character.attack(enemy);
+		enemy.damage(character.getDamage());
 		
 		assertEquals(40, enemy.getHealth());
 	}
@@ -111,22 +113,22 @@ public class EntityTest {
 	}
 	
 	@Test
-	public void testIsDoneContinue() {
-		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
+	public void testIsDeadFalse() {
+		//Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		Entity attacker = new Entity(15, 10, 0, "");
 		Entity enemy = new Entity(15, 0, 0, "");
 		enemy.damage(attacker.getDamage());
 		
-		assertEquals(attacker.isDone(enemy), false);
+		assertFalse(enemy.isDead());
 	}
 	
 	@Test
-	public void testIsDoneFinished() {
-		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
+	public void testIsDeadTrue() {
+		//Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		Entity attacker = new Entity(15, 10, 0, "");
 		Entity enemy = new Entity(10, 0, 0, "");
-		attacker.attack(enemy);
+		enemy.damage(attacker.getDamage());
 		
-		assertEquals(attacker.isDone(enemy), true);
+		assertTrue(enemy.isDead());
 	}
 }

@@ -23,7 +23,7 @@ public class CharacterTest {
 	@Test
 	public void testPickUpItem() {
 		Item item = new Item("", ItemType.potion, 0, 4, 0);
-		character.pickUpItem(item);
+		character.addItem(item);
 		
 		assertTrue(character.getInventory().contains(item));
 	}
@@ -36,7 +36,9 @@ public class CharacterTest {
 		}
 		
 		Item full = new Item("", ItemType.weapon, 2, 0, 0);
-		character.addItem(full);
+		if(!character.isFull()) {
+			character.addItem(full);
+		}
 		
 		assertFalse(character.getInventory().contains(full));
 	}
@@ -44,19 +46,23 @@ public class CharacterTest {
 	@Test
 	public void testDropItem() {
 		Item item = new Item("", ItemType.potion, 0, 4, 0);
-		for(int i = 0; i < 5; i++) {
-			character.addItem(item);
-		}
-		character.removeItem(oldItem);
+		Item item2 = new Item("", ItemType.potion, 0, 4, 0);
+		Item item3 = new Item("", ItemType.potion, 0, 4, 0);
 		
-		assertEquals(character.getInventory().size(), 4);
-		assertTrue(character.getLocation().getInv().contains(item));
+		character.addItem(item);
+		character.addItem(item2);
+		character.addItem(item3);
+		
+		character.removeItem(item);
+		
+		assertEquals(character.getInventory().size(), 2);
+		assertFalse(character.getLocation().getInv().contains(item));
 	}
 	
 	@Test
 	public void testDropItemEmptyInv() {
 		Item item = new Item("", ItemType.potion, 0, 4, 0);
-		character.removeItem(oldItem);
+		character.removeItem(item);
 		assertFalse(character.getLocation().getInv().contains(item));
 	}
 }
