@@ -338,7 +338,9 @@ public class Command {
 			//use key
 			//TODO
 		}
-		reply("notUseable", model);
+		else {
+			reply("notUseable", model);
+		}
 		
 	}
 
