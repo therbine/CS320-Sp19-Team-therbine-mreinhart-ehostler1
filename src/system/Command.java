@@ -2,6 +2,7 @@ package system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.math.*;
 
 import database.persist.*;
 import model.UserDataModel;
@@ -75,8 +76,8 @@ public class Command {
 		else if(command.equals("map")) {
 			map(specifier, model);
 		}
-		else if(command.equals("flee")) {
-			flee(specifier, model);
+		else if(command.equals("run")) {
+			run(specifier, model);
 		}
 		else if(command.equals("attack")) {
 			attack(specifier, model);
@@ -345,11 +346,40 @@ public class Command {
 	}
 
 	private void attack(String specifier, UserDataModel model) {
-		// TODO
+		ArrayList<Entity> targetList = model.getWorld().getPlayerLocation().getEnt();
 		
+		if(specifier.equals("none")) {
+			
+			//get the first enemy in the room
+			Entity target = targetList.get(0);
+			
+			//calculate player attack
+			int attack = model.getWorld().getPlayer().getDamage();
+			System.out.println("Player base attack is:" + attack);
+			ArrayList<Item> inventory = model.getWorld().getPlayer().getInventory();
+			for(Item item : inventory) {
+				if(item.getType() == ItemType.weapon) {
+					attack += item.getDamage();
+				}
+			}
+			System.out.println("Player total attack is:" + attack);
+			
+			//account for enemy armor value (probably zero)
+			attack = (int)Math.ceil((double)attack / ((double)target.getArmor() + 1.0));
+			System.out.println("Player total attack with enemy armor is:" + attack);
+			
+			//deal damage to target
+			target.damage(attack);
+			
+			System.out.println("Target is dead?" + target.isDead());
+			
+			if(target.isDead()) {
+				model.getWorld().getPlayerLocation().killEntity(0);
+			}
+		}
 	}
 
-	private void flee(String specifier, UserDataModel model) {
+	private void run(String specifier, UserDataModel model) {
 		// TODO
 		
 	}
