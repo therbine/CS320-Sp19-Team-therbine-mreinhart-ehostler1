@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+///// TAKEN FROM LIBRARY EXAMPLE \\\\\
+
 public class DerbyDatabase implements IDatabase {
 	static {
 		try {
@@ -55,7 +57,7 @@ public class DerbyDatabase implements IDatabase {
 						result.add(password);
 					}
 					
-					// check if the title was found
+					// check if the username was found
 					if (!found) {
 						System.out.println("<" + username + "> was not found in the accounts table");
 					}
@@ -70,7 +72,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	
-	// transaction that retrieves a list of Books with their Authors, given Author's last name
 	@Override
 	public List<byte[]> UserDataByUsernameQuery(final String username) {
 		return executeTransaction(new Transaction<List<byte[]>>() {
@@ -79,7 +80,6 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
-				// try to retrieve Authors and Books based on Author's last name, passed into query
 				try {
 					stmt = conn.prepareStatement(
 							"select bytes " +
@@ -88,10 +88,8 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt.setString(1, username);
 					
-					// establish the list of (Author, Book) Pairs to receive the result
 					List<byte[]> result = new ArrayList<byte[]>();
 					
-					// execute the query, get the results, and assemble them in an ArrayLsit
 					resultSet = stmt.executeQuery();
 					while (resultSet.next()) {
 						byte[] bytes = resultSet.getBytes(1);
@@ -120,7 +118,6 @@ public class DerbyDatabase implements IDatabase {
 				
 				Integer account_id = -1;
 
-				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
 				try {
 					stmt1 = conn.prepareStatement(
 							"update accounts " +
@@ -131,7 +128,6 @@ public class DerbyDatabase implements IDatabase {
 					stmt1.setBytes(1, bytes);
 					stmt1.setString(2, username);
 					
-					// execute the query, get the result
 					stmt1.executeUpdate();
 					
 					stmt2 = conn.prepareStatement(
@@ -169,8 +165,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet    = null;
 				
 				try {				
-					// now get the Book(s) to be deleted
-					// we will need the book_id to remove associated entries in BookAuthors (junction table)
+					// now get the Account(s) to be deleted
 				
 					stmt1 = conn.prepareStatement(
 							"select accounts.* " +
@@ -178,11 +173,11 @@ public class DerbyDatabase implements IDatabase {
 							"  where username = ? "
 					);
 					
-					// get the Book(s)
+					// get the Account(s)
 					stmt1.setString(1, username);
 					resultSet = stmt1.executeQuery();
 					
-					// assemble list of Books from query
+					// assemble list of Accounts from query
 					List<Account> accounts = new ArrayList<Account>();					
 				
 					while (resultSet.next()) {
@@ -192,16 +187,11 @@ public class DerbyDatabase implements IDatabase {
 						accounts.add(account);
 					}
 					
-					// first delete entries in BookAuthors junction table
-					// can't delete entries in Books or Authors tables while they have foreign keys in junction table
-					// prepare to delete the junction table entries (bookAuthors)
 					stmt2 = conn.prepareStatement(
 							"delete from accounts " +
 							"  where username = ? "
 					);
 					
-					// delete the junction table entries from the DB for this title
-					// this works if there are not multiple books with the same name
 					stmt2.setString(1, username);
 					stmt2.executeUpdate();
 					
@@ -230,10 +220,10 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet1 = null;
 				ResultSet resultSet3 = null;		
 				
-				// for saving author ID and book ID
+				// for saving account ID
 				Integer account_id = -1;
 
-				// try to retrieve author_id (if it exists) from DB, for Author's full name, passed into query
+				// try to retrieve account_id (if it exists) from DB, for Accounts's username, passed into query
 				try {
 					stmt1 = conn.prepareStatement(
 							"select account_id from accounts " +
@@ -241,11 +231,10 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt1.setString(1, username);
 					
-					// execute the query, get the result
 					resultSet1 = stmt1.executeQuery();
 
 					
-					// if Author was found then save author_id					
+					// if Account was found then save account_id					
 					if (resultSet1.next())
 					{
 						account_id = resultSet1.getInt(1);
@@ -255,9 +244,9 @@ public class DerbyDatabase implements IDatabase {
 					{
 						System.out.println("Account <" + username + "> not found");
 				
-						// if the Author is new, insert new Author into Authors table
+						// if the Account is new, insert new Account into Accounts table
 						if (account_id <= 0) {
-							// prepare SQL insert statement to add Author to Authors table
+							// prepare SQL insert statement to add Account to Accounts table
 							stmt2 = conn.prepareStatement(
 									"insert into accounts (username, password) " +
 									"  values(?, ?) "
@@ -266,22 +255,19 @@ public class DerbyDatabase implements IDatabase {
 							stmt2.setString(1, username);
 							stmt2.setString(2, password);
 							
-							// execute the update
 							stmt2.executeUpdate();
 							
 							System.out.println("New account <" + username + "> inserted in Authors table");						
 						
-							// try to retrieve author_id for new Author - DB auto-generates author_id
+							// try to retrieve account_id for new Account - DB auto-generates account_id
 							stmt3 = conn.prepareStatement(
 									"select account_id from accounts " +
 									"  where username = ? "
 							);
 							stmt3.setString(1, username);
-							
-							// execute the query							
+												
 							resultSet3 = stmt3.executeQuery();
-							
-							// get the result - there had better be one							
+													
 							if (resultSet3.next())
 							{
 								account_id = resultSet3.getInt(1);
@@ -335,53 +321,10 @@ public class DerbyDatabase implements IDatabase {
 						result.add(specifier);
 					}
 					
-					// check if the title was found
+					// check if the command was found
 					if (!found) {
 						System.out.println("<" + command + "> was not found in the commands table");
 					}
-					
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
-	
-	@Override
-	public List<String> CommandQuery() {
-		return executeTransaction(new Transaction<List<String>>() {
-			@Override
-			public List<String> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				try {
-					stmt = conn.prepareStatement(
-							"select command " +
-							"  from  commands "
-					);
-					
-					List<String> result = new ArrayList<String>();
-					
-					resultSet = stmt.executeQuery();
-					
-					// for testing that a result was returned
-					Boolean found = false;
-					
-					while (resultSet.next()) {
-						found = true;
-						String command = resultSet.getString(1);
-						result.add(command);
-					}
-					
-					// check if the title was found
-					if (!found) {
-						System.out.println("NO COMMANDS");
-					}
-					
-					//System.out.println(result);
 					
 					return result;
 				} finally {
@@ -421,7 +364,7 @@ public class DerbyDatabase implements IDatabase {
 						result.add(description);
 					}
 					
-					// check if the title was found
+					// check if the object was found
 					if (!found) {
 						System.out.println("<" + object + "> was not found in the descriptions table");
 					}
@@ -443,7 +386,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	
-	// wrapper SQL transaction function that calls actual transaction function (which has retries)
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransaction(txn);
@@ -452,7 +394,6 @@ public class DerbyDatabase implements IDatabase {
 		}
 	}
 	
-	// SQL transaction function which retries the transaction MAX_ATTEMPTS times before failing
 	public<ResultType> ResultType doExecuteTransaction(Transaction<ResultType> txn) throws SQLException {
 		Connection conn = connect();
 		
@@ -488,9 +429,7 @@ public class DerbyDatabase implements IDatabase {
 		}
 	}
 
-	// TODO: Here is where you name and specify the location of your Derby SQL database
-	// TODO: Change it here and in SQLDemo.java under CS320_LibraryExample_Lab06->edu.ycp.cs320.sqldemo
-	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause conflicts later w/Git
+	
 	private Connection connect() throws SQLException {
 		Connection conn = DriverManager.getConnection("jdbc:derby:./CS320-2019-ProceedWithCaution-DB/game.db;create=true");		
 		
@@ -501,7 +440,7 @@ public class DerbyDatabase implements IDatabase {
 		return conn;
 	}
 	
-	//  creates the Authors and Books tables
+	//  creates the Accounts, Commands, and Descriptions tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -580,7 +519,6 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertDescription = null;
 
 				try {
-					// must completely populate Authors table before populating BookAuthors table because of primary keys
 					///// Accounts Table \\\\\
 					insertAccount = conn.prepareStatement("insert into accounts (username, password, bytes) values (?, ?, ?)");
 					for (Account account : accountList) {

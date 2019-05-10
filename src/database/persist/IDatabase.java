@@ -10,5 +10,4 @@ public interface IDatabase {
 	public Integer updateUserData(String username, byte[] bytes);
 	public List<String> SpecifierByCommandQuery(final String command);
 	public List<String> DescriptionByObjectQuery(final String object);
-	public List<String> CommandQuery();
 }
