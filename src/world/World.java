@@ -42,17 +42,17 @@ public class World implements Serializable {
 		roomArr[0][0].addItem(new Item("sword", ItemType.weapon, 5, 0, 0));
 		roomArr[2][2].addItem(new Item("axe", ItemType.weapon, 10, 0, 0));
 		
-		roomArr[2][0].addItem(new Item("armor", ItemType.armor, 0, 0, 4));
-		roomArr[0][2].addItem(new Item("shield", ItemType.armor, 0, 0, 4));
+		roomArr[2][0].addItem(new Item("armor", ItemType.armor, 0, 0, 1));
+		roomArr[0][2].addItem(new Item("shield", ItemType.armor, 0, 0, 1));
 		
 		roomArr[0][1].addItem(new Item("bandage", ItemType.potion, 0, 5, 0));
 		roomArr[2][1].addItem(new Item("bandage", ItemType.potion, 0, 5, 0));
 		roomArr[1][2].addItem(new Item("med kit", ItemType.potion, 0, 10, 0));
 		
 		// Spawn enemies
-		roomArr[0][1].newEntity(new Entity(50, 15, 0, "goblin"));
-		roomArr[2][1].newEntity(new Entity(60, 10, 0, "skeleton"));
-		roomArr[1][2].newEntity(new Entity(40, 20, 0, "zombie"));
+		roomArr[0][1].newEntity(new Entity(60, 20, 0, "goblin"));
+		roomArr[2][1].newEntity(new Entity(70, 15, 0, "skeleton"));
+		roomArr[1][2].newEntity(new Entity(50, 30, 0, "zombie"));
 	}
 	
 	public Room getPlayerLocation() {
