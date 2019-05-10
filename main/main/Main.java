@@ -7,7 +7,6 @@ import org.eclipse.jetty.server.Server;
 import model.GameModel;
 import model.SignInPageModel;
 import system.Command;
-import system.SystemOutput;
 
 public class Main {
 	
@@ -15,7 +14,6 @@ public class Main {
 	static SignInPageModel signInPageModel = new SignInPageModel();
 	static GameModel gameModel = new GameModel();
 	static Command command = new Command();
-	static SystemOutput systemOutput = new SystemOutput();
 	
 	public static void main(String[] args) throws Exception {
 		String webappCodeBase = "./war";
@@ -55,10 +53,5 @@ public class Main {
 	//getter for the static command
 	public static Command getCommand() {
 		return command;
-	}
-	
-	//getter for the static command
-	public static SystemOutput getSystemOutput() {
-		return systemOutput;
 	}
 }
