@@ -11,17 +11,21 @@ import world.Character;
 
 public class EntityTest {
 	private Entity entity;
+	private Character character;
 	
 	@Before
 	public void setUp() {
-		Room room = new Room(Terrain.cave, new ArrayList<Item>());
-		entity = new Entity(room, 3, 4, 5);
+		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
+		entity = new Entity(3, 4, 5, "");
+		room.newEntity(entity);
+		
+		character = new Character(room);
 	}
 	
 	@Test
 	public void testGetLocation() {
-		Terrain terrain = entity.getLocation().getTerrain();
-		int size = entity.getLocation().getInv().size();
+		Terrain terrain = character.getLocation().getTerrain();
+		int size = character.getLocation().getInv().size();
 		
 		assertEquals(terrain, Terrain.cave);
 		assertEquals(size, 0);
@@ -44,11 +48,11 @@ public class EntityTest {
 	
 	@Test
 	public void testSetLocation() {
-		Room room = new Room(Terrain.jungle, new ArrayList<Item>());
-		entity.setLocation(room);
+		Room room = new Room(Terrain.jungle, new ArrayList<Item>(), "");
+		character.setLocation(room);
 		
-		Terrain terrain = entity.getLocation().getTerrain();
-		int size = entity.getLocation().getInv().size();
+		Terrain terrain = character.getLocation().getTerrain();
+		int size = character.getLocation().getInv().size();
 		
 		assertEquals(terrain, Terrain.jungle);
 		assertEquals(size, 0);
@@ -74,9 +78,9 @@ public class EntityTest {
 	
 	@Test
 	public void testAttack() {
-		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		Character character = new Character(room);
-		Entity enemy = new Entity(room, 50, 10, 0);
+		Entity enemy = new Entity(50, 10, 0, "");
 		character.attack(enemy);
 		
 		assertEquals(40, enemy.getHealth());
@@ -84,8 +88,8 @@ public class EntityTest {
 	
 	@Test
 	public void testFleeSuccess() {
-		Room startingRoom = new Room(Terrain.beach, new ArrayList<Item>());
-		Room currentRoom = new Room(Terrain.hostile, new ArrayList<Item>());
+		Room startingRoom = new Room(Terrain.beach, new ArrayList<Item>(), "");
+		Room currentRoom = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		
 		Character character = new Character(startingRoom);
 		character.setLocation(currentRoom);
@@ -97,7 +101,7 @@ public class EntityTest {
 	
 	@Test
 	public void testFleeFail() {
-		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
+		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
 		
 		Character character = new Character(room);
 		character.flee();
@@ -108,19 +112,19 @@ public class EntityTest {
 	
 	@Test
 	public void testIsDoneContinue() {
-		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
-		Entity attacker = new Entity(room, 15, 10, 0);
-		Entity enemy = new Entity(room, 15, 0, 0);
-		attacker.attack(enemy);
+		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
+		Entity attacker = new Entity(15, 10, 0, "");
+		Entity enemy = new Entity(15, 0, 0, "");
+		enemy.damage(attacker.getDamage());
 		
 		assertEquals(attacker.isDone(enemy), false);
 	}
 	
 	@Test
 	public void testIsDoneFinished() {
-		Room room = new Room(Terrain.hostile, new ArrayList<Item>());
-		Entity attacker = new Entity(room, 15, 10, 0);
-		Entity enemy = new Entity(room, 10, 0, 0);
+		Room room = new Room(Terrain.cave, new ArrayList<Item>(), "");
+		Entity attacker = new Entity(15, 10, 0, "");
+		Entity enemy = new Entity(10, 0, 0, "");
 		attacker.attack(enemy);
 		
 		assertEquals(attacker.isDone(enemy), true);

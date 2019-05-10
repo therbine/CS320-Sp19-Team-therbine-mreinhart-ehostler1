@@ -14,16 +14,16 @@ public class ItemTest {
 	
 	@Before
 	public void setUp() {
-		item1 = new Item(ItemType.armor, 0, 0, 3);
-		item2 = new Item(ItemType.potion, 0, 2, 0);
-		item3 = new Item(ItemType.weapon, 4, 0, 0);
+		item1 = new Item("", ItemType.armor, 0, 0, 3);
+		item2 = new Item("", ItemType.potion, 0, 2, 0);
+		item3 = new Item("", ItemType.weapon, 4, 0, 0);
 	}
 	
 	@Test
 	public void testGetVal() {
-		int val1 = item1.getVal();
-		int val2 = item2.getVal();
-		int val3 = item3.getVal();
+		int val1 = item1.getArmorValue();
+		int val2 = item2.getHealingValue();
+		int val3 = item3.getDamage();
 		
 		assertEquals(val1, 3);
 		assertEquals(val2, 2);

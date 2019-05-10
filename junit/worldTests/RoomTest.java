@@ -16,11 +16,11 @@ public class RoomTest {
 		Terrain terrain = Terrain.beach;
 		ArrayList<Item> roomInv = new ArrayList<Item>();
 		
-		roomInv.add(new Item(ItemType.armor, 0, 0, 5));
-		roomInv.add(new Item(ItemType.potion, 0, 6, 0));
-		roomInv.add(new Item(ItemType.weapon, 3, 0, 0));
+		roomInv.add(new Item("", ItemType.armor, 0, 0, 5));
+		roomInv.add(new Item("", ItemType.potion, 0, 6, 0));
+		roomInv.add(new Item("", ItemType.weapon, 3, 0, 0));
 		
-		room = new Room(terrain, roomInv);
+		room = new Room(terrain, roomInv, "");
 	}
 	
 	@Test
@@ -29,9 +29,9 @@ public class RoomTest {
 		Item item2 = room.getInv().get(1);
 		Item item3 = room.getInv().get(2);
 		
-		assertEquals(item1.getVal(), 5);
-		assertEquals(item2.getVal(), 6);
-		assertEquals(item3.getVal(), 3);
+		assertEquals(item1.getArmorValue(), 5);
+		assertEquals(item2.getHealingValue(), 6);
+		assertEquals(item3.getDamage(), 3);
 	}
 	
 	@Test
@@ -46,16 +46,15 @@ public class RoomTest {
 		Item toTake = room.getInv().get(index);
 		int sizeBefore = room.getInv().size();
 		
-		Item taken = room.takeItem(index);
+		room.removeItem(toTake);
 		int sizeAfter = room.getInv().size();
 		
-		assertEquals(toTake, taken);
 		assertEquals(sizeBefore - 1, sizeAfter);
 	}
 	
 	@Test
 	public void testAddItem() {
-		Item toAdd = new Item(ItemType.potion, 0 , 1, 0);
+		Item toAdd = new Item("", ItemType.potion, 0 , 1, 0);
 		room.addItem(toAdd);
 		
 		assertEquals(toAdd, room.getInv().get(room.getInv().size() - 1));

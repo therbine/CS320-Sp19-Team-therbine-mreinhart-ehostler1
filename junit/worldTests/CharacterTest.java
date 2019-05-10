@@ -16,13 +16,13 @@ public class CharacterTest {
 	
 	@Before
 	public void setUp() {
-		Room room = new Room(Terrain.beach, new ArrayList<Item>());
+		Room room = new Room(Terrain.beach, new ArrayList<Item>(), "");
 		character = new Character(room);
 	}
 	
 	@Test
 	public void testPickUpItem() {
-		Item item = new Item(ItemType.potion, 0, 4, 0);
+		Item item = new Item("", ItemType.potion, 0, 4, 0);
 		character.pickUpItem(item);
 		
 		assertTrue(character.getInventory().contains(item));
@@ -30,24 +30,24 @@ public class CharacterTest {
 	
 	@Test
 	public void testPickUpItemWhenFull() {
-		Item item = new Item(ItemType.potion, 0, 4, 0);
+		Item item = new Item("", ItemType.potion, 0, 4, 0);
 		for(int i = 0; i < 5; i++) {
-			character.pickUpItem(item);
+			character.addItem(item);
 		}
 		
-		Item full = new Item(ItemType.weapon, 2, 0, 0);
-		character.pickUpItem(full);
+		Item full = new Item("", ItemType.weapon, 2, 0, 0);
+		character.addItem(full);
 		
 		assertFalse(character.getInventory().contains(full));
 	}
 	
 	@Test
 	public void testDropItem() {
-		Item item = new Item(ItemType.potion, 0, 4, 0);
+		Item item = new Item("", ItemType.potion, 0, 4, 0);
 		for(int i = 0; i < 5; i++) {
-			character.pickUpItem(item);
+			character.addItem(item);
 		}
-		character.dropItem(3);
+		character.removeItem(oldItem);
 		
 		assertEquals(character.getInventory().size(), 4);
 		assertTrue(character.getLocation().getInv().contains(item));
@@ -55,8 +55,8 @@ public class CharacterTest {
 	
 	@Test
 	public void testDropItemEmptyInv() {
-		Item item = new Item(ItemType.potion, 0, 4, 0);
-		character.dropItem(0);
+		Item item = new Item("", ItemType.potion, 0, 4, 0);
+		character.removeItem(oldItem);
 		assertFalse(character.getLocation().getInv().contains(item));
 	}
 }
