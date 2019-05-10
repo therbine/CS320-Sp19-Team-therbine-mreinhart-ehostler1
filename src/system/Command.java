@@ -10,6 +10,7 @@ import world.Entity;
 import world.Item;
 import world.ItemType;
 import world.Room;
+import world.Terrain;
 import world.World;
 import controller.UserDataController;
 import main.Main;
@@ -353,8 +354,29 @@ public class Command {
 			}
 		}
 		else if(specifier.equals("keys")) {
-			//use key
-			//TODO
+			//use keys
+			
+			if(model.getWorld().getPlayerLocation().getTerrain() == Terrain.treasure) {
+				ArrayList<Item> playerInv = model.getWorld().getPlayer().getInventory();
+				int keys = 0;
+				for(Item item : playerInv) {
+					if(item.getType() == ItemType.key) {
+						keys++;
+					}
+				}
+				
+				if(keys == 3) {
+					modifyScore(50, model);
+					model.setGameWin();
+				}
+				else {
+					reply("missingKeys",model);
+				}
+			}
+			else {
+				reply("wrongLocation",model);
+			}
+			
 		}
 		else {
 			reply("notUseable", model);
