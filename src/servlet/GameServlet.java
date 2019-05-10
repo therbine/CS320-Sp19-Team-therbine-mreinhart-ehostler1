@@ -12,6 +12,7 @@ import controller.UserDataController;
 import model.GameModel;
 import model.UserDataModel;
 import system.Command;
+import world.Room;
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -56,10 +57,9 @@ public class GameServlet extends HttpServlet {
 			userDataModel.setPlayerInput("move " + req.getParameter("move"));
 			command.action(userDataModel);
 		}
+		
+		
 		//restart game
-		
-		
-		
 		if(req.getParameter("Restart") != null) {
 			try {
 				req.setAttribute("Restart", "pressed");
@@ -106,6 +106,9 @@ public class GameServlet extends HttpServlet {
 		if(req.getParameter("move") == null) {
 			main.Main.getCommand().action(userDataModel);
 		}
+		
+		Room[][] rooms = userDataModel.getWorld().getRoomArr();
+		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
 		req.setAttribute("errorMessage", errorMessage);
@@ -118,6 +121,15 @@ public class GameServlet extends HttpServlet {
 		req.setAttribute("Start", gameController.startGame());
 		req.setAttribute("health", userDataModel.getWorld().getPlayer().getHealth());
 		req.setAttribute("score", userDataModel.getWorld().getPlayer().getScore());
+		req.setAttribute("room_00", rooms[0][0].roomEntered());
+		req.setAttribute("room_10", rooms[1][0].roomEntered());
+		req.setAttribute("room_20", rooms[2][0].roomEntered());
+		req.setAttribute("room_01", rooms[0][1].roomEntered());
+		req.setAttribute("room_02", rooms[0][2].roomEntered());
+		req.setAttribute("room_11", rooms[1][1].roomEntered());
+		req.setAttribute("room_12", rooms[1][2].roomEntered());
+		req.setAttribute("room_21", rooms[2][1].roomEntered());
+		req.setAttribute("room_22", rooms[2][2].roomEntered());
 		// Forward to view to render the result HTML document
 		
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);

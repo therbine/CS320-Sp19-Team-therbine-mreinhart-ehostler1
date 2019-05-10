@@ -155,6 +155,7 @@
 			<%
 			Integer location_x = (Integer)request.getAttribute("player_x");
 			Integer location_y = (Integer)request.getAttribute("player_y");
+			
 			%>
 			
 			
@@ -168,16 +169,67 @@
 							
 							if(location_x == x && location_y == y){
 							%>
-								<td class = "locationofplayer"> </td>
-							<%
-							}
+								<td class = "locationofplayer"></td> 
+							<%}
 							else{
 							%>
-								<td class = "otherlocations"> </td>
-								
-							<%
-						}
+								<%if(x == 0 && y ==0){
+									if((Boolean)request.getAttribute("room_00")){
+										%> <td class = "otherlocations">  jungle</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 0 && y ==1){
+									if((Boolean)request.getAttribute("room_01")){
+										%> <td class = "otherlocations">  cave</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 0 && y ==2){
+									if((Boolean)request.getAttribute("room_02")){
+										%> <td class = "otherlocations">  field</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 1 && y ==0){
+									if((Boolean)request.getAttribute("room_10")){
+										%> <td class = "otherlocations">  beach</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 2 && y ==0){
+									if((Boolean)request.getAttribute("room_20")){
+										%> <td class = "otherlocations">  forest</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 1 && y ==1){
+									if((Boolean)request.getAttribute("room_11")){
+										%> <td class = "otherlocations">  treasure</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 1 && y ==2){
+									if((Boolean)request.getAttribute("room_12")){
+										%> <td class = "otherlocations">  swamp</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 2 && y ==1){
+									if((Boolean)request.getAttribute("room_21")){
+										%> <td class = "otherlocations">  graveyard</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}else if(x == 2 && y ==2){
+									if((Boolean)request.getAttribute("room_22")){
+										%> <td class = "otherlocations">  desert</td> 
+									<%}else{ %> 
+										<td class = "otherlocations"> </td>
+								<% }
+								}
 					}
+						}
 					%></tr><%
 				}%>
 			
