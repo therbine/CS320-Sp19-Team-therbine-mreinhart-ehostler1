@@ -540,7 +540,7 @@ public class DerbyDatabase implements IDatabase {
 							"create table descriptions (" +
 							"	description_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	object varchar(15), " +
+							"	object varchar(25), " +
 							"	description varchar(500)" +
 							")"
 					);
