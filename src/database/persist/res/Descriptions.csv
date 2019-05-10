@@ -17,4 +17,7 @@
 17|take sword|You pick up the sword.
 18|take shield|You pick up the shield.
 19|take armor|You put on the armor.
-20|take key|You pick up the key.
+20|take goblin key|You pick up the key.
+21|take skeleton key|You pick up the key.
+22|take zombie key|You pick up the key.
+21|trapped|You cannot do that when you are in a fight.
