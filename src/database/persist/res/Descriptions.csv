@@ -20,4 +20,15 @@
 20|take goblin key|You pick up the key.
 21|take skeleton key|You pick up the key.
 22|take zombie key|You pick up the key.
-21|trapped|You cannot do that when you are in a fight.
+23|trapped|You cannot do that when you are in a fight.
+24|inventoryFull|Your inventory is full. You must drop an item to pick up a new one.
+25|drop bandage|You drop the bandage.
+26|drop med kit|You drop the med kit.
+27|drop armor|You take off your armor.
+28|drop shield|You drop your shield.
+29|drop sword|You drop your sword.
+30|drop axe|You drop your axe.
+31|drop skeleton key|You drop the skeleton key.
+32|drop goblin key|You drop the goblin key.
+33|drop zombie key|You drop the zombie key.
+34|attack|You strike the enemy as they attack you. You both take damage.
