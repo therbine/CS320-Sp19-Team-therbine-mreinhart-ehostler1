@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.io.Serializable;
 import world.*;
 
+import database.persist.*;
+
 public class UserDataModel implements Serializable {
 	private static final long serialVersionUID = 2L;
 	
@@ -11,15 +13,16 @@ public class UserDataModel implements Serializable {
 	private String lastPlayerInput;
 	private String gameDisplay;
 	private World world;
-	
+	private IDatabase db;
 	
 	public UserDataModel() {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+		
 		this.outputHistory = new LinkedList<String>();
 		this.lastPlayerInput = null;
 		this.gameDisplay = null;
-		this.outputHistory.add("You wake up on a beach with nothing but a rusty sword and the clothes on your back."
-				+" To the north there seams to be a dense jungle while to your east and west there's"
-				+" a bunch of washed up wreckage.");
+		this.outputHistory.add(db.DescriptionByObjectQuery("initial").get(0));
 		this.world = new World();
 	}
 	
