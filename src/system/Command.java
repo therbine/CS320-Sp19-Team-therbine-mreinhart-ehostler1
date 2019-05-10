@@ -144,6 +144,13 @@ public class Command {
 	
 	//the move command method
 	private void move(String specifier, UserDataModel model) {
+		
+		//don't allow the player to move if there is an enemy in the room
+		if(!model.getWorld().getPlayerLocation().getEnt().isEmpty()) {
+			reply("trapped",model);
+			return;
+		}
+		
 		int x = model.getWorld().getPlayerCoords().getX();
 		int y = model.getWorld().getPlayerCoords().getY();
 		World world = model.getWorld();
@@ -374,14 +381,18 @@ public class Command {
 			System.out.println("Target is dead?" + target.isDead());
 			
 			if(target.isDead()) {
+				String keyName = target.getName() + " key";
+				model.getWorld().getPlayerLocation().getInv().add(new Item(keyName,ItemType.key,0,0,0));
+				
 				model.getWorld().getPlayerLocation().killEntity(0);
 			}
 		}
 	}
 
 	private void run(String specifier, UserDataModel model) {
-		// TODO
-		
+		if(specifier.equals("none")) {
+			model.getWorld().getPlayer().flee();
+		}
 	}
 }
 
