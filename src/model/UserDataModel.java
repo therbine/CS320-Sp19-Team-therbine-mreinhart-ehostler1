@@ -14,6 +14,7 @@ public class UserDataModel implements Serializable {
 	private String gameDisplay;
 	private World world;
 	private Boolean GameOver;
+	private Boolean GameWin;
 	
 	public UserDataModel() {
 		
@@ -22,6 +23,7 @@ public class UserDataModel implements Serializable {
 		this.gameDisplay = null;
 		this.world = new World();
 		this.GameOver = false;
+		this.GameWin = false;
 	}
 	
 	public String getPlayerInput() {
@@ -67,6 +69,14 @@ public class UserDataModel implements Serializable {
 	
 	public Boolean getGameOver() {
 		return this.GameOver;
+	}
+	
+	public void setGameWin() {
+		this.GameWin = true;
+	}
+	
+	public Boolean getGameWin() {
+		return this.GameWin;
 	}
 	
 }
