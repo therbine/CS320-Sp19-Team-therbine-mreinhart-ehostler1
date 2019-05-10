@@ -381,7 +381,7 @@ public class DerbyDatabase implements IDatabase {
 						System.out.println("NO COMMANDS");
 					}
 					
-					System.out.println(result);
+					//System.out.println(result);
 					
 					return result;
 				} finally {

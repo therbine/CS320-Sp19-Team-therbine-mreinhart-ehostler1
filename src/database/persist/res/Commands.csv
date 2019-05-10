@@ -12,16 +12,18 @@
 12|take|bandage
 13|take|sword
 14|take|armor
-15|take|key
-16|take|med kit
-17|take|axe
-18|take|shield
-19|run|none
-20|attack|none
-21|look|none
-22|drop|bandage
-23|drop|sword
-24|drop|armor
-25|drop|med kit
-26|drop|axe
-27|drop|shield
+15|take|skeleton key
+16|take|goblin key
+17|take|zombie key
+18|take|med kit
+19|take|axe
+20|take|shield
+21|run|none
+22|attack|none
+23|look|none
+24|drop|bandage
+25|drop|sword
+26|drop|armor
+27|drop|med kit
+28|drop|axe
+29|drop|shield
