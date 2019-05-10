@@ -98,7 +98,7 @@ public class GameServlet extends HttpServlet {
 			}
 		}
 		//check if player has health
-		if(userDataModel.getWorld().getPlayer().getHealth() <= 0) {
+		if(userDataModel.getGameOver()) {
 			req.setAttribute("Life", "dead");
 		}
 		

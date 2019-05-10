@@ -14,6 +14,7 @@ public class UserDataModel implements Serializable {
 	private String gameDisplay;
 	private World world;
 	private IDatabase db;
+	private Boolean GameOver;
 	
 	public UserDataModel() {
 		DatabaseProvider.setInstance(new DerbyDatabase());
@@ -24,6 +25,7 @@ public class UserDataModel implements Serializable {
 		this.gameDisplay = null;
 		this.outputHistory.add(db.DescriptionByObjectQuery("initial").get(0));
 		this.world = new World();
+		this.GameOver = false;
 	}
 	
 	public String getPlayerInput() {
@@ -62,6 +64,13 @@ public class UserDataModel implements Serializable {
 		return world;
 	}
 	
+	public void setGameOver() {
+		this.GameOver = true;
+		
+	}
 	
+	public Boolean getGameOver() {
+		return this.GameOver;
+	}
 	
 }
