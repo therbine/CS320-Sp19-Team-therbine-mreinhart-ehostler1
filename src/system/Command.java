@@ -271,20 +271,19 @@ public class Command {
 			
 			for(Item item : playerInv) {
 				ItemType type = item.getType();
-				inventoryString += "<br>| "+item.getName()+"(";
+				inventoryString += "<br>| "+item.getName();
 				if(type.equals(ItemType.armor)) {
-					inventoryString += "+"+item.getArmorValue()+" armor";
+					inventoryString += "(+"+item.getArmorValue()+" armor)";
 				}
 				else if(type.equals(ItemType.key)) {
-					inventoryString += "unlock stuff";
+					
 				}
 				else if(type.equals(ItemType.potion)) {
-					inventoryString += item.getHealingValue()+" health";
+					inventoryString += "("+item.getHealingValue()+" health)";
 				}
 				else if(type.equals(ItemType.weapon)) {
-					inventoryString += "+"+item.getDamage()+" damage";
+					inventoryString += "(+"+item.getDamage()+" damage)";
 				}
-				inventoryString += ")";
 			}
 			
 			model.addHistory(inventoryString);
