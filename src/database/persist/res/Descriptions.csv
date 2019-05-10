@@ -32,3 +32,5 @@
 32|drop goblin key|You drop the goblin key.
 33|drop zombie key|You drop the zombie key.
 34|attack|You strike the enemy as they attack you. You both take damage.
+35|kill|You killed the enemy.
+36|noEnemy|There is no enemy to attack.
