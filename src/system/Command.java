@@ -430,6 +430,10 @@ public class Command {
 			
 			//do damage to player
 			model.getWorld().getPlayer().damage(attack);
+			
+			if(model.getWorld().getPlayer().getHealth() <= 0) {
+				model.setGameOver();
+			}
 		}
 		
 	}
@@ -437,6 +441,10 @@ public class Command {
 	private void modifyScore(int modifier, UserDataModel model) {
 		int newScore = model.getWorld().getPlayer().getScore() + modifier;
 		model.getWorld().getPlayer().setScore(newScore);
+		
+		if(model.getWorld().getPlayer().getScore() <= 0) {
+			model.setGameOver();
+		}
 	}
 }
 
