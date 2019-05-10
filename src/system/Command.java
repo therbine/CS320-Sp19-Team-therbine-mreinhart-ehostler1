@@ -348,6 +348,7 @@ public class Command {
 					model.getWorld().getPlayer().heal(item.getHealingValue());
 					model.getWorld().getPlayer().removeItem(item);
 					enemyAttack(model);
+					reply("heal",model);
 					break;
 				}
 			}
