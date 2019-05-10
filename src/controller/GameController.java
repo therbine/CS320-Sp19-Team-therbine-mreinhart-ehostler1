@@ -40,6 +40,7 @@ public class GameController {
 			System.out.println("Creating new game for user.");
 			//no saved game for this user, create a new one
 			model.createNewGame();
+			model.getGameOfCurrentPlayer().addHistory(db.DescriptionByObjectQuery("initial").get(0));
 		}
 		else {
 			//use getJavaObject method in ConvertObject class to change the arraylist of bytes back into a java object
@@ -72,6 +73,7 @@ public class GameController {
 	public void restartGame() throws Exception{
 		System.out.println("Attempting to restart game.");
 		model.createNewGame();
+		model.getGameOfCurrentPlayer().addHistory(db.DescriptionByObjectQuery("initial").get(0));
 		saveGame();
 	}
 	

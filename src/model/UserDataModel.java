@@ -13,17 +13,13 @@ public class UserDataModel implements Serializable {
 	private String lastPlayerInput;
 	private String gameDisplay;
 	private World world;
-	private IDatabase db;
 	private Boolean GameOver;
 	
 	public UserDataModel() {
-		DatabaseProvider.setInstance(new DerbyDatabase());
-		db = DatabaseProvider.getInstance();
 		
 		this.outputHistory = new LinkedList<String>();
 		this.lastPlayerInput = null;
 		this.gameDisplay = null;
-		this.outputHistory.add(db.DescriptionByObjectQuery("initial").get(0));
 		this.world = new World();
 		this.GameOver = false;
 	}
