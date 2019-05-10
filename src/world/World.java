@@ -102,4 +102,8 @@ public class World implements Serializable {
 	public Character getPlayer() {
 		return this.character;
 	}
+	
+	public Room[][] getRoomArr(){
+		return this.roomArr;
+	}
 }
