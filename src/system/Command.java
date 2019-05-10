@@ -357,10 +357,12 @@ public class Command {
 	private void attack(String specifier, UserDataModel model) {
 		ArrayList<Entity> targetList = model.getWorld().getPlayerLocation().getEnt();
 		
-		if(specifier.equals("none")) {
+		if(specifier.equals("none") && !targetList.isEmpty()) {
 			
 			//get the first enemy in the room
 			Entity target = targetList.get(0);
+			
+			reply("attack",model);
 			
 			//calculate player attack
 			int attack = model.getWorld().getPlayer().getDamage();
@@ -383,10 +385,15 @@ public class Command {
 			System.out.println("Target is dead?" + target.isDead());
 			
 			if(target.isDead()) {
+				reply("kill", model);
+				
 				String keyName = target.getName() + " key";
 				model.getWorld().getPlayerLocation().getInv().add(new Item(keyName,ItemType.key,0,0,0));
 				
 				model.getWorld().getPlayerLocation().killEntity(0);
+			}
+			else if(targetList.isEmpty()) {
+				reply("noEnemy",model);
 			}
 		}
 	}

@@ -33,6 +33,10 @@ public class UserDataModel implements Serializable {
 	
 	public void addHistory(String newHistory) {
 		this.outputHistory.add(newHistory);
+		
+		if(this.outputHistory.size() > 50) {
+			this.outputHistory.remove();
+		}
 	}
 	
 	public String getHistory(int index) {
