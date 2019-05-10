@@ -209,6 +209,46 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
+	public List<String> CommandQuery(){
+		return executeTransaction(new Transaction<List<String>>() {
+			@Override
+			public List<String> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select command " +
+							"  from  commands "
+					);
+					
+					List<String> result = new ArrayList<String>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						String command = resultSet.getString(1);
+						result.add(command);
+					}
+					
+					if (!found) {
+						System.out.println("NO COMMANDS");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
 	public Integer insertNewUser(final String username, final String password) {
 		return executeTransaction(new Transaction<Integer>() {
 			@Override
