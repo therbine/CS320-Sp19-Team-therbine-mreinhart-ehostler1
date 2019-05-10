@@ -71,8 +71,9 @@ public class GameServlet extends HttpServlet {
 		
 		if(req.getParameter("Yes") != null) {
 			try {
-				gameController.restartGame();
 				req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+				gameController.restartGame();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -98,13 +99,15 @@ public class GameServlet extends HttpServlet {
 			}
 		}
 		//check if player has health
-		if(userDataModel.getGameOver()) {
-			req.setAttribute("Life", "dead");
-		}
+		
 		
 		//command action
 		if(req.getParameter("move") == null) {
 			main.Main.getCommand().action(userDataModel);
+		}
+		
+		if(userDataModel.getGameOver()) {
+			req.setAttribute("Life", "dead");
 		}
 		
 		Room[][] rooms = userDataModel.getWorld().getRoomArr();

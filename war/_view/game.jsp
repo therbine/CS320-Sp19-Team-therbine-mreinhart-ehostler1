@@ -272,6 +272,7 @@
 				<div class = "score"> Final Score: ${score}</div>
 				
 				<br>
+				
 					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(70%);">Restart</button></div>
 					
 				</div>
