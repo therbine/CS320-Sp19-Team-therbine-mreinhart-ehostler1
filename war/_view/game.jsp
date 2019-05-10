@@ -252,31 +252,50 @@
 		</div>
 		</c:if>
 		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-			<c:if test="${!empty Restart}">
-				<div class = PopUp>Are you sure you want to restart?
-				<br>
-				<br>
-				<br>
-				<br>
-					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;float:left">Yes</button>
+		
+		
+				<c:if test="${!empty Restart}">
+				<div class = PopUp>
+					Are you sure you want to restart?
+					<br>
+					<br>
+					<br>
+					<br>
+						<div><button name = "Yes" type = "submit" style="height:100px;width:200px;float:left">Yes</button>
 					
-					<button name = "No" type = "submit" style="height:100px;width:200px;float:right">No</button></div>
+						<button name = "No" type = "submit" style="height:100px;width:200px;float:right">No</button></div>
+				
 				</div>
-			</c:if>
-		</form>	 
-		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
-			<c:if test="${!empty Life}">
-				<div class = PopUp_youDied > 
-				<h1 style ="transform: translate(25%); font-size: 150%;">You Died</h1>
+				</c:if>
+		
+			
+				<c:if test="${!empty Life}">
+				<div class = PopUp>
+					<h1 style ="transform: translate(25%); font-size: 150%;">You Loose</h1>
 				
-				<div class = "score"> Final Score: ${score}</div>
+					<div class = "score"> Final Score: ${score}</div>
 				
-				<br>
+					<br>
 				
 					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(70%);">Restart</button></div>
-					
-				</div>
-			</c:if>
+				</div>	
+				</c:if>
+				
+				<c:if test="${!empty Won}">
+				<div class = PopUp>
+					<h1 style ="transform: translate(25%); font-size: 150%;">You Won</h1>
+				
+					<div class = "score"> Final Score: ${score}</div>
+				
+					<br>
+				
+					<div><button name = "Yes" type = "submit" style="height:100px;width:200px;transform: translate(70%);">Play Again</button></div>
+				</div>	
+				</c:if>
+			
+		</form>	 
+		<form action="${pageContext.servletContext.contextPath}/Game" method="post">
+			
 		</form>	 
 	</body>
 	

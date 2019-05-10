@@ -102,12 +102,15 @@ public class GameServlet extends HttpServlet {
 		
 		
 		//command action
-		if(req.getParameter("move") == null) {
+		if(req.getParameter("move") == null && !userDataModel.getGameWin() && !userDataModel.getGameOver()) {
 			main.Main.getCommand().action(userDataModel);
 		}
 		
 		if(userDataModel.getGameOver()) {
 			req.setAttribute("Life", "dead");
+		}
+		if(userDataModel.getGameWin()) {
+			req.setAttribute("Won", "winner");
 		}
 		
 		Room[][] rooms = userDataModel.getWorld().getRoomArr();
